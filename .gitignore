@@ -1,0 +1,25 @@
+# GuideTree plugin — files excluded from git
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+
+# Node
+node_modules/
+
+# Secrets
+*.key
+.env
+
+# Generated output (project output, not plugin source)
+guidetree_output/

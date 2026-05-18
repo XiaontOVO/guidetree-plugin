@@ -1,0 +1,71 @@
+version: 1
+updated: "2026-05-18"
+catalog_name: guidetree
+description: >
+  Hierarchical project planning and execution pipeline. Decompose any project
+  from goal → phases → stages → steps, with validation gates at every level
+  and an orchestrator that controls sequencing.
+families:
+  - id: guidetree-init
+    name: Project Initialization
+    skills:
+      - name: create_project_context
+        directory: create_project_context
+        verified_on: null
+        verification_status: draft
+
+  - id: guidetree-planning
+    name: Phase-Level Planning
+    skills:
+      - name: generate_phase_skeleton
+        directory: generate_phase_skeleton
+        verified_on: null
+        verification_status: draft
+      - name: validate_phase_skeleton
+        directory: validate_phase_skeleton
+        verified_on: null
+        verification_status: draft
+
+  - id: guidetree-expansion
+    name: Stage-Level Expansion
+    skills:
+      - name: expand_phase_to_stage_dag
+        directory: expand_phase_to_stage_dag
+        verified_on: null
+        verification_status: draft
+      - name: validate_stage_dag
+        directory: validate_stage_dag
+        verified_on: null
+        verification_status: draft
+
+  - id: guidetree-steps
+    name: Step-Level Decomposition
+    skills:
+      - name: expand_stage_to_steps
+        directory: expand_stage_to_steps
+        verified_on: null
+        verification_status: draft
+      - name: validate_steps
+        directory: validate_steps
+        verified_on: null
+        verification_status: draft
+
+  - id: guidetree-execution
+    name: Step Execution & Validation
+    skills:
+      - name: execute_step
+        directory: execute_step
+        verified_on: null
+        verification_status: draft
+      - name: validate_stage_result
+        directory: validate_stage_result
+        verified_on: null
+        verification_status: draft
+
+  - id: guidetree-orchestration
+    name: Pipeline Orchestration
+    skills:
+      - name: orchestrate_project
+        directory: orchestrate_project
+        verified_on: null
+        verification_status: draft

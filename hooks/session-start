@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+# GuideTree session-start hook — health check + context injection
+# Runs on every new session / clear / compact
+set -euo pipefail
+
+# ── Health check (stderr — visible in logs, doesn't pollute JSON output) ──
+
+SKILL_COUNT=$(ls -d "$CLAUDE_PLUGIN_ROOT/skills/"* 2>/dev/null | wc -l)
+
+{
+  echo "[guidetree] v1.0 health check"
+  echo "  Skills: $SKILL_COUNT"
+
+  for f in references/paths.yml catalog/skills.yml; do
+    [ -f "$CLAUDE_PLUGIN_ROOT/$f" ] && echo "  $f: OK" || echo "  $f: MISSING"
+  done
+
+  echo "[guidetree] Ready."
+} >&2
+
+# ── Context injection (stdout — JSON for LLM) ──
+
+summary="<EXTREMELY_IMPORTANT>
+You have the GuideTree plugin ($SKILL_COUNT skills).
+
+GuideTree is a hierarchical project planning and execution pipeline:
+project → phase → stage → step, with validation gates at every level.
+
+Skills available:
+- guidetree:orchestrate_project — Select the next correct skill based on project state. Use /orchestrate_project or say \"continue project\".
+- guidetree:create_project_context — Normalize raw project description into structured context.
+- guidetree:generate_phase_skeleton — Decompose project into lifecycle phases.
+- guidetree:validate_phase_skeleton — Validate phase coverage, DAG, and criteria.
+- guidetree:expand_phase_to_stage_dag — Decompose one phase into stage DAG.
+- guidetree:validate_stage_dag — Validate stage schema and phase coverage.
+- guidetree:expand_stage_to_steps — Decompose one stage into executable steps.
+- guidetree:validate_steps — Validate step executability and stage coverage.
+- guidetree:execute_step — Execute one step with evidence collection.
+- guidetree:validate_stage_result — Validate completed stage against criteria.
+
+When validation fails, repair is handled by re-invoking the generate skill with validation feedback. No separate repair skills.
+
+Pipeline order: create_project_context → generate_phase_skeleton → validate_phase_skeleton → expand_phase_to_stage_dag → validate_stage_dag → expand_stage_to_steps → validate_steps → execute_step → validate_stage_result → (repeat or complete).
+</EXTREMELY_IMPORTANT>"
+
+# Pure-bash JSON-safe escaping
+escape_for_json() {
+  local s="$1"
+  s="${s//\\/\\\\}"
+  s="${s//\"/\\\"}"
+  s="${s//$'\n'/\\n}"
+  s="${s//$'\r'/\\r}"
+  s="${s//$'\t'/\\t}"
+  printf '%s' "$s"
+}
+
+escaped=$(escape_for_json "$summary")
+printf '{\n  "hookSpecificOutput": {\n    "hookEventName": "SessionStart",\n    "additionalContext": "%s"\n  }\n}\n' "$escaped"
+
+exit 0

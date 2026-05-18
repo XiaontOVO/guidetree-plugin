@@ -1,0 +1,36 @@
+# Path conventions for the GuideTree plugin output
+# All paths are relative to PROJECT_ROOT
+
+schema_version: "guidetree.paths.v0.1"
+
+worktree_root: "guidetree_output"
+
+state:
+  project_state: "guidetree_output/project.state.yaml"
+  phase_state: "guidetree_output/phases/phase.state.yaml"
+  stage_state: "guidetree_output/phases/stages/stage.state.yaml"
+
+artifacts:
+  project_context: "guidetree_output/project_context.json"
+  phase_skeleton: "guidetree_output/phase_skeleton.json"
+  phase_dependency_edges: "guidetree_output/phase_dependency_edges.json"
+  stage_dag: "guidetree_output/phases/stage_dag.json"
+  stage_dependency_edges: "guidetree_output/phases/stage_dependency_edges.json"
+  steps: "guidetree_output/phases/stages/steps.json"
+  step_dependency_edges: "guidetree_output/phases/stages/step_dependency_edges.json"
+  step_execution_results: "guidetree_output/phases/stages/step_execution_results.json"
+  stage_validation_results: "guidetree_output/phases/stages/stage_validation_results.json"
+  phase_validation_results: "guidetree_output/phases/phase_validation_results.json"
+  project_validation_result: "guidetree_output/project_validation_result.json"
+
+execution_history: "guidetree_output/execution_history.json"
+
+shared:
+  rules: "_shared/acceptance_criteria_rules.md"
+
+naming:
+  phase_prefix: "phase_"
+  stage_prefix: "stage_"
+  step_prefix: "step_"
+  convention: "snake_case"
+  zero_padded: false

@@ -1,0 +1,21 @@
+{
+    "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+    "name": "guidetree",
+    "description": "Hierarchical project planning and execution pipeline — decompose any project into phases, stages, and executable steps with validation gates at every level",
+    "owner": {
+        "name": "GuideTree"
+    },
+    "metadata": {
+        "version": "1.0.0"
+    },
+    "plugins": [
+        {
+            "name": "guidetree",
+            "description": "Hierarchical project planning and execution pipeline — decompose any project into phases, stages, and executable steps with validation gates at every level",
+            "category": "productivity",
+            "version": "1.0.0",
+            "strict": true,
+            "source": "./"
+        }
+    ]
+}

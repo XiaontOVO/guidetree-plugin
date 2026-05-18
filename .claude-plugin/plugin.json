@@ -1,0 +1,17 @@
+{
+    "name": "guidetree",
+    "version": "1.0.0",
+    "description": "Hierarchical project planning and execution pipeline — decompose any project into phases, stages, and executable steps with validation gates at every level",
+    "author": {
+        "name": "GuideTree"
+    },
+    "license": "MIT",
+    "keywords": [
+        "guidetree",
+        "project-planning",
+        "task-decomposition",
+        "workflow",
+        "pipeline",
+        "validation"
+    ]
+}
