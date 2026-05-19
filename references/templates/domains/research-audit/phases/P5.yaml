@@ -1,0 +1,120 @@
+phase:
+  id: P5
+  name: Rebuttal Drafting
+  purpose: >
+    Draft a structured rebuttal to external reviews that passes three hard
+    safety gates (provenance, commitment, coverage) and survives a hostile
+    stress test. The rebuttal must be honest: never fabricate experiments,
+    numbers, citations, or links.
+
+  when_to_use: >
+    Use when the paper has received external reviews and a rebuttal is needed.
+    Also use when preparing for anticipated peer review by drafting responses to
+    known weaknesses. Skip if there are no external reviews to respond to.
+
+  inputs:
+    - external reviewer comments
+    - manuscript text
+    - audit findings from P1 and P2
+    - unresolved points from P3
+    - improvement results from P4
+
+  outputs:
+    - atomized list of reviewer concerns
+    - rebuttal strategy with prioritized response plan
+    - draft rebuttal with per-concern responses
+    - provenance gate result
+    - commitment gate result
+    - coverage gate result
+    - stress test report from fresh Agent
+
+  acceptance_criteria:
+    - all reviewer concerns atomized and explicitly addressed
+    - provenance gate passed: every rebuttal claim traces to evidence
+    - commitment gate passed: every promise is feasible and trackable
+    - coverage gate passed: no concern dropped without explicit response
+    - stress test completed by fresh Agent
+    - no fabricated experiments, numbers, citations, or links
+
+  typical_stages:
+    - id: P5.S1
+      name: Concern Atomization
+      goal: >
+        Decompose external reviewer comments into atomic concerns (one concern
+        per item) and classify each by impact and addressability.
+      outputs:
+        - atomized concern list
+        - impact classification per concern
+        - addressability assessment per concern
+      acceptance_criteria:
+        - each concern is atomic (one issue per item)
+        - impact and addressability are independently assessed
+        - no concern is silently dropped
+
+    - id: P5.S2
+      name: Strategy Building
+      goal: >
+        Build a rebuttal strategy by assigning a response type to each concern
+        and prioritizing the response order.
+      outputs:
+        - response type per concern (direct evidence, additional experiment,
+          clarification, honest limitation)
+        - prioritized response plan
+      acceptance_criteria:
+        - response type is explicit for every concern
+        - priority reflects both impact and addressability
+        - honest limitation is an acceptable response type
+
+    - id: P5.S3
+      name: Rebuttal Drafting
+      goal: >
+        Draft rebuttal responses for every concern, following the strategy and
+        ensuring each response is supported by evidence or explicitly
+        acknowledged as a limitation.
+      outputs:
+        - draft rebuttal with per-concern responses
+        - evidence trace for each response
+      acceptance_criteria:
+        - every concern has an explicit response
+        - each response has an evidence trace or honest limitation statement
+        - no fabricated evidence
+
+    - id: P5.S4
+      name: Safety Validation
+      goal: >
+        Validate the draft rebuttal against three hard safety gates: provenance
+        (every claim traces to evidence), commitment (every promise is feasible
+        and trackable), and coverage (no concern dropped without response).
+      outputs:
+        - provenance gate result
+        - commitment gate result
+        - coverage gate result
+        - violations requiring revision
+      acceptance_criteria:
+        - all three gates evaluated
+        - any gate failure requires rebuttal revision
+        - gate results are binary (pass/fail) with specific violations listed
+
+    - id: P5.S5
+      name: Stress Test
+      goal: >
+        Dispatch a fresh Agent to stress-test the rebuttal by simulating a
+        hostile reviewer. Identify weaknesses in the rebuttal that need
+        revision.
+      outputs:
+        - stress test report
+        - identified weaknesses
+        - specific revisions needed
+      acceptance_criteria:
+        - fresh Agent with zero prior context
+        - stress test targets the rebuttal's weakest points
+        - findings are specific and actionable
+
+  common_risks:
+    - fabricating experiments or numbers to address a concern
+    - dropping concerns silently without explicit acknowledgment
+    - making commitments that are not trackable or feasible
+    - passing safety gates superficially without thorough checking
+    - stress test that is too gentle (same model family as author)
+    - rebuttal that attacks reviewers instead of addressing concerns
+    - overpromising additional experiments that cannot be completed in time

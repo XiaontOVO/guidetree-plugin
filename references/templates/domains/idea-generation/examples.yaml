@@ -1,0 +1,95 @@
+bad_plan:
+  phases:
+    - Research
+    - Design
+    - Implementation
+    - Testing
+    - Delivery
+
+why_bad:
+  - does not identify the ideation subdomain
+  - no literature survey before brainstorming
+  - no sharpening or novelty verification
+  - no pilot feasibility check
+  - no novelty gate before commitment
+  - "testing" is meaningless for idea generation
+  - no fallback chain
+  - "implementation" and "delivery" are out of scope
+
+good_plan:
+  phases:
+    - id: P1
+      name: Discovery and Brainstorming
+      outputs:
+        - literature gap analysis with annotated references
+        - 8-12 candidate research ideas with scoring
+        - pilot feasibility results for top 2-3 candidates
+        - ranked idea report
+
+    - id: P2
+      name: Sharpening and Design
+      outputs:
+        - falsifiable research question
+        - mechanism with explicit assumptions
+        - identifiability and confound analysis
+        - validation plan with failure conditions
+        - risk register
+        - design brief
+
+    - id: P3
+      name: Novelty Verification
+      outputs:
+        - explicit claim list
+        - multi-source prior art search results
+        - claim-by-claim overlap/delta mapping
+        - cross-model verification results
+        - novelty report with per-claim scores
+
+    - id: P4
+      name: Roadmapping
+      outputs:
+        - primary and fallback research questions
+        - testable hypotheses with success criteria
+        - staged roadmap with dependencies and gates
+        - go/no-go criteria per gate
+        - fallback chain with activation conditions
+
+usage_in_guidetree:
+  create_project_context:
+    use_for:
+      - identifying whether the project is truly idea generation
+      - classifying the idea generation subtype
+      - detecting missing literature grounding
+      - detecting non-goals (e.g., full experiment execution)
+
+  generate_phase_skeleton:
+    use_for:
+      - selecting appropriate idea generation phase pattern
+      - avoiding generic software development phases
+      - ensuring literature-before-ideation ordering
+
+  validate_phase_skeleton:
+    use_for:
+      - checking whether literature survey, sharpening, and novelty phases are
+        present when required
+      - rejecting generic "research, design, implement" plans
+      - rejecting plans that skip the novelty gate before roadmapping
+
+  expand_phase_to_stage_dag:
+    use_for:
+      - selecting stage types appropriate to each idea generation phase
+      - enforcing dependency rules (literature before ideas, question before
+        method, novelty before roadmap)
+      - preventing roadmap stages from appearing before novelty verification
+
+  validate_stage_dag:
+    use_for:
+      - checking stage boundaries
+      - checking idea generation dependency order
+      - checking that pilot results and novelty scores flow forward
+
+  expand_stage_to_steps:
+    use_for:
+      - generating concrete ideation tasks
+      - ensuring steps produce literature analyses, scored idea lists, design
+        briefs, novelty reports, or roadmaps

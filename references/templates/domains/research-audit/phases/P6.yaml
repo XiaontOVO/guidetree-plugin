@@ -1,0 +1,88 @@
+phase:
+  id: P6
+  name: Quality Gating
+  purpose: >
+    Score the outputs of the audit pipeline using three independent blank-context
+    subagents, compute a weighted composite score, and render a PASS/WARN/FAIL
+    decision. Quality gating is the final credibility check: it ensures audit
+    artifacts are consistent, complete, and correctly reasoned.
+
+  when_to_use: >
+    Use as the final phase of any audit pipeline that produces deliverables
+    requiring independent quality assessment. Skip only for trivial audits where
+    the output is a single verification check.
+
+  inputs:
+    - audit artifacts from completed phases
+    - scoring rubric (structural, rigor, domain)
+
+  outputs:
+    - structural review scorecard (1-5 score with justification)
+    - rigor review scorecard (1-5 score with justification)
+    - domain review scorecard (1-5 score with justification)
+    - weighted composite score (structural * 0.25 + rigor * 0.40 + domain * 0.35)
+    - PASS/WARN/FAIL decision
+    - specific issues identified for WARN/FAIL results
+
+  acceptance_criteria:
+    - 3 blank-context subagents dispatched (zero prior context each)
+    - each provides 1-5 score with written justification
+    - weighted score computed correctly (structural 0.25, rigor 0.40, domain 0.35)
+    - PASS/WARN/FAIL decision rendered with threshold logic (PASS >= 3.5, WARN 2.5-3.49, FAIL < 2.5)
+    - WARN triggers repair routing with specific issues
+    - FAIL alerts but does not block the pipeline
+
+  typical_stages:
+    - id: P6.S1
+      name: Structural Review
+      goal: >
+        A blank-context subagent evaluates the audit artifacts for organization,
+        completeness, and logical flow. Assigns a 1-5 score with written
+        justification.
+      outputs:
+        - structural score (1-5)
+        - written justification
+        - specific structural issues
+      acceptance_criteria:
+        - subagent has zero prior context
+        - score includes specific justification
+        - issues are actionable, not vague
+
+    - id: P6.S2
+      name: Rigor Review
+      goal: >
+        A blank-context subagent evaluates the audit artifacts for methodology,
+        evidence quality, and statistical validity. Assigns a 1-5 score with
+        written justification. This carries the highest weight (0.40).
+      outputs:
+        - rigor score (1-5)
+        - written justification
+        - specific rigor issues
+      acceptance_criteria:
+        - subagent has zero prior context
+        - methodology and evidence quality are specifically evaluated
+        - issues are actionable, not vague
+
+    - id: P6.S3
+      name: Domain Review
+      goal: >
+        A blank-context subagent evaluates the audit artifacts for domain
+        correctness, conventions, and terminology. Assigns a 1-5 score with
+        written justification.
+      outputs:
+        - domain score (1-5)
+        - written justification
+        - specific domain issues
+      acceptance_criteria:
+        - subagent has zero prior context
+        - domain correctness and terminology are specifically evaluated
+        - issues are actionable, not vague
+
+  common_risks:
+    - using fewer than 3 independent reviewers
+    - reusing pipeline context across subagents (compromises independence)
+    - computing unweighted average instead of weighted score
+    - blocking the pipeline on FAIL (findings are advisory)
+    - subagents from same model family as paper author (shared blind spots)
+    - treating the quality gate as a formality rather than a genuine check
+    - WARN without specific repair routing (defeats the purpose of the gate)

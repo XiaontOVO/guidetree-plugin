@@ -1,0 +1,101 @@
+bad_plan:
+  phases:
+    - Research
+    - Drafting
+    - Review
+    - Filing
+
+why_bad:
+  - does not identify prior art search as a distinct phase
+  - no novelty assessment phase
+  - no invention structuring phase
+  - "Drafting" is too generic -- claims and specification have different requirements
+  - no distinction between claim drafting and specification writing
+  - no jurisdiction-specific formatting
+  - "Review" is vague -- examiner review requires specific 7-area coverage
+  - "Filing" is too late for formatting -- formatting is a stage, not a phase
+
+good_plan:
+  phases:
+    - id: P1
+      name: Prior Art and Novelty
+      outputs:
+        - prior art search log with databases queried and results
+        - cited references with relevance classification
+        - element-by-element novelty analysis per jurisdiction standard
+        - patentability conclusion with confidence level
+
+    - id: P2
+      name: Invention Structuring
+      outputs:
+        - Problem-Solution-Advantage statement
+        - feature decomposition (core / supporting / optional)
+        - claimable subject matter types
+        - drawing plan
+        - claim dependency map
+
+    - id: P3
+      name: Claim Drafting
+      outputs:
+        - independent claims (broadest defensible scope)
+        - dependent claims (narrower fallbacks)
+        - separate claim sets per jurisdiction
+        - antecedent basis verification
+        - examiner review of claims
+
+    - id: P4
+      name: Specification Writing
+      outputs:
+        - figures with reference numerals
+        - brief description of drawings
+        - embodiment descriptions (how to make and use)
+        - claim support matrix
+        - best mode disclosure (US)
+
+    - id: P5
+      name: Review and Jurisdiction Formatting
+      outputs:
+        - 7-area examiner review report
+        - CN filing package
+        - US filing package
+        - EP filing package
+
+usage_in_guidetree:
+  create_project_context:
+    use_for:
+      - identifying whether the project is truly a patent filing project
+      - classifying the target jurisdiction(s)
+      - detecting missing invention disclosure
+      - detecting non-goals (e.g., academic publication, commercial deployment)
+
+  generate_phase_skeleton:
+    use_for:
+      - selecting appropriate patent filing phase pattern
+      - avoiding generic software or research phases
+      - ensuring prior art and novelty phases precede claim drafting
+
+  validate_phase_skeleton:
+    use_for:
+      - checking whether prior art, claim drafting, and specification phases
+        are present when required
+      - rejecting invalid generic plans
+      - rejecting plans that skip review before filing
+
+  expand_phase_to_stage_dag:
+    use_for:
+      - selecting stage types appropriate to each patent filing phase
+      - enforcing dependency rules (prior art before novelty, claims before
+        specification)
+      - preventing specification stages from appearing before claim stages
+
+  validate_stage_dag:
+    use_for:
+      - checking stage boundaries
+      - checking filing dependency order
+      - checking terminology and antecedent basis consistency
+
+  expand_stage_to_steps:
+    use_for:
+      - generating concrete patent drafting tasks
+      - ensuring steps produce search logs, novelty analyses, claim sets,
+        embodiment descriptions, or filing packages

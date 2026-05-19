@@ -1,0 +1,158 @@
+dependency_rules:
+  - rule: discover_before_reading
+    description: >
+      Do not begin reading or triaging papers before the discovery phase produces
+      a scored candidate list. Discovery must search Zotero first, then external
+      sources, then score all candidates.
+
+  - rule: triage_before_deep_analysis
+    description: >
+      No paper may enter deep analysis without a triage score and tier
+      assignment. Deep analysis is reserved for must-analyze papers. Maybe-tier
+      papers are analyzed only if gaps remain.
+
+  - rule: analyze_before_comparing
+    description: >
+      A paper must have a completed structured analysis before it is included in
+      the comparison matrix. Comparison from triage notes alone is insufficient.
+
+  - rule: zotero_before_external
+    description: >
+      Always search Zotero before consulting any external source. External
+      papers must be added to Zotero immediately upon discovery.
+
+  - rule: ingest_on_discovery
+    description: >
+      Papers found via external sources must be added to Zotero in the same step
+      they are discovered. Deferred imports are not allowed.
+
+  - rule: local_only_during_analysis
+    description: >
+      Deep analysis stages must operate from local storage only. No network
+      calls are permitted during analysis — no fetching additional content, no
+      looking up citations, no verifying claims online.
+
+  - rule: verification_before_reference
+    description: >
+      No reference may be added to a project output without verification.
+      Verification hierarchy: DBLP entry exists, CrossRef DOI resolves, at least
+      one other source confirms the paper exists. Unverifiable references are
+      marked [UNVERIFIED] and excluded from formal outputs.
+
+  - rule: honest_unknowns
+    description: >
+      Unknown or uncertain information must be marked [?]. Papers that cannot be
+      read must be marked [UNREADABLE] with the reason. Never fabricate paper
+      findings.
+
+  - rule: comparison_requires_all_analyzed
+    description: >
+      The comparison matrix must include every paper that completed deep
+      analysis. Papers may not be excluded from comparison without explicit
+      justification.
+
+  - rule: scoring_must_be_explicit
+    description: >
+      Every scoring decision must include a brief justification. Numeric scores
+      without rationale are not acceptable.
+
+strict_rules:
+  - id: STRICT.LIT.1
+    rule: >
+      No literature review plan is valid without a discovery phase that searches
+      Zotero first.
+  - id: STRICT.LIT.2
+    rule: >
+      No deep analysis is valid without prior triage and tier assignment.
+  - id: STRICT.LIT.3
+    rule: >
+      No comparison is valid without structured per-paper analysis.
+  - id: STRICT.LIT.4
+    rule: >
+      No paper finding may be fabricated or inferred. Unknowns are marked [?].
+  - id: STRICT.LIT.5
+    rule: >
+      No network calls are permitted during deep analysis stages.
+  - id: STRICT.LIT.6
+    rule: >
+      No external paper may remain outside Zotero after discovery.
+  - id: STRICT.LIT.7
+    rule: >
+      No reference may appear in formal outputs without verification.
+  - id: STRICT.LIT.8
+    rule: >
+      No scoring is valid without brief justification for each dimension.
+  - id: STRICT.LIT.9
+    rule: >
+      Zotero API keys must never appear in shell command arguments, environment
+      variables in shell commands, or log output.
+  - id: STRICT.LIT.10
+    rule: >
+      If the project is only a quick survey, do not invent systematic review
+      phases.
+
+agent_planning_rules:
+  - id: LIT.R1
+    rule: >
+      If the project is a literature review, include a discovery phase (P1) that
+      searches Zotero first, then external sources, and a triage phase (P2)
+      before any deep analysis.
+    severity: mandatory
+
+  - id: LIT.R2
+    rule: >
+      If the project is a systematic review, include all five phases with
+      rigorous acceptance standards. Do not abbreviate any phase.
+    severity: mandatory
+
+  - id: LIT.R3
+    rule: >
+      If the project is a quick survey, include P1, P2, and shallow P3. P4
+      (comparison) is optional. P5 (library management) is recommended but may
+      be abbreviated.
+    severity: recommended
+
+  - id: LIT.R4
+    rule: >
+      If the project is a gap analysis, emphasize P1 (broad discovery), P3
+      (deep analysis focused on identifying limitations and missing work), and
+      P4 (gap-focused comparison). P2 may be abbreviated.
+    severity: recommended
+
+  - id: LIT.R5
+    rule: >
+      If the project is a literature update (checking for new work since a
+      prior review), include P1 and P2, skip P3-P4 if prior analysis covers the
+      same papers, and update P5 (library) with new additions.
+    severity: recommended
+
+  - id: LIT.R6
+    rule: >
+      If the project involves Zotero, always search Zotero before external
+      sources and add all external papers to Zotero immediately.
+    severity: mandatory
+
+  - id: LIT.R7
+    rule: >
+      If the project involves paper analysis, enforce network-free analysis.
+      No network calls during deep analysis stages.
+    severity: mandatory
+
+  - id: LIT.R8
+    rule: >
+      If the project involves comparison, require a 9-column matrix with
+      cluster and gap analysis. Comparison from abstracts alone is not valid.
+    severity: mandatory
+
+  - id: LIT.R9
+    rule: >
+      If the project output includes references, verify each reference before
+      inclusion. Unverifiable references are marked [UNVERIFIED] and excluded
+      from formal outputs.
+    severity: mandatory
+
+  - id: LIT.R10
+    rule: >
+      Do not include experiment design, code implementation, paper writing, or
+      patent filing phases unless explicitly required by project_context.
+    severity: mandatory

@@ -1,0 +1,191 @@
+phase_decomposition_guidelines:
+  - name: literature_before_novelty_claims
+    rule: >
+      A research project must begin with a literature survey before any novelty
+      claim is made. Ideas generated without literature grounding are speculative,
+      not research.
+    rationale: >
+      Without mapping prior work, there is no basis for claiming a contribution.
+      Researchers routinely overestimate novelty when they skip this step.
+
+  - name: novelty_gate_before_implementation
+    rule: >
+      The chosen research idea must pass a novelty check before significant
+      implementation resources are invested. Building on a non-novel idea wastes
+      resources and creates anchoring bias.
+    rationale: >
+      Implementation commitment creates sunk-cost pressure that makes it
+      psychologically difficult to abandon a non-novel idea.
+
+  - name: protocol_before_execution
+    rule: >
+      No experiment code may be executed until the experiment protocol is written
+      and validated. The protocol must specify datasets, metrics, baselines,
+      statistical tests, and success criteria before any data is collected.
+    rationale: >
+      Running experiments without a pre-specified protocol enables p-hacking and
+      HARKing (hypothesizing after results are known). The protocol is the
+      contract that protects result integrity.
+
+  - name: baseline_before_comparison
+    rule: >
+      Every experimental comparison must include a validated baseline. The
+      baseline must be either the original author implementation, a verified
+      re-implementation, or a well-established reference method.
+    rationale: >
+      Comparing against weak or misconfigured baselines inflates apparent
+      improvements. Fair comparison is the foundation of credible empirical work.
+
+  - name: evidence_before_paper_claims
+    rule: >
+      Every claim in the paper must map to a specific piece of evidence in the
+      claims-evidence matrix. Claims without evidence are removed; evidence
+      without claims is investigated. The matrix is constructed before writing
+      and maintained throughout.
+    rationale: >
+      Writing unbacked claims is the most common form of self-deception in
+      academic papers. The claims-evidence matrix enforces honesty.
+
+  - name: method_before_narrative
+    rule: >
+      Write the method section before the introduction. The prescribed writing
+      order is: method, evaluation, introduction, related work, conclusion,
+      abstract. The abstract is always last.
+    rationale: >
+      Writing the introduction first creates narrative lock-in that biases the
+      presentation of results. Evidence-first writing reduces this bias.
+
+  - name: audit_before_submission
+    rule: >
+      Never submit a paper without completing the full audit pipeline: claims
+      audit, citation audit, and adversarial review. If the adversarial kill
+      argument cannot be refuted, the paper is not ready for submission.
+    rationale: >
+      The audit is the final integrity gate. Skipping it means submitting work
+      that may contain fabrication, citation errors, or unrebuttable weaknesses.
+
+  - name: negative_results_are_valid
+    rule: >
+      If the experiment results contradict the hypothesis, the project may still
+      complete with a documented negative finding, limitation, or null result.
+      Negative results are valid research outputs.
+    rationale: >
+      The goal is truth, not positive results. Suppressing negative findings
+      distorts the literature and wastes the community's time.
+
+recommended_phase_pattern:
+  - name: phase_1
+    title: Literature Discovery and Analysis
+  - name: phase_2
+    title: Idea Generation and Validation
+  - name: phase_3
+    title: Experiment Planning and Protocol
+  - name: phase_4
+    title: Code Implementation
+  - name: phase_5
+    title: Experiment Execution and Analysis
+  - name: phase_6
+    title: Paper Writing and Compilation
+  - name: phase_7
+    title: Research Audit and Revision
+
+recommended_stage_types:
+  - type: literature_discovery_stage
+    purpose: systematically discover and collect relevant papers
+    typical_outputs:
+      - search log with queries, sources, and hit counts
+      - de-duplicated paper list with identifiers
+      - relevance-scored candidate set
+
+  - type: literature_analysis_stage
+    purpose: read, extract methodology, and compare prior work
+    typical_outputs:
+      - structured paper summaries
+      - methodology extraction for top papers
+      - cross-paper comparison matrix
+      - gap and contradiction annotations
+
+  - type: idea_generation_stage
+    purpose: generate and filter candidate research ideas from literature gaps
+    typical_outputs:
+      - candidate idea list with gap linkage
+      - feasibility/novelty/impact scores
+      - shortlisted ideas with pilot descriptions
+
+  - type: idea_sharpening_stage
+    purpose: rigorously test and refine ideas through structured questioning
+    typical_outputs:
+      - Socratic design log
+      - novelty report with prior art comparison
+      - locked design brief
+
+  - type: experiment_protocol_stage
+    purpose: define the complete experiment specification before any execution
+    typical_outputs:
+      - experiment protocol document
+      - data schema
+      - statistical test specification
+
+  - type: experiment_block_stage
+    purpose: decompose the protocol into discrete, executable experiment units
+    typical_outputs:
+      - experiment blocks with claim mapping
+      - dependency graph
+      - ordered execution todolist
+
+  - type: design_spec_stage
+    purpose: specify the technical design for experiment code
+    typical_outputs:
+      - module structure
+      - interface definitions
+      - data flow diagrams
+      - module-to-block mapping
+
+  - type: implementation_stage
+    purpose: build the experiment codebase through test-driven development
+    typical_outputs:
+      - source code with test suite
+      - code review log
+      - integration test results
+
+  - type: deployment_stage
+    purpose: deploy code to compute environment and verify correctness
+    typical_outputs:
+      - environment specification
+      - smoke test results
+      - deployment log
+
+  - type: experiment_execution_stage
+    purpose: run experiments following sanity-first policy
+    typical_outputs:
+      - sanity seed results
+      - full seed dispatch log
+      - monitoring log with anomaly flags
+
+  - type: analysis_stage
+    purpose: apply pre-specified statistical tests and compute effect sizes
+    typical_outputs:
+      - raw results in specified schema
+      - statistical test results
+      - confidence intervals and effect sizes
+
+  - type: paper_planning_stage
+    purpose: construct the claims-evidence matrix and derive paper outline
+    typical_outputs:
+      - claims-evidence matrix
+      - paper outline with section assignments
+
+  - type: paper_writing_stage
+    purpose: draft paper sections in prescribed evidence-first order
+    typical_outputs:
+      - section drafts in LaTeX
+      - publication-quality figures
+      - compiled PDF
+
+  - type: audit_stage
+    purpose: verify claims, citations, and argument integrity
+    typical_outputs:
+      - claims audit report
+      - citation audit report
+      - adversarial kill argument
+      - rebuttal draft

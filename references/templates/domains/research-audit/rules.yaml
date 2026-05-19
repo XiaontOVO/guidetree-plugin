@@ -1,0 +1,157 @@
+dependency_rules:
+  - rule: claims_before_citation_context
+    description: >
+      Citation context verification (Layer 3) requires knowing what claims the
+      paper makes. Do not assess citation appropriateness before claims are
+      extracted.
+
+  - rule: audit_before_attack
+    description: >
+      Adversarial review must be grounded in verified claims and citations.
+      Do not construct attack arguments before the claims and citation audit is
+      complete.
+
+  - rule: attack_before_rebuttal
+    description: >
+      Rebuttal drafting requires knowing the strongest attack. Do not draft a
+      rebuttal before adversarial review identifies the actual weaknesses.
+
+  - rule: raw_evidence_only
+    description: >
+      Only raw experiment result files count as evidence for claim verification.
+      Summaries, EXPERIMENT_LOG files, AUTO_REVIEW outputs, and narrative
+      descriptions are NOT evidence.
+
+  - rule: fresh_agent_per_review
+    description: >
+      Every review or adversarial assessment must use a fresh Agent with zero
+      prior context. Never pass previous review output to the next reviewer.
+
+  - rule: cross_model_independence
+    description: >
+      The reviewer must be a different model family from the one that wrote or
+      revised the paper. Shared model families share blind spots.
+
+  - rule: gates_before_submission
+    description: >
+      A rebuttal must pass all three safety gates (provenance, commitment,
+      coverage) before it can be considered submission-ready.
+
+  - rule: advisory_not_blocking
+    description: >
+      Audit findings and quality gate results are advisory. They alert but do
+      not halt the pipeline. The user decides whether to proceed.
+
+  - rule: never_fabricate
+    description: >
+      Never fabricate experiments, numbers, citations, or links. If a concern
+      cannot be addressed with existing evidence, acknowledge it honestly as a
+      limitation.
+
+  - rule: rounding_does_not_inflate
+    description: >
+      Rounding is acceptable only when it does not inflate the result. 84.7% to
+      85% is acceptable rounding. 84.7% to 85.3% is inflation disguised as
+      rounding.
+
+
+strict_rules:
+  - id: STRICT.AUDIT.1
+    rule: >
+      No claims verification is valid without checking all 7 failure modes per
+      claim.
+  - id: STRICT.AUDIT.2
+    rule: >
+      No citation audit is valid without context verification (Layer 3).
+  - id: STRICT.AUDIT.3
+    rule: >
+      No adversarial review is valid without a fresh Agent from a different
+      model family.
+  - id: STRICT.AUDIT.4
+    rule: >
+      No rebuttal is submission-ready without passing all three safety gates.
+  - id: STRICT.AUDIT.5
+    rule: >
+      No quality gate is valid without 3 independent blank-context reviewers.
+  - id: STRICT.AUDIT.6
+    rule: >
+      Fabrication in a rebuttal invalidates the entire rebuttal phase.
+  - id: STRICT.AUDIT.7
+    rule: >
+      Raw data is the only acceptable evidence for claims verification.
+  - id: STRICT.AUDIT.8
+    rule: >
+      Rounding must never inflate. 84.7% to 85.3% is inflation, not rounding.
+  - id: STRICT.AUDIT.9
+    rule: >
+      Rejection points must be atomic. Non-atomic points must be decomposed
+      before adjudication.
+  - id: STRICT.AUDIT.10
+    rule: >
+      If the audit is citation-only, do not invent claims verification or
+      adversarial review phases.
+
+
+agent_planning_rules:
+  - id: AUDIT.R1
+    rule: >
+      If the audit involves quantitative claims, include a claims verification
+      phase with claim extraction, evidence matching, and failure mode check
+      stages.
+    severity: mandatory
+
+  - id: AUDIT.R2
+    rule: >
+      If the paper contains citations, include a citation audit phase covering
+      existence, metadata, and context verification.
+    severity: mandatory
+
+  - id: AUDIT.R3
+    rule: >
+      If the audit is for peer review preparation, include adversarial review,
+      iterative improvement, and rebuttal drafting phases.
+    severity: mandatory
+
+  - id: AUDIT.R4
+    rule: >
+      If the audit includes rebuttal drafting, include all three safety gates
+      (provenance, commitment, coverage) as mandatory stages.
+    severity: mandatory
+
+  - id: AUDIT.R5
+    rule: >
+      Every review or adversarial assessment must use a fresh Agent with zero
+      prior context. Cross-model independence is required for the adversarial
+      reviewer.
+    severity: mandatory
+
+  - id: AUDIT.R6
+    rule: >
+      If iterative improvement is included, cap at MAX_ROUNDS (4) and track
+      improvement trajectory across rounds.
+    severity: mandatory
+
+  - id: AUDIT.R7
+    rule: >
+      If quality gating is included, use 3 independent blank-context subagents
+      with weighted scoring (structural 0.25, rigor 0.40, domain 0.35).
+    severity: mandatory
+
+  - id: AUDIT.R8
+    rule: >
+      Never fabricate evidence, experiments, citations, or links at any point in
+      the audit pipeline.
+    severity: mandatory
+
+  - id: AUDIT.R9
+    rule: >
+      If the audit is citation-only, skip claims verification, adversarial
+      review, and rebuttal phases. Use only the citation audit phase.
+    severity: recommended
+
+  - id: AUDIT.R10
+    rule: >
+      If the audit is a self-audit, include claims verification, citation audit,
+      and quality gating. Adversarial review and rebuttal drafting are optional
+      unless the self-audit is preparing for peer review.
+    severity: recommended

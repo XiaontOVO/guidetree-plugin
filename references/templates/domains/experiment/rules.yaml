@@ -1,0 +1,165 @@
+dependency_rules:
+  - rule: protocol_before_execution
+    description: >
+      No experiment may be executed without a completed and reviewed protocol.
+      The protocol defines what will be run, why, and how results will be
+      evaluated.
+
+  - rule: sanity_before_full_dispatch
+    description: >
+      At least one seed must complete successfully (sanity check) before
+      dispatching the full experiment matrix. The sanity run validates code
+      correctness, output format compliance, and resource sufficiency.
+
+  - rule: baseline_before_comparison
+    description: >
+      All comparisons must be against a baseline that shares the same conditions
+      (same data, same hardware, same evaluation protocol) with only the
+      variable of interest changed.
+
+  - rule: effect_size_with_significance
+    description: >
+      Statistical significance (p-value) must be accompanied by effect size
+      (Cohen's d or equivalent). Statistical significance without practical
+      significance is flagged as potentially misleading.
+
+  - rule: audit_before_claims
+    description: >
+      Integrity audit must complete before any research claims are finalized.
+      Audit may reveal data leakage, normalization inconsistencies, or scope
+      violations that invalidate conclusions.
+
+  - rule: six_file_output_enforced
+    description: >
+      Every experiment run must produce exactly six output files: raw_record.json,
+      attempts.csv, metrics.csv, config.yaml, hardware_info.json, and summary.md.
+      No run is considered complete without all six files present and schema-valid.
+
+  - rule: cross_model_audit
+    description: >
+      The model performing the integrity audit must be different from the model
+      that executed the experiment. Self-auditing does not provide independent
+      verification.
+
+  - rule: configuration_flows_forward
+    description: >
+      Configuration defined in the protocol and schema phase must be carried
+      through deployment, execution, and analysis without undocumented
+      modification. Any configuration change requires re-sanitizing.
+
+  - rule: parallel_by_default
+    description: >
+      Independent seeds and configurations must be dispatched in parallel across
+      available GPUs. Sequential execution of independent work is prohibited when
+      parallel resources are available.
+
+  - rule: negative_results_are_valid
+    description: >
+      If the experiment does not support the hypothesis, the project may still
+      complete with a documented negative finding. Non-significant results are
+      results, not failures.
+
+
+strict_rules:
+  - id: STRICT.EXP.1
+    rule: >
+      No experiment plan is valid without a protocol that defines what will be
+      measured and how results will be evaluated.
+  - id: STRICT.EXP.2
+    rule: >
+      No experiment execution is valid without a completed sanity check.
+  - id: STRICT.EXP.3
+    rule: >
+      No performance claim is valid without baseline comparison under identical
+      conditions.
+  - id: STRICT.EXP.4
+    rule: >
+      No significance claim is valid without effect size.
+  - id: STRICT.EXP.5
+    rule: >
+      No experiment run is complete without all 6 output files present and
+      schema-valid.
+  - id: STRICT.EXP.6
+    rule: >
+      Fabrication of results or ablation outcomes is strictly prohibited.
+  - id: STRICT.EXP.7
+    rule: >
+      Integrity audit must be performed by a different model from the executor.
+  - id: STRICT.EXP.8
+    rule: >
+      Configuration drift between protocol and execution invalidates the
+      experiment.
+  - id: STRICT.EXP.9
+    rule: >
+      Cherry-picking results or omitting non-significant findings invalidates
+      the analysis.
+  - id: STRICT.EXP.10
+    rule: >
+      If the project is only a literature survey, do not invent experiment
+      execution phases.
+
+
+agent_planning_rules:
+  - id: EXP.R1
+    rule: >
+      If the project involves any experiment execution, include a protocol
+      writing stage and a schema definition stage before any code is written.
+    severity: mandatory
+
+  - id: EXP.R2
+    rule: >
+      If the project involves GPU execution, include a deployment stage with
+      sanity check and a code review stage before batch dispatch.
+    severity: mandatory
+
+  - id: EXP.R3
+    rule: >
+      If the project claims performance improvement, include baseline
+      establishment, delta comparison, and effect size analysis stages.
+    severity: mandatory
+
+  - id: EXP.R4
+    rule: >
+      If the project involves multiple seeds or configurations, include a batch
+      dispatch stage with parallel execution and OOM retry logic.
+    severity: mandatory
+
+  - id: EXP.R5
+    rule: >
+      If the project produces results intended for publication, include a
+      statistical analysis stage with CI, effect sizes, and an integrity audit
+      stage.
+    severity: mandatory
+
+  - id: EXP.R6
+    rule: >
+      If the project involves ablation studies, design ablations from a
+      reviewer perspective and run actual ablation experiments. Never reason
+      about ablation outcomes without running them.
+    severity: mandatory
+
+  - id: EXP.R7
+    rule: >
+      If the project involves hyperparameter optimization or configuration
+      search, include a DSE loop stage with exploration, directed search, and
+      refinement phases.
+    severity: recommended
+
+  - id: EXP.R8
+    rule: >
+      If the project involves long-running experiments (more than a few hours
+      per seed), include checkpoint save/resume support in the deployment stage.
+    severity: mandatory
+
+  - id: EXP.R9
+    rule: >
+      Do not include paper writing, literature survey, idea generation, or
+      production deployment phases unless explicitly required by project_context.
+    severity: mandatory
+
+  - id: EXP.R10
+    rule: >
+      If the project is an ablation study, the ablation design stage must map
+      every claim-critical component to at least one ablation variant with a
+      clear success criterion.
+    severity: mandatory

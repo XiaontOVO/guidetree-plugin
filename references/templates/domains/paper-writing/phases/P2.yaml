@@ -1,0 +1,110 @@
+phase:
+  id: P2
+  name: Figure Generation
+  purpose: >
+    Produce every visual asset listed in the figure plan. Each figure must be
+    reproducible (generation script saved), visually correct (reviewed), and
+    publication-ready (vector format where possible). Figures are the primary
+    evidence channel and must be generated before prose drafting begins.
+
+  when_to_use: >
+    Use when the paper includes any data figures, architecture diagrams, Mermaid
+    diagrams, or AI illustrations. Skip only if the paper has no figures at all
+    (extremely rare for academic papers).
+
+  inputs:
+    - figure plan from P1
+    - claims-evidence matrix from P1
+    - experiment result files
+    - paper outline from P1
+
+  outputs:
+    - data figures (PDF/SVG) with generation scripts
+    - architecture diagrams (SVG) with FigureSpec JSON
+    - mermaid diagrams (SVG) with .mmd sources
+    - AI illustrations with prompts and review scores
+    - figure manifest (registry of every figure with provenance)
+
+  acceptance_criteria:
+    - every figure in the figure plan has been generated
+    - each figure has a saved, runnable generation script for reproducibility
+    - figures are saved in at least one publication-ready format (PDF or SVG)
+    - visual review confirms no rendering artifacts
+    - figure manifest is updated with all generated figures
+    - every figure is self-contained (understandable without body text)
+    - every figure maps to at least one claim in the claims-evidence matrix
+
+  typical_stages:
+    - id: P2.S1
+      name: Data Figures Generated
+      goal: >
+        Create all data-driven figures (line plots, bar charts, scatter plots,
+        heatmaps, tables-as-figures) from experiment result files using
+        matplotlib and/or seaborn.
+      outputs:
+        - data figures in PDF/SVG format
+        - Python generation scripts
+        - per-figure review status
+      acceptance_criteria:
+        - every data figure in the figure plan has been generated
+        - each figure has a saved, runnable Python generation script
+        - font sizes are legible at paper-print size (minimum 8pt axis labels)
+        - color palette is consistent across all data figures
+        - figure manifest is updated
+
+    - id: P2.S2
+      name: Architecture Diagrams Generated
+      goal: >
+        Create deterministic, vector-accurate architecture and system diagrams
+        from FigureSpec JSON definitions. No hand-drawn SVG is permitted.
+      outputs:
+        - architecture diagrams in SVG format
+        - FigureSpec JSON source files
+        - per-diagram review scores
+      acceptance_criteria:
+        - architecture diagrams are generated from FigureSpec JSON, not hand-drawn
+        - FigureSpec JSON is saved alongside output for reproducibility
+        - output is in SVG format (vector, no rasterization)
+        - visual review score > 6 (no wrong arrow directions, no misaligned nodes)
+        - figure manifest is updated
+
+    - id: P2.S3
+      name: Mermaid Diagrams Generated
+      goal: >
+        Produce flowcharts and sequence diagrams from Mermaid source definitions
+        for process flows, algorithm overviews, and interaction sequences.
+      outputs:
+        - mermaid diagrams in SVG format
+        - .mmd source files
+        - per-diagram review status
+      acceptance_criteria:
+        - mermaid source file is saved for reproducibility
+        - diagram compiles without syntax errors
+        - output is in SVG format
+        - visual review confirms no rendering artifacts (overlapping labels, clipped nodes, broken arrows)
+        - figure manifest is updated
+
+    - id: P2.S4
+      name: AI Illustrations Generated
+      goal: >
+        Generate conceptual illustrations (teaser figures, overview diagrams,
+        conceptual art) using AI, then subject each to review scoring. Only
+        illustrations scoring >= 9 are accepted.
+      outputs:
+        - AI illustrations in publication format
+        - generation prompts and parameters
+        - review scores and attempt counts
+      acceptance_criteria:
+        - illustration is generated via AI with documented prompt
+        - review score >= 9 for acceptance
+        - if score < 9 after 3 attempts, illustration is flagged for manual creation
+        - prompt and generation parameters are saved for reproducibility
+        - figure manifest records review score and attempt count
+
+  common_risks:
+    - data figures generated from hand-edited data instead of raw result files
+    - architecture diagrams with wrong arrow directions or misaligned nodes
+    - mermaid diagrams with overlapping labels or broken arrows
+    - AI illustrations that are inaccurate for the academic context
+    - figures not understandable without the body text (violates PAPER-3)
+    - inconsistent styling across figure types

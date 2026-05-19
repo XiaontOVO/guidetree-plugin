@@ -121,6 +121,18 @@ skills/
   execute_step/SKILL.md
   validate_stage_result/SKILL.md
 
+references/
+  acceptance_criteria_rules.md    ← shared validation rules
+  templates/
+    core/rules/                   ← cross-domain rules (safety, operating, directory conventions)
+    domains/
+      <domain-id>/
+        base.template.yaml        ← domain template: scope, principles, guidelines, phase patterns
+        rules.yaml                ← domain rules: dependencies, acceptance standards, anti-patterns
+        phases/
+          readme.md               ← research type patterns (which phases for which subtypes)
+          P1.yaml .. PN.yaml      ← phase definitions with nested typical_stages
+
 _shared/
   acceptance_criteria_rules.md    ← shared validation rules
 
@@ -130,6 +142,20 @@ catalog/
 .claude-plugin/
   plugin.json                     ← plugin manifest
 ```
+
+## Domain Templates
+
+Domain templates are planning references, not executable skills. They define how a specific domain decomposes work into phases and stages. GuideTree skills read them to produce domain-appropriate project structures.
+
+Each template contains:
+- `base.template.yaml` — domain scope, core principles, phase decomposition guidelines, recommended phase patterns, stage types, usage guidance per skill, and good/bad plan examples
+- `rules.yaml` — dependency rules, acceptance standards, anti-patterns, agent planning rules, strict rules
+- `phases/P<N>.yaml` — phase definitions with purpose, inputs, outputs, acceptance criteria, typical stages (nested), and common risks
+- `phases/readme.md` — research type patterns showing which phases are required/optional/skipped for different subtypes
+
+Available domains: `academic-research`, `literature-review`, `idea-generation`, `experiment`, `paper-writing`, `patent-filing`, `code-implementation`, `research-audit`, `zkp-research`
+
+The `create_project_context` skill selects a `template_id`. The orchestrator loads the template and passes phase files and rules to generation/expansion skills via `template_ref`.
 
 ## Output Conventions
 

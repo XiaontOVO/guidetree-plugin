@@ -1,0 +1,74 @@
+phase:
+  id: P1
+  name: Prior Art and Novelty
+  purpose: >
+    Systematically search patent and academic databases for prior art, then
+    assess whether the invention is novel and non-obvious under jurisdiction-
+    specific legal standards (35 USC 102/103, Art 22 CNPL, Art 54/56 EPC).
+
+  when_to_use: >
+    Use for all patent filing projects unless a complete prior art search and
+    novelty assessment have already been conducted and validated.
+
+  inputs:
+    - invention disclosure
+    - known keywords and classification codes
+    - target jurisdiction(s)
+    - user-provided references
+    - known constraints (e.g., public disclosure dates)
+
+  outputs:
+    - prior art search log with databases queried, queries used, and result counts
+    - cited references with patent number or DOI, title, relevant passages, jurisdiction
+    - element-by-element novelty analysis per jurisdiction standard
+    - obviousness analysis with explicit motivation-to-combine reasoning
+    - overall patentability conclusion with confidence level
+
+  acceptance_criteria:
+    - at least 3 patent databases queried (e.g., Google Patents, Espacenet, CNIPA)
+    - at least 2 academic sources queried (e.g., Google Scholar, arXiv)
+    - every claim element analyzed individually against prior art
+    - jurisdiction standard explicitly stated for each conclusion
+    - obviousness analysis includes explicit motivation-to-combine reasoning
+    - overall patentability conclusion with confidence level provided
+    - unverifiable references marked [VERIFY] and flagged for human confirmation
+
+  typical_stages:
+    - id: P1.S1
+      name: Prior Art Search Completed
+      goal: >
+        Systematically search patent and academic databases to identify all
+        relevant prior art that may affect patentability.
+      outputs:
+        - prior art search log with databases, queries, dates, and result counts
+        - cited references with relevance classification (high / medium / low)
+        - per-reference notes on relevant passages and jurisdiction
+      acceptance_criteria:
+        - at least 3 patent databases queried
+        - at least 2 academic sources queried
+        - search log records every query and result count
+        - each cited reference includes number, title, relevant passages, and jurisdiction
+
+    - id: P1.S2
+      name: Novelty Assessment Completed
+      goal: >
+        Apply jurisdiction-specific legal standards to determine whether the
+        invention is novel and non-obvious over the identified prior art.
+      outputs:
+        - element-by-element novelty analysis per jurisdiction standard
+        - closest prior art identified
+        - obviousness analysis with motivation-to-combine reasoning
+        - overall patentability conclusion with confidence level
+      acceptance_criteria:
+        - every claim element analyzed individually against prior art
+        - jurisdiction standard explicitly stated for each conclusion
+        - obviousness analysis includes explicit motivation-to-combine reasoning
+        - overall patentability conclusion with confidence level provided
+
+  common_risks:
+    - search breadth insufficient, missing critical references
+    - confusing patent novelty (absolute) with academic novelty (significant advance)
+    - novelty assessment without element-by-element analysis
+    - obviousness analysis without motivation-to-combine reasoning
+    - applying wrong jurisdiction standard
+    - fabricated or unverifiable citation details

@@ -1,0 +1,91 @@
+phase:
+  id: P4
+  name: Specification Writing
+  purpose: >
+    Write the specification that enables a person skilled in the art to make
+    and use the invention. Process figures with reference numerals, write
+    embodiment descriptions as recipes (how to make and use), and verify that
+    every claim element has corresponding specification text.
+
+  when_to_use: >
+    Use after P3 (Claim Drafting) is complete. The specification exists to
+    support the claims -- it must be written after the claims are defined.
+
+  inputs:
+    - claims from P3
+    - drawing plan from P2
+    - user-provided figures and invention materials
+    - target jurisdiction(s)
+
+  outputs:
+    - figures with consistent reference numerals assigned
+    - brief description of drawings
+    - detailed embodiment descriptions (how to make and use)
+    - claim support matrix (every claim element traces to specification text)
+    - best mode disclosure (US jurisdiction)
+
+  acceptance_criteria:
+    - reference numerals are consistent across all figures (same component = same numeral)
+    - every claim element maps to at least one figure
+    - embodiment describes how to make and use the invention
+    - no experimental data, accuracy percentages, or test results anywhere
+    - every claim element has corresponding embodiment text
+    - consistent terminology with claims (same term = same concept)
+    - best mode disclosed for US jurisdiction
+
+  typical_stages:
+    - id: P4.S1
+      name: Figures Processed
+      goal: >
+        Process user-provided figures into patent-compliant form with
+        consistent reference numerals and formal drawing descriptions.
+      outputs:
+        - figures with reference numerals assigned
+        - brief description of drawings (one sentence per figure)
+        - detailed description referencing numerals
+        - claim-element coverage matrix
+        - reference signs list (EP preparation)
+      acceptance_criteria:
+        - reference numerals consistent across all figures
+        - brief description of drawings covers every figure
+        - every claim element maps to at least one figure
+        - EP reference signs list prepared if EP is a target jurisdiction
+
+    - id: P4.S2
+      name: Embodiment Descriptions Written
+      goal: >
+        Write embodiment descriptions that enable a person skilled in the art
+        to make and use the invention. The embodiment is a recipe, not a test
+        report.
+      outputs:
+        - "how to make" descriptions (structure, components, relationships)
+        - "how to use" descriptions (process steps, operational parameters)
+        - best mode disclosure (US)
+      acceptance_criteria:
+        - embodiment describes how to make and use the invention
+        - no experimental data, accuracy percentages, benchmark results, or test outcomes
+        - consistent terminology with claims
+        - best mode disclosed for US jurisdiction
+
+    - id: P4.S3
+      name: Claim Support Verified
+      goal: >
+        Verify that every claim element has corresponding specification text
+        that provides adequate written description and enablement support.
+      outputs:
+        - claim support matrix (claim element to specification text mapping)
+        - support gap report
+      acceptance_criteria:
+        - every claim element has corresponding specification text
+        - no claim elements without specification support
+        - terminology is consistent between claims and specification
+        - no experimental data, accuracy percentages, or test results detected
+
+  common_risks:
+    - experimental data or test results appearing in embodiment descriptions
+    - inconsistent reference numerals across figures
+    - claim elements without figure coverage
+    - claim elements without specification support
+    - terminology inconsistency between claims and specification
+    - missing best mode disclosure for US jurisdiction
+    - specification written before claims, leading to gaps

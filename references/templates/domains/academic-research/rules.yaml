@@ -1,0 +1,175 @@
+dependency_rules:
+  - rule: literature_before_novelty_claim
+    description: >
+      Do not claim novelty before mapping relevant prior work through a
+      structured literature survey.
+
+  - rule: novelty_gate_before_implementation
+    description: >
+      Do not begin significant implementation before the chosen idea has passed
+      a novelty check with prior art comparison.
+
+  - rule: protocol_before_code_execution
+    description: >
+      Experiment code must not be executed until the experiment protocol is
+      written and validated. The protocol must specify datasets, metrics,
+      baselines, and statistical tests.
+
+  - rule: baseline_before_empirical_comparison
+    description: >
+      Every empirical comparison requires a validated baseline. The baseline
+      must be the original implementation, a verified re-implementation, or a
+      well-established reference method.
+
+  - rule: design_brief_before_protocol
+    description: >
+      The experiment protocol must derive from the locked design brief. No
+      protocol may be written before the design brief is locked.
+
+  - rule: code_review_before_integration
+    description: >
+      Every module must pass code review before integration. No code reaches
+      the main branch without review against the design spec and test coverage.
+
+  - rule: sanity_seed_before_full_dispatch
+    description: >
+      One sanity seed must succeed for each experiment block before the full
+      seed suite is dispatched. Dispatching a full suite without a sanity check
+      wastes compute and produces untrustworthy results if the code is broken.
+
+  - rule: evidence_before_paper_claim
+    description: >
+      Every claim in the paper must map to a specific piece of evidence in the
+      claims-evidence matrix. Claims without evidence are removed before
+      writing.
+
+  - rule: statistical_test_before_data_collection
+    description: >
+      The statistical test must be specified in the protocol before any data
+      is collected. No post-hoc test selection without explicit justification.
+
+  - rule: claims_evidence_matrix_before_writing
+    description: >
+      The claims-evidence matrix must be constructed before any paper section
+      is written. The matrix is the backbone of the paper.
+
+  - rule: method_before_introduction
+    description: >
+      Write the method section before the introduction. The prescribed writing
+      order (method, evaluation, introduction, related work, conclusion,
+      abstract) must be followed.
+
+  - rule: audit_before_submission
+    description: >
+      No paper may be submitted without completing the full audit pipeline:
+      claims audit, citation audit, and adversarial review.
+
+  - rule: design_brief_claims_flow_forward
+    description: >
+      Claims declared in the design brief must be carried through protocol,
+      implementation, experiment, paper, and audit phases. Every claim must
+      have a traceable lifecycle.
+
+  - rule: negative_results_are_valid_outputs
+    description: >
+      If the experiment results contradict the hypothesis, the project may
+      still complete with a documented negative finding, limitation, or null
+      result. Negative results are not a failure condition.
+
+strict_rules:
+  - id: STRICT.ACAD.1
+    rule: >
+      No research plan is valid without a literature survey phase.
+  - id: STRICT.ACAD.2
+    rule: >
+      No novelty claim is valid without prior art comparison.
+  - id: STRICT.ACAD.3
+    rule: >
+      No experiment is valid without a pre-specified protocol.
+  - id: STRICT.ACAD.4
+    rule: >
+      No empirical comparison is valid without a baseline.
+  - id: STRICT.ACAD.5
+    rule: >
+      No paper claim is valid without traceable evidence.
+  - id: STRICT.ACAD.6
+    rule: >
+      Never fabricate experiment results or citations.
+  - id: STRICT.ACAD.7
+    rule: >
+      Never modify experiment results to match expectations.
+  - id: STRICT.ACAD.8
+    rule: >
+      Never submit a paper without completing the audit pipeline.
+  - id: STRICT.ACAD.9
+    rule: >
+      Statistical tests must be specified before data collection.
+  - id: STRICT.ACAD.10
+    rule: >
+      If the project is only a survey, do not invent implementation or experiment phases.
+
+agent_planning_rules:
+  - id: ACAD.R1
+    rule: >
+      If the project proposes a new method or technique, include a literature
+      survey phase and a novelty verification stage.
+    severity: mandatory
+
+  - id: ACAD.R2
+    rule: >
+      If the project includes experiments, include a protocol phase with
+      pre-specified statistical tests before any execution phase.
+    severity: mandatory
+
+  - id: ACAD.R3
+    rule: >
+      If the project includes empirical comparisons, include a baseline
+      validation stage. The baseline source (original, re-implementation, or
+      reference) must be documented.
+    severity: mandatory
+
+  - id: ACAD.R4
+    rule: >
+      If the project output is a paper, include a claims-evidence matrix
+      construction stage before writing and an audit phase before submission.
+    severity: mandatory
+
+  - id: ACAD.R5
+    rule: >
+      If the project involves statistical analysis, specify the test, null
+      hypothesis, and significance threshold in the protocol before data
+      collection.
+    severity: mandatory
+
+  - id: ACAD.R6
+    rule: >
+      If the project claims performance improvement, include stages for fair
+      baseline comparison, ablation studies, and statistical significance
+      testing.
+    severity: mandatory
+
+  - id: ACAD.R7
+    rule: >
+      If the project is a survey or literature review, do not include
+      implementation or experiment phases. Focus on coverage, taxonomy, and
+      synthesis.
+    severity: mandatory
+
+  - id: ACAD.R8
+    rule: >
+      If the project reproduces existing work, include stages for obtaining or
+      re-implementing the original method, running the reported experiments,
+      and comparing against published results.
+    severity: mandatory
+
+  - id: ACAD.R9
+    rule: >
+      If the project revises an existing paper, include audit and revision
+      phases. Do not skip the audit even for revisions.
+    severity: recommended
+
+  - id: ACAD.R10
+    rule: >
+      Do not include production deployment, commercial product, patent filing,
+      or marketing phases unless explicitly required by project_context.
+    severity: mandatory

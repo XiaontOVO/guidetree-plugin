@@ -1,0 +1,98 @@
+phase:
+  id: P5
+  name: Improvement
+  purpose: >
+    Systematically improve the paper through structured review rounds. Each
+    round produces a review report, implements fixes, recompiles, and preserves
+    a PDF version snapshot. The improvement loop enforces banned-word removal,
+    GPT-style detection and rewriting, overclaim softening, and prose quality
+    enhancement.
+
+  when_to_use: >
+    Use for conference and journal papers. Workshop papers may skip this phase
+    if time is limited. At least one improvement round is strongly recommended
+    before any submission.
+
+  inputs:
+    - compiled paper.pdf from P4
+    - LaTeX source files from P3
+    - claims-evidence matrix from P1
+    - banned-word list
+    - page budget from P1
+
+  outputs:
+    - structured review report per round
+    - revised LaTeX source files
+    - recompiled paper.pdf
+    - PDF version snapshots (paper-v1.pdf, paper-v2.pdf)
+    - improvement summary (issues found, fixed, remaining)
+
+  acceptance_criteria:
+    - structured review report is produced with categorized, prioritized issues
+    - all banned-word occurrences are removed
+    - GPT-style passages are rewritten with domain-specific language (not merely rephrased)
+    - no overclaiming remains (every strong claim is evidence-backed or softened)
+    - paper recompiles successfully after fixes
+    - PDF version is preserved for each round
+    - maximum 2 improvement rounds; remaining blocking issues escalate to operator
+
+  typical_stages:
+    - id: P5.S1
+      name: Agent Review Completed
+      goal: >
+        Perform a full-paper structured review covering clarity, rigor,
+        consistency, and completeness. Categorize issues by severity: blocking,
+        major, minor.
+      outputs:
+        - structured review report with categorized issues
+        - severity classification per issue
+      acceptance_criteria:
+        - review covers every section of the paper
+        - issues are categorized as blocking, major, or minor
+        - review cross-references claims-evidence matrix for orphaned claims
+        - review checks notation consistency across sections
+
+    - id: P5.S2
+      name: Automated Audits Completed
+      goal: >
+        Run banned-word scan, GPT-style detection, and overclaim detection
+        across the entire manuscript.
+      outputs:
+        - banned-word scan results
+        - GPT-style detection results
+        - overclaim detection results
+      acceptance_criteria:
+        - banned-word scan covers all LaTeX source files
+        - GPT-style detection identifies generic or formulaic passages with
+          location and pattern description
+        - overclaim detection flags "significantly" without statistical test,
+          "proves" without proof, "outperforms" without comparison evidence
+
+    - id: P5.S3
+      name: Fixes Implemented and Recompiled
+      goal: >
+        Implement fixes for all blocking and major issues. Rewrite GPT-style
+        passages with domain-specific language. Soften overclaims. Remove banned
+        words. Recompile the paper.
+      outputs:
+        - revised LaTeX source files
+        - recompiled paper.pdf
+        - PDF version snapshot (paper-v{N}.pdf)
+      acceptance_criteria:
+        - all blocking issues are fixed
+        - all major issues are fixed or explicitly deferred with justification
+        - GPT-style passages are rewritten with precise, domain-specific
+          language (not just rephrased with synonyms)
+        - overclaims are softened to evidence-grounded alternatives
+          (e.g., "proves" -> "supports", "significantly" -> only with p-value)
+        - all banned-word occurrences are removed
+        - paper recompiles successfully
+        - PDF version is preserved
+
+  common_risks:
+    - GPT-style passages merely rephrased instead of rewritten with domain expertise
+    - overclaims softened too much (underclaiming) or too little (still overclaiming)
+    - fixes introducing new errors or inconsistencies
+    - exceeding page limit after adding clarifications
+    - review not covering all sections
+    - reviewer fatigue in second round (lowered standards)

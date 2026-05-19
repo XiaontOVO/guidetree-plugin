@@ -1,0 +1,74 @@
+phase:
+  id: P3
+  name: Deep Analysis
+  purpose: >
+    Produce thorough, structured analysis of each must-analyze paper with
+    five-dimension scoring. Deep analysis creates the evidence base for
+    comparison and synthesis. Analysis operates from local storage only — no
+    network calls.
+
+  when_to_use: >
+    Use after triage (P2) completes. Apply only to must-analyze papers. For
+    quick surveys, this phase may be shallow — covering only core findings and
+    project relevance. For systematic reviews, this phase must be rigorous with
+    full five-dimension scoring and detailed methodology analysis.
+
+  inputs:
+    - must-analyze paper list from P2 triage
+    - maybe-tier paper list (for gap-filling if needed)
+    - local paper content (MCP-accessible or PDF)
+
+  outputs:
+    - structured analysis markdown per paper (findings, methodology, strengths, weaknesses, relevance)
+    - five-dimension scores per paper (methodology rigor, evidence strength, novelty, clarity, project relevance)
+    - analysis index listing all analyzed papers with scores
+
+  acceptance_criteria:
+    - every must-analyze paper from triage has a structured analysis file
+    - each analysis covers findings, methodology, strengths, weaknesses, and relevance
+    - each paper has numeric scores on all five dimensions with brief justification
+    - no network calls were made during analysis
+    - all uncertain claims are marked [?], not fabricated
+    - maybe-tier papers are analyzed only if gaps remain after must-analyze papers
+
+  typical_stages:
+    - id: P3.S1
+      name: Must-Analyze Papers Processed
+      goal: >
+        Perform deep structured analysis of each must-analyze paper, one at a
+        time, producing analysis files and five-dimension scores.
+      outputs:
+        - structured analysis markdown per paper
+        - five-dimension scores per paper with justification
+        - updated analysis index
+      acceptance_criteria:
+        - each paper is analyzed from local storage only (no network calls)
+        - analysis covers: core findings, methodology, strengths, weaknesses, project relevance
+        - five-dimension scores are provided with brief justification per dimension
+        - uncertain claims are marked [?]
+        - analysis file follows the standard structure
+        - analysis index is updated after each paper
+
+    - id: P3.S2
+      name: Gap-Filling Analysis (Maybe Tier)
+      goal: >
+        Analyze maybe-tier papers if the must-analyze set leaves significant
+        gaps in coverage for comparison and synthesis.
+      outputs:
+        - additional structured analysis files
+        - updated analysis index
+        - gap-filling justification
+      acceptance_criteria:
+        - specific coverage gaps are identified that maybe-tier papers can fill
+        - each additional paper follows the same analysis standards
+        - gap-filling is justified (not analyzing every maybe-tier paper by default)
+        - analysis index is updated
+
+  common_risks:
+    - analysis scope creep (writing mini-reviews instead of structured notes)
+    - inconsistency in five-dimension scoring across papers
+    - inadvertently making network calls during analysis
+    - fabricating findings when the paper is unclear (instead of marking [?])
+    - spending too much time on weak papers
+    - skipping the methodology analysis (focusing only on results)
+    - not maintaining the analysis index as papers are processed

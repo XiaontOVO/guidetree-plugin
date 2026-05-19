@@ -1,0 +1,90 @@
+phase:
+  id: P5
+  name: Library Management and Maintenance
+  purpose: >
+    Keep the Zotero library clean, current, and well-organized. Ensure no
+    duplicates exist, all referenced papers are in the library, metadata is
+    complete, and structured notes are attached to analyzed papers. A
+    well-maintained library prevents duplication, reduces search friction, and
+    ensures all papers are accessible for future reviews.
+
+  when_to_use: >
+    Use as the final phase of every literature review project. For systematic
+    reviews and long-running projects, lightweight library maintenance may also
+    be interleaved after discovery (P1) and after analysis (P3). The full
+    audit is always performed at the end.
+
+  inputs:
+    - Zotero collection for this review
+    - list of all papers referenced in project outputs
+    - structured analyses from P3
+    - import logs from P1
+
+  outputs:
+    - deduplicated Zotero collection (no duplicate items)
+    - audit report listing duplicates resolved, orphans found, and incomplete metadata items
+    - import log reconciled with final library state
+    - structured notes attached to analyzed papers in Zotero
+
+  acceptance_criteria:
+    - no duplicates exist in the target Zotero collection
+    - every paper referenced in project outputs exists in Zotero
+    - batch import log records each paper's source, import status, and Zotero key
+    - audit report identifies all orphans and incomplete metadata items
+    - structured notes (triage summary, analysis summary) are attached to analyzed papers
+    - Zotero API key never appears in shell command arguments, environment variables, or logs
+
+  typical_stages:
+    - id: P5.S1
+      name: Library Deduplicated and Audited
+      goal: >
+        Remove duplicate entries, identify orphans (items not in any
+        collection), and detect incomplete metadata (missing DOI, abstract, or
+        year).
+      outputs:
+        - duplicate resolution log
+        - orphan list
+        - incomplete metadata list
+        - audit report
+      acceptance_criteria:
+        - no true duplicates remain in the target collection
+        - each resolved duplicate is logged with the items merged or removed
+        - orphans are identified and either assigned to a collection or flagged
+        - incomplete items are listed with the missing fields
+        - Zotero API key never appears in command arguments or logs
+
+    - id: P5.S2
+      name: Structured Notes Attached
+      goal: >
+        Attach structured notes (triage summary, analysis summary, comparison
+        role) to analyzed papers in Zotero so that future reviews can leverage
+        prior work.
+      outputs:
+        - structured notes per analyzed paper
+        - notes inventory
+      acceptance_criteria:
+        - every must-analyze paper has a structured note in Zotero
+        - notes include triage tier, five-dimension scores, and key findings
+        - notes are attached to the correct Zotero items
+        - notes inventory lists all attached notes with paper IDs
+
+    - id: P5.S3
+      name: Import Log Reconciled
+      goal: >
+        Reconcile the import log from discovery with the final library state to
+        ensure no papers were lost during the project.
+      outputs:
+        - reconciled import log
+        - discrepancy list (if any)
+      acceptance_criteria:
+        - every paper in the import log exists in Zotero
+        - any discrepancies are listed with resolution
+        - final library state matches project output references
+
+  common_risks:
+    - treating library management as an afterthought
+    - deleting items that appear duplicate but are distinct (e.g., preprint and published version)
+    - attaching notes to the wrong Zotero item
+    - exposing Zotero API key in logs or command arguments
+    - incomplete metadata not detected because fields were not checked
+    - orphan items that belong in the collection but were missed during discovery

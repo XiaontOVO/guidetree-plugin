@@ -1,0 +1,112 @@
+phase:
+  id: P1
+  name: Paper Planning
+  purpose: >
+    Translate raw project goals and available results into a verifiable paper
+    plan. The claims-evidence matrix is the central artifact: every claim the
+    paper will make is mapped to supporting evidence before any prose is written.
+
+  when_to_use: >
+    Use for almost all paper writing projects unless the outline, claims-evidence
+    matrix, figure plan, and citation scaffolding are already fully provided and
+    validated.
+
+  inputs:
+    - project goal
+    - available experiment results or data
+    - target venue (conference, journal, workshop)
+    - page limit
+    - known references
+    - known constraints
+
+  outputs:
+    - paper outline with section goals and target lengths
+    - claims-evidence matrix
+    - figure plan with type, source, and claim mapping
+    - citation scaffold with DBLP verification status
+    - page budget per section
+
+  acceptance_criteria:
+    - claims-evidence matrix has zero unflagged gaps
+    - section plan covers all standard sections with goals and target lengths
+    - figure plan lists every figure with type, source, and claim mapping
+    - all citations have DBLP lookup results; unverified entries are flagged
+    - page budget totals do not exceed the target limit
+    - thesis statement is explicit and arguable
+
+  typical_stages:
+    - id: P1.S1
+      name: Outline Generated
+      goal: >
+        Construct the paper outline with section goals, key points, target
+        lengths, and the thesis statement.
+      outputs:
+        - paper outline
+        - thesis statement
+        - section goals and target lengths
+      acceptance_criteria:
+        - outline is not merely "write the paper"
+        - every section has a stated goal
+        - thesis statement is explicit and arguable
+
+    - id: P1.S2
+      name: Claims-Evidence Matrix Constructed
+      goal: >
+        Map every intended claim to supporting evidence. Flag claims with no
+        evidence. Flag evidence with no corresponding claim.
+      outputs:
+        - claims-evidence matrix
+        - gap report (unflagged missing evidence)
+        - evidence inventory
+      acceptance_criteria:
+        - every claim has evidence or is explicitly flagged as a gap
+        - gap report identifies all unsupported claims
+        - evidence not mapped to any claim is also flagged
+
+    - id: P1.S3
+      name: Figure Plan Defined
+      goal: >
+        List every required figure with type, data source, supporting claim,
+        and target dimensions.
+      outputs:
+        - figure plan
+        - figure-to-claim mapping
+      acceptance_criteria:
+        - every figure has a type (data plot, architecture, mermaid, illustration)
+        - every figure maps to at least one claim
+        - data source is identified for each figure
+
+    - id: P1.S4
+      name: Citation Scaffold Verified
+      goal: >
+        Identify all required references, look up each on DBLP, cross-reference
+        on CrossRef, and verify BibTeX entries.
+      outputs:
+        - citation list with DBLP status
+        - verified BibTeX entries
+        - unverified citation flags
+      acceptance_criteria:
+        - every citation has a DBLP lookup result
+        - verified BibTeX entries are confirmed on DBLP or CrossRef
+        - unverified entries are flagged, not silently accepted
+        - no BibTeX entries fabricated from memory
+
+    - id: P1.S5
+      name: Page Budget Allocated
+      goal: >
+        Allocate page budget per section against the target limit, accounting
+        for figures, tables, and references.
+      outputs:
+        - page budget per section
+        - overflow plan for content exceeding budget
+      acceptance_criteria:
+        - page budget totals do not exceed the target limit
+        - figure and table space is accounted for (typically 30-40% of page space)
+        - overflow plan exists for each section at risk
+
+  common_risks:
+    - thesis statement too vague or not arguable
+    - claims-evidence matrix incomplete (silent gaps)
+    - citations fabricated from memory instead of verified
+    - page budget unrealistic (underestimating figure space)
+    - figure plan does not map figures to claims

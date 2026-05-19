@@ -1,0 +1,98 @@
+phase:
+  id: P8
+  name: Research Synthesis and Final Deliverable
+  purpose: >
+    Consolidate formal definitions, construction, security reasoning,
+    complexity analysis, experiments, limitations, and future work into a final
+    research artifact.
+
+  when_to_use: >
+    Use for papers, technical reports, internal research memos, grant outputs,
+    or reproducible research packages.
+
+  inputs:
+    - formal model
+    - proposed construction
+    - security analysis
+    - complexity analysis
+    - benchmark results
+    - unresolved issues
+
+  outputs:
+    - final research report or paper draft
+    - contribution summary
+    - limitation section
+    - reproducibility appendix
+    - future work list
+    - review checklist
+
+  acceptance_criteria:
+    - research claims are clearly stated
+    - each claim is backed by proof, analysis, or experiment
+    - limitations are explicit
+    - notation is consistent
+    - related work positioning is accurate
+    - final deliverable is reviewable
+
+  typical_stages:
+    - id: P8.S1
+      name: Claims and Evidence Consolidated
+      goal: >
+        Map every final research claim to supporting evidence.
+      outputs:
+        - claim-evidence matrix
+        - unsupported claims list
+        - claim boundary notes
+      acceptance_criteria:
+        - every major claim has support
+        - unsupported claims are removed or weakened
+        - evidence type is identified
+
+    - id: P8.S2
+      name: Final Report Structured
+      goal: >
+        Organize the final artifact into a coherent research document.
+      outputs:
+        - report outline
+        - section plan
+        - dependency between sections
+      acceptance_criteria:
+        - document flow is logical
+        - definitions precede claims
+        - experiments and proofs are placed correctly
+
+    - id: P8.S3
+      name: Limitations and Future Work Stated
+      goal: >
+        Document unresolved proof gaps, implementation limitations, parameter
+        limits, or open questions.
+      outputs:
+        - limitation list
+        - future work list
+        - risk-to-claim adjustment
+      acceptance_criteria:
+        - limitations are not hidden
+        - future work is specific
+        - claims are adjusted to match evidence
+
+    - id: P8.S4
+      name: Review-Ready Package Prepared
+      goal: >
+        Produce the final research package for internal or external review.
+      outputs:
+        - final report
+        - appendix
+        - reproducibility notes
+        - reviewer checklist
+      acceptance_criteria:
+        - report is internally consistent
+        - notation is stable
+        - experiments/proofs are inspectable
+        - package is ready for review
+
+  common_risks:
+    - overclaiming
+    - inconsistent notation
+    - burying failed experiments
+    - missing limitations
+    - weak relation to prior work

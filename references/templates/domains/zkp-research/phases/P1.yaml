@@ -1,0 +1,92 @@
+phase:
+  id: P1
+  name: Research Framing and Literature Grounding
+  purpose: >
+    Clarify the research objective, technical motivation, target ZKP area,
+    prior work landscape, and expected contribution type.
+
+  when_to_use: >
+    Use for almost all ZKP research projects unless the literature review and
+    research question are already fully provided and validated.
+
+  inputs:
+    - project goal
+    - initial research question
+    - known ZKP area or target protocol family
+    - user-provided references
+    - known constraints
+
+  outputs:
+    - clarified research question
+    - ZKP subdomain classification
+    - prior-art map
+    - contribution hypothesis
+    - terminology and notation baseline
+    - research scope and non-goals
+
+  acceptance_criteria:
+    - research question is explicit and technically meaningful
+    - target ZKP subdomain is identified
+    - key prior works or baseline protocols are listed
+    - expected contribution type is clear
+    - scope excludes irrelevant engineering/product tasks
+    - terminology is consistent enough for formal modeling
+
+  typical_stages:
+    - id: P1.S1
+      name: Research Objective Clarified
+      goal: >
+        Convert the initial project request into a precise ZKP research objective.
+      outputs:
+        - refined research question
+        - target technical bottleneck
+        - success criteria
+      acceptance_criteria:
+        - objective is not merely "study ZKP"
+        - bottleneck or hypothesis is identifiable
+        - success can be evaluated later
+
+    - id: P1.S2
+      name: ZKP Subdomain Classified
+      goal: >
+        Identify which ZKP area the project belongs to.
+      outputs:
+        - domain classification
+        - relevant protocol families
+        - excluded adjacent areas
+      acceptance_criteria:
+        - subdomain is specific
+        - adjacent but irrelevant topics are excluded
+        - classification supports literature search
+
+    - id: P1.S3
+      name: Prior-Art Landscape Mapped
+      goal: >
+        Build a structured map of relevant papers, constructions, and baseline methods.
+      outputs:
+        - prior-art table
+        - baseline candidates
+        - known limitations
+      acceptance_criteria:
+        - important related works are identified
+        - each prior work has relevance notes
+        - gaps or limitations are summarized
+
+    - id: P1.S4
+      name: Contribution Hypothesis Defined
+      goal: >
+        State what kind of research contribution the project may produce.
+      outputs:
+        - contribution hypothesis
+        - novelty expectation
+        - evaluation method
+      acceptance_criteria:
+        - contribution type is explicit
+        - novelty is not overstated
+        - evaluation path is realistic
+
+  common_risks:
+    - research question too broad
+    - missing critical prior work
+    - confusing implementation project with research project
+    - overclaiming novelty

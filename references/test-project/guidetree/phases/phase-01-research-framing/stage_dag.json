@@ -1,0 +1,223 @@
+{
+  "skill": "expand_phase_to_stage_dag",
+  "version": "1.0.0",
+  "summary": "Expanded phase_1 (Research Framing and Literature Grounding) into 4 stages following the zkp-research domain's P1 typical_stages. Each stage addresses one of the P1 outputs: clarified research question, subdomain classification, prior-art map, and contribution hypothesis.",
+  "project_id": "folding-scheme-recursive-zksnark-opt",
+  "phase_id": "phase_1",
+  "phase_name": "Research Framing and Literature Grounding",
+  "stage_dag": [
+    {
+      "id": "phase_1_stage_1",
+      "phase_id": "phase_1",
+      "name": "Research Objective Clarified",
+      "goal": "Convert the initial project request into a precise ZKP research objective focused on verifier circuit optimization in folding schemes for recursive zkSNARKs.",
+      "rationale": "The raw project goal 'Folding scheme optimization for recursive zkSNARKs with smaller verifier circuits' must be refined into a technically precise objective. Without a clear objective, downstream stages cannot determine scope, relevant prior work, or contribution type.",
+      "acceptance_criteria": [
+        "Research objective is not merely 'study ZKP' or 'optimize folding schemes' but specifies verifier circuit reduction as the optimization target",
+        "A technical bottleneck or hypothesis is identifiable (e.g., which component of the verifier circuit dominates cost)",
+        "Success can be evaluated in later phases via concrete metrics (constraint count or gate count reduction)",
+        "Objective distinguishes between optimizing an existing scheme vs proposing a new construction"
+      ],
+      "inputs": [
+        "project goal from project_context",
+        "initial research question",
+        "known ZKP area: folding/recursive proofs"
+      ],
+      "outputs": [
+        "refined research question with precise optimization target",
+        "target technical bottleneck identification",
+        "success criteria for verifier circuit reduction"
+      ],
+      "dependencies": [],
+      "risks": [
+        "Research question too broad if both R1CS and Plonkish folding are targeted simultaneously",
+        "Bottleneck hypothesis may be wrong, requiring revision after prior-art analysis"
+      ],
+      "status": "in_progress"
+    },
+    {
+      "id": "phase_1_stage_2",
+      "phase_id": "phase_1",
+      "name": "ZKP Subdomain Classified",
+      "goal": "Identify which ZKP area the project belongs to and exclude adjacent but irrelevant topics.",
+      "rationale": "Folding schemes intersect with multiple ZKP areas (recursive proofs, accumulation schemes, polynomial commitments). Classification determines which literature to search and which comparison dimensions are relevant.",
+      "acceptance_criteria": [
+        "Subdomain is specifically identified as folding/recursive proof research (not generic ZKP)",
+        "Adjacent but irrelevant topics are excluded (e.g., general zkVM construction, smart contract verification, privacy-preserving identity)",
+        "Classification supports targeted literature search in stage 3"
+      ],
+      "inputs": [
+        "refined research question from phase_1_stage_1"
+      ],
+      "outputs": [
+        "domain classification: folding schemes / recursive proof composition",
+        "relevant protocol families: Nova, SuperNova, HyperNova, Protostar, ProtoGalaxy",
+        "excluded adjacent areas: general zkVM, smart contract verification, identity protocols"
+      ],
+      "dependencies": ["phase_1_stage_1"],
+      "risks": [
+        "Classification too narrow, missing relevant accumulation scheme literature",
+        "Classification too broad, including irrelevant proof system research"
+      ],
+      "status": "not_started"
+    },
+    {
+      "id": "phase_1_stage_3",
+      "phase_id": "phase_1",
+      "name": "Prior-Art Landscape Mapped",
+      "goal": "Build a structured map of relevant papers, folding constructions, and baseline methods, focusing on verifier circuit cost analysis.",
+      "rationale": "Prior-art mapping is essential before claiming any optimization. The zkp-research domain rule 'literature_before_novelty_claim' requires this. The map must identify verifier circuit costs in existing schemes to establish the baseline for improvement claims.",
+      "acceptance_criteria": [
+        "Important related works are identified: at minimum Nova, SuperNova, HyperNova, Protostar, ProtoGalaxy",
+        "Each prior work has relevance notes explaining its connection to the optimization target",
+        "Verifier circuit costs are noted for each prior work where available",
+        "Gaps or limitations in existing schemes are summarized (especially verifier circuit bottlenecks)"
+      ],
+      "inputs": [
+        "domain classification from phase_1_stage_2",
+        "relevant protocol families from phase_1_stage_2"
+      ],
+      "outputs": [
+        "prior-art table with scheme name, verifier circuit cost, prover cost, proof size, assumptions, and relevance notes",
+        "baseline candidates: Nova, SuperNova, HyperNova, Protostar, ProtoGalaxy",
+        "known limitations and verifier circuit bottlenecks in existing schemes"
+      ],
+      "dependencies": ["phase_1_stage_2"],
+      "risks": [
+        "Missing critical prior work that already solves the proposed optimization",
+        "Insufficient verifier circuit cost data in existing literature",
+        "Prior-art table too large and unfocused"
+      ],
+      "status": "not_started"
+    },
+    {
+      "id": "phase_1_stage_4",
+      "phase_id": "phase_1",
+      "name": "Contribution Hypothesis Defined",
+      "goal": "State what kind of research contribution the project may produce, the novelty expectation, and the evaluation method.",
+      "rationale": "The contribution hypothesis guides the entire downstream project. It must be explicit about whether the output is a new folding scheme, a modification of an existing scheme, or a general optimization technique. Overclaiming novelty is a common anti-pattern identified in zkp-research rules.",
+      "acceptance_criteria": [
+        "Contribution type is explicit (new scheme, modification of existing scheme, or general technique)",
+        "Novelty is not overstated — it is qualified relative to the prior-art map",
+        "Evaluation path is realistic and tied to the success criteria from project_context",
+        "The contribution hypothesis is falsifiable — it can be disproven by security analysis or complexity analysis"
+      ],
+      "inputs": [
+        "refined research question from phase_1_stage_1",
+        "prior-art map from phase_1_stage_3",
+        "known limitations from phase_1_stage_3"
+      ],
+      "outputs": [
+        "contribution hypothesis: e.g., 'a modified folding scheme that reduces verifier circuit size by N% compared to Nova while preserving knowledge soundness under the same assumptions'",
+        "novelty expectation relative to prior art",
+        "evaluation method: formal proof + complexity analysis + benchmark comparison"
+      ],
+      "dependencies": ["phase_1_stage_3"],
+      "risks": [
+        "Contribution hypothesis too vague to guide downstream phases",
+        "Overclaiming novelty without sufficient prior-art differentiation",
+        "Evaluation method unrealistic given project scope"
+      ],
+      "status": "not_started"
+    }
+  ],
+  "stage_dependency_edges": [
+    ["phase_1_stage_1", "phase_1_stage_2"],
+    ["phase_1_stage_2", "phase_1_stage_3"],
+    ["phase_1_stage_3", "phase_1_stage_4"]
+  ],
+  "phase_coverage": {
+    "phase_goal_covered": true,
+    "phase_outputs_covered": [
+      {
+        "phase_output": "clarified research question",
+        "covered_by_stage_ids": ["phase_1_stage_1"]
+      },
+      {
+        "phase_output": "ZKP subdomain classification",
+        "covered_by_stage_ids": ["phase_1_stage_2"]
+      },
+      {
+        "phase_output": "prior-art map",
+        "covered_by_stage_ids": ["phase_1_stage_3"]
+      },
+      {
+        "phase_output": "contribution hypothesis",
+        "covered_by_stage_ids": ["phase_1_stage_4"]
+      },
+      {
+        "phase_output": "terminology and notation baseline",
+        "covered_by_stage_ids": ["phase_1_stage_1", "phase_1_stage_2"]
+      },
+      {
+        "phase_output": "research scope and non-goals",
+        "covered_by_stage_ids": ["phase_1_stage_1", "phase_1_stage_4"]
+      }
+    ],
+    "phase_acceptance_criteria_covered": [
+      {
+        "phase_acceptance_criterion": "research question is explicit and technically meaningful",
+        "covered_by_stage_ids": ["phase_1_stage_1"]
+      },
+      {
+        "phase_acceptance_criterion": "target ZKP subdomain is identified",
+        "covered_by_stage_ids": ["phase_1_stage_2"]
+      },
+      {
+        "phase_acceptance_criterion": "key prior works or baseline protocols are listed",
+        "covered_by_stage_ids": ["phase_1_stage_3"]
+      },
+      {
+        "phase_acceptance_criterion": "expected contribution type is clear",
+        "covered_by_stage_ids": ["phase_1_stage_4"]
+      },
+      {
+        "phase_acceptance_criterion": "scope excludes irrelevant engineering/product tasks",
+        "covered_by_stage_ids": ["phase_1_stage_1", "phase_1_stage_4"]
+      },
+      {
+        "phase_acceptance_criterion": "terminology is consistent enough for formal modeling",
+        "covered_by_stage_ids": ["phase_1_stage_1", "phase_1_stage_2"]
+      }
+    ],
+    "coverage_notes": [
+      "All 6 phase outputs are covered by at least one stage",
+      "All 6 phase acceptance criteria are covered by at least one stage",
+      "Terminology and notation baseline is spread across stages 1 and 2, which is appropriate since notation is established incrementally"
+    ]
+  },
+  "expansion_assumptions": [
+    "The 4-stage structure follows the P1 typical_stages from the zkp-research domain template",
+    "Stages are sequentially ordered since each depends on outputs from the prior stage",
+    "The contribution hypothesis in stage 4 depends on the prior-art analysis in stage 3",
+    "Verifier circuit cost is the primary metric but other metrics will be tracked for tradeoff analysis"
+  ],
+  "unresolved_questions": [
+    {
+      "id": "UQ1",
+      "question": "Should the optimization target R1CS-based folding (Nova-style) or Plonkish/arithmetic-based folding (Protostar-style), or both?",
+      "impact": "Affects the arithmetization model and verifier circuit structure in stage 1 and stage 3",
+      "priority": "high",
+      "handling_strategy": "defer_to_step_planning"
+    },
+    {
+      "id": "UQ2",
+      "question": "Is the output a new folding scheme, a modification of an existing scheme, or a general technique applicable to multiple schemes?",
+      "impact": "Determines the contribution hypothesis in stage 4",
+      "priority": "high",
+      "handling_strategy": "defer_to_step_planning"
+    }
+  ],
+  "validation_notes": {
+    "target_phase_found": true,
+    "stage_count_valid": true,
+    "dependency_valid": true,
+    "phase_coverage_valid": true,
+    "no_steps_generated": true
+  },
+  "next_action": {
+    "recommended_skill": "validate_stage_dag",
+    "reason": "Stage DAG is generated for phase_1 and appears valid. It should be validated before step expansion.",
+    "suggested_target_stage_id": "phase_1_stage_1"
+  }
+}

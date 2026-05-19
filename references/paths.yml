@@ -1,36 +1,116 @@
 # Path conventions for the GuideTree plugin output
 # All paths are relative to PROJECT_ROOT
+# Directory structure: guidetree/phases/phase-<NN>-<name>/stages/stage-<NN>-<name>/step-<NN>-<name>.md
 
-schema_version: "guidetree.paths.v0.1"
+schema_version: "guidetree.paths.v0.3"
 
-worktree_root: "guidetree_output"
+worktree_root: "guidetree"
 
 state:
-  project_state: "guidetree_output/project.state.yaml"
-  phase_state: "guidetree_output/phases/phase.state.yaml"
-  stage_state: "guidetree_output/phases/stages/stage.state.yaml"
+  project_state: "guidetree/project.state.yaml"
+  phase_state: "guidetree/phases/phase-<NN>-<name>/phase.state.yaml"
+  stage_state: "guidetree/phases/phase-<NN>-<name>/stages/stage-<NN>-<name>/stage.state.yaml"
 
 artifacts:
-  project_context: "guidetree_output/project_context.json"
-  phase_skeleton: "guidetree_output/phase_skeleton.json"
-  phase_dependency_edges: "guidetree_output/phase_dependency_edges.json"
-  stage_dag: "guidetree_output/phases/stage_dag.json"
-  stage_dependency_edges: "guidetree_output/phases/stage_dependency_edges.json"
-  steps: "guidetree_output/phases/stages/steps.json"
-  step_dependency_edges: "guidetree_output/phases/stages/step_dependency_edges.json"
-  step_execution_results: "guidetree_output/phases/stages/step_execution_results.json"
-  stage_validation_results: "guidetree_output/phases/stages/stage_validation_results.json"
-  phase_validation_results: "guidetree_output/phases/phase_validation_results.json"
-  project_validation_result: "guidetree_output/project_validation_result.json"
+  project_context: "guidetree/project_context.json"
+  phase_skeleton: "guidetree/phase_skeleton.json"
+  phase_dependency_edges: "guidetree/phase_dependency_edges.json"
+  stage_dag: "guidetree/phases/phase-<NN>-<name>/stage_dag.json"
+  stage_dependency_edges: "guidetree/phases/phase-<NN>-<name>/stage_dependency_edges.json"
+  steps: "guidetree/phases/phase-<NN>-<name>/stages/stage-<NN>-<name>/steps.json"
+  step_dependency_edges: "guidetree/phases/phase-<NN>-<name>/stages/stage-<NN>-<name>/step_dependency_edges.json"
+  step_execution_results: "guidetree/phases/phase-<NN>-<name>/stages/stage-<NN>-<name>/step_execution_results.json"
+  stage_validation_results: "guidetree/phases/phase-<NN>-<name>/stages/stage-<NN>-<name>/stage_validation_results.json"
+  phase_validation_results: "guidetree/phases/phase-<NN>-<name>/phase_validation_results.json"
+  project_validation_result: "guidetree/project_validation_result.json"
 
-execution_history: "guidetree_output/execution_history.json"
+execution_history: "guidetree/execution_history.json"
 
-shared:
-  rules: "_shared/acceptance_criteria_rules.md"
+references:
+  project_level: "guidetree/references/"
+  phase_level: "guidetree/phases/phase-<NN>-<name>/references/"
+
+templates:
+  root: "references/templates"
+  core_rules: "references/templates/core/rules"
+  domains: "references/templates/domains"
+  available_domains:
+    - id: "academic-research"
+      name: "Academic Research"
+      path: "references/templates/domains/academic-research"
+    - id: "literature-review"
+      name: "Literature Review"
+      path: "references/templates/domains/literature-review"
+    - id: "idea-generation"
+      name: "Idea Generation"
+      path: "references/templates/domains/idea-generation"
+    - id: "experiment"
+      name: "Experiment"
+      path: "references/templates/domains/experiment"
+    - id: "paper-writing"
+      name: "Paper Writing"
+      path: "references/templates/domains/paper-writing"
+    - id: "patent-filing"
+      name: "Patent Filing"
+      path: "references/templates/domains/patent-filing"
+    - id: "code-implementation"
+      name: "Code Implementation"
+      path: "references/templates/domains/code-implementation"
+    - id: "research-audit"
+      name: "Research Audit"
+      path: "references/templates/domains/research-audit"
+    - id: "zkp-research"
+      name: "Zero-Knowledge Proof Research"
+      path: "references/templates/domains/zkp-research"
+
+template_file_conventions:
+  description: >
+    Each domain template directory contains single-concern YAML files
+    and a phases/ subdirectory with per-phase definitions.
+  files:
+    template: "template.yaml"         # Identity and scope
+    guidelines: "guidelines.yaml"     # Decomposition guidance
+    rules: "rules.yaml"               # Hard constraints
+    standards: "standards.yaml"        # Quality criteria
+    examples: "examples.yaml"         # Examples and usage
+  phases_dir: "phases/"
+  phase_file_pattern: "P<NN>.yaml"    # e.g. P1.yaml, P2.yaml
+
+id_to_directory_mapping:
+  description: >
+    Convention for resolving skill output IDs to filesystem paths.
+    Skills output IDs like phase_1, phase_1_stage_1, phase_1_stage_1_step_1.
+    The runtime converts these to directory/file names as follows.
+  phase:
+    id_pattern: "phase_<N>"
+    dir_pattern: "phase-<NN>-<slug>"
+    conversion: >
+      Extract N from phase_<N>, zero-pad to NN.
+      Derive slug from the phase name: lowercase, replace non-alphanumeric with hyphens, collapse multiple hyphens.
+      Example: phase_1 with name "Research Framing" -> phase-01-research-framing/
+  stage:
+    id_pattern: "phase_<N>_stage_<M>"
+    dir_pattern: "stage-<MM>-<slug>"
+    conversion: >
+      Extract M from the stage ID, zero-pad to MM.
+      Derive slug from the stage name using the same rules.
+      Example: phase_1_stage_1 with name "Research Objective Clarified" -> stage-01-research-objective-clarified/
+  step:
+    id_pattern: "phase_<N>_stage_<M>_step_<K>"
+    file_pattern: "step-<KK>-<slug>.md"
+    conversion: >
+      Extract K, zero-pad to KK. Derive slug from step name.
+      Example: phase_1_stage_1_step_1 with name "Refine Research Question" -> step-01-refine-research-question.md
+  phase_id_to_template_file:
+    description: >
+      To construct template_ref.phase_file for a target phase, map phase_1 to P1.yaml,
+      phase_2 to P2.yaml, etc. The mapping is: phase_<N> -> P<N>.yaml in the template's phases/ directory.
 
 naming:
-  phase_prefix: "phase_"
-  stage_prefix: "stage_"
-  step_prefix: "step_"
-  convention: "snake_case"
-  zero_padded: false
+  phase_dir_prefix: "phase-"
+  stage_dir_prefix: "stage-"
+  step_file_prefix: "step-"
+  convention: "kebab-case"
+  zero_padded: true
+  phase_wrapper: "phases/"
+  stage_wrapper: "stages/"

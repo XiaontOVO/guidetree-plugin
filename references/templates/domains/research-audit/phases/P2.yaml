@@ -1,0 +1,87 @@
+phase:
+  id: P2
+  name: Citation Audit
+  purpose: >
+    Verify every citation across three layers: existence (is the paper real?),
+    metadata (does the citation match the actual paper?), and context (does the
+    citation support the claim it is used for?). Misattribution is more damaging
+    than a metadata typo.
+
+  when_to_use: >
+    Use for any audit where the manuscript contains citations. Skip only if the
+    paper has no references. If claims verification (P1) has been completed, the
+    citation context check can leverage the claims inventory.
+
+  inputs:
+    - manuscript text with citations
+    - claims inventory from P1 (if available)
+    - access to DBLP, CrossRef, and publisher databases
+
+  outputs:
+    - citation inventory with manuscript locations
+    - existence verification results
+    - metadata verification results with corrections
+    - context verification results with misattribution flags
+    - issues classified by layer and severity
+    - replacement recommendations following DBLP -> CrossRef -> [VERIFY] chain
+
+  acceptance_criteria:
+    - every citation checked across all 3 layers
+    - existence verified via authoritative databases (DBLP, CrossRef, publisher)
+    - metadata mismatches flagged with correct values
+    - context misattributions flagged with explanation
+    - replacement citations follow DBLP -> CrossRef -> [VERIFY] chain
+    - no fabricated replacement citations
+
+  typical_stages:
+    - id: P2.S1
+      name: Existence Verification
+      goal: >
+        Verify that every cited paper actually exists via authoritative
+        databases. Flag fabricated or non-existent citations.
+      outputs:
+        - existence check result for each citation
+        - verified database source (DBLP, CrossRef, publisher)
+        - flags for missing or fabricated citations
+      acceptance_criteria:
+        - every citation checked against at least one authoritative database
+        - non-existent citations clearly flagged
+        - verification source recorded
+
+    - id: P2.S2
+      name: Metadata Verification
+      goal: >
+        Verify that each citation's metadata (author names, year, venue, title)
+        matches the actual paper.
+      outputs:
+        - metadata correctness report for each citation
+        - corrected metadata entries for mismatches
+        - severity classification for metadata errors
+      acceptance_criteria:
+        - author names, year, venue, and title verified
+        - mismatches include the correct values
+        - severity reflects potential impact (wrong year vs. wrong paper)
+
+    - id: P2.S3
+      name: Context Verification
+      goal: >
+        Verify that each citation actually supports the claim it is used for.
+        Check for misattribution, overstatement, and reversed findings.
+      outputs:
+        - context appropriateness assessment per citation
+        - misattribution flags with explanation
+        - overstatement flags
+        - reversed finding flags
+      acceptance_criteria:
+        - each citation checked for whether it supports the cited claim
+        - misattributions include specific explanation of the gap
+        - overstated citations note what the paper actually says
+        - reversed findings flagged as critical severity
+
+  common_risks:
+    - checking existence and metadata but skipping context (most impactful layer)
+    - accepting citation at face value because the paper "seems right"
+    - fabricating replacement citations when originals fail
+    - misattribution in subtle claims (e.g., citing a survey for a specific result)
+    - citations to preprints that differ from published versions
+    - self-citations that inflate perceived support

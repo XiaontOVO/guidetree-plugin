@@ -1,0 +1,93 @@
+phase:
+  id: P3
+  name: Claim Drafting
+  purpose: >
+    Draft the claims that define the legal boundary of the patent. Produce
+    separate claim sets per jurisdiction with correct antecedent basis,
+    transitional phrases, and format rules. Subject the claims to examiner-
+    level review before proceeding.
+
+  when_to_use: >
+    Use after P2 (Invention Structuring) is complete. Claims must be drafted
+    from the structured PSA framework and feature decomposition, not from raw
+    disclosure.
+
+  inputs:
+    - Problem-Solution-Advantage statement from P2
+    - feature decomposition from P2
+    - claimable subject matter types from P2
+    - claim dependency map from P2
+    - target jurisdiction(s)
+
+  outputs:
+    - independent claims covering core inventive concept (broadest defensible scope)
+    - dependent claims adding specific limitations
+    - separate claim sets for CN, US, and EP as applicable
+    - antecedent basis verification
+    - examiner review of drafted claims
+
+  acceptance_criteria:
+    - independent claims cover the core inventive concept only (no non-essential elements)
+    - every dependent claim adds a limitation to its parent
+    - antecedent basis is correct throughout (first "a/an", then "the/said")
+    - no "result-to-be-achieved" language in any claim
+    - each jurisdiction claim set follows its format rules
+    - CN: two-part form (preamble + characterizing portion)
+    - US: open transitional phrases ("comprising"), means-plus-function where appropriate
+    - EP: mandatory two-part form per EPC Guidelines
+    - examiner review completed with all Critical issues resolved
+
+  typical_stages:
+    - id: P3.S1
+      name: Independent Claims Drafted
+      goal: >
+        Draft independent claims that cover the core inventive concept at the
+        broadest defensible scope, with correct antecedent basis and
+        jurisdiction-appropriate format.
+      outputs:
+        - independent claims
+        - antecedent basis verification
+        - jurisdiction-specific independent claim variants
+      acceptance_criteria:
+        - independent claims contain only essential elements
+        - transitional phrase is "comprising" (open-ended) unless justified otherwise
+        - antecedent basis is correct for every noun phrase
+        - no result-to-be-achieved language
+        - jurisdiction-specific format applied (two-part for CN/EP, open for US)
+
+    - id: P3.S2
+      name: Dependent Claims Drafted
+      goal: >
+        Draft dependent claims that provide narrower fallback positions, each
+        adding a specific limitation to its parent claim.
+      outputs:
+        - dependent claims
+        - fallback coverage map
+      acceptance_criteria:
+        - every dependent claim adds a limitation to its parent
+        - dependent claims cover supporting and optional features from P2
+        - fallback positions narrow from broad to specific
+        - antecedent basis is correct for new elements introduced in dependent claims
+
+    - id: P3.S3
+      name: Claims Reviewed
+      goal: >
+        Subject the drafted claims to examiner-level review for clarity,
+        antecedent basis, scope, and jurisdiction compliance.
+      outputs:
+        - claim review report
+        - issue classification by severity
+        - resolution status
+      acceptance_criteria:
+        - review covers clarity, antecedent basis, claim scope, jurisdiction compliance
+        - issues classified as Critical / Important / Minor
+        - all Critical issues resolved
+
+  common_risks:
+    - independent claims that are too narrow (include non-essential elements)
+    - independent claims that are too broad (anticipated by prior art)
+    - missing or incorrect antecedent basis
+    - result-to-be-achieved language in claims
+    - single claim set used for all jurisdictions
+    - dependent claims that do not add limitations
+    - examiner review skipped or self-reviewed

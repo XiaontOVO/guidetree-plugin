@@ -1,0 +1,73 @@
+phase:
+  id: P4
+  name: Review
+  purpose: >
+    Conduct a mandatory two-stage code review at defined checkpoints. A fresh
+    reviewer with zero prior context and a different model family ensures
+    independence. Stage 1 checks spec compliance: does the code implement what
+    the spec requires? Stage 2 checks code quality: is the code clean, tested,
+    and well-structured? All Critical and Important issues must be resolved
+    before proceeding to integration.
+
+  when_to_use: >
+    Use for all code implementation projects that have completed
+    implementation. Review is mandatory -- there are no exceptions for "small
+    changes" or "obviously correct" code. Even one-line fixes get reviewed.
+
+  inputs:
+    - approved design specification
+    - implementation code and tests
+    - spec compliance notes from P3.S3 (if available)
+    - code quality notes from P3.S4 (if available)
+
+  outputs:
+    - two-stage review report (spec compliance then code quality)
+    - issue classification (Critical / Important / Minor)
+    - fix verification for all Critical and Important issues
+    - Minor issues logged for future consideration
+
+  acceptance_criteria:
+    - fresh reviewer dispatched (different model family, zero prior context)
+    - two-stage review completed in order (spec compliance then code quality)
+    - all issues classified by severity (Critical / Important / Minor)
+    - all Critical and Important issues resolved and verified
+    - Minor issues logged
+    - no unresolved spec violations
+
+  typical_stages:
+    - id: P4.S1
+      name: Code Review Completed
+      goal: >
+        Dispatch a fresh reviewer subagent to conduct a two-stage review.
+        Stage 1: spec compliance. Stage 2: code quality. Classify all issues.
+      outputs:
+        - spec compliance report
+        - code quality report
+        - issue classification
+      acceptance_criteria:
+        - fresh subagent dispatched (different model family, zero prior context)
+        - spec compliance reviewed first
+        - code quality reviewed second
+        - every issue classified as Critical, Important, or Minor
+
+    - id: P4.S2
+      name: Critical and Important Issues Fixed
+      goal: >
+        Resolve all Critical and Important issues identified in the review.
+        Verify fixes with regression tests.
+      outputs:
+        - fixes applied
+        - regression tests passing
+        - issue resolution log
+      acceptance_criteria:
+        - all Critical issues resolved
+        - all Important issues resolved
+        - regression tests pass after fixes
+        - Minor issues logged (not required to fix now)
+
+  common_risks:
+    - reviewer is not independent (same agent that wrote the code)
+    - spec compliance and code quality conflated into one review
+    - Critical issues marked as Important to avoid fixing
+    - review does not verify fixes, only identifies issues
+    - Minor issues treated as optional and forgotten

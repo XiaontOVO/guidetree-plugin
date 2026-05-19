@@ -1,0 +1,147 @@
+{
+  "skill": "create_project_context",
+  "version": "1.0.0",
+  "summary": "Initialized project context for research on folding scheme optimization for recursive zkSNARKs with smaller verifier circuits. The project targets the recursive_proof_or_folding_research pattern in the zkp-research domain, aiming to reduce verifier circuit size in folding-based recursive proof composition.",
+  "explicit_information": {
+    "project_goal_raw": "Folding scheme optimization for recursive zkSNARKs with smaller verifier circuits",
+    "mentioned_requirements": [
+      "Optimize folding scheme for recursive zkSNARKs",
+      "Reduce verifier circuit size in recursive composition"
+    ],
+    "mentioned_constraints": [],
+    "mentioned_success_criteria": [
+      "Smaller verifier circuits than existing folding schemes"
+    ],
+    "mentioned_users": [
+      "ZKP protocol researchers",
+      "Recursive proof system designers"
+    ],
+    "mentioned_assets": [],
+    "mentioned_non_goals": []
+  },
+  "inferred_information": {
+    "likely_project_type": "protocol_optimization",
+    "likely_target_users": [
+      {
+        "name": "ZKP protocol researchers",
+        "reason": "The project involves cryptographic protocol optimization, the primary audience is researchers working on folding schemes and recursive proof systems",
+        "confidence": "high"
+      },
+      {
+        "name": "Recursive proof system implementers",
+        "reason": "Smaller verifier circuits directly benefit engineers implementing recursive proof systems in production",
+        "confidence": "medium"
+      },
+      {
+        "name": "zkVM designers",
+        "reason": "Folding schemes with smaller verifier circuits are relevant to zkVM architectures that use recursive proof composition",
+        "confidence": "low"
+      }
+    ],
+    "likely_business_objectives": [
+      {
+        "objective": "Advance the state of the art in recursive proof composition efficiency",
+        "reason": "The explicit goal is optimization of verifier circuits, which is a recognized bottleneck in folding-based recursive SNARKs",
+        "confidence": "high"
+      },
+      {
+        "objective": "Enable more practical recursive proof systems with lower on-chain verification cost",
+        "reason": "Smaller verifier circuits reduce on-chain verification gas cost and recursive proof overhead",
+        "confidence": "medium"
+      }
+    ]
+  },
+  "project_context": {
+    "project_id": "folding-scheme-recursive-zksnark-opt",
+    "project_name": "Folding Scheme Optimization for Recursive zkSNARKs",
+    "project_goal": "Research and develop an optimized folding scheme for recursive zkSNARKs that achieves smaller verifier circuits compared to existing approaches (Nova, SuperNova, HyperNova, Protostar), while preserving soundness and completeness. The optimization target is the recursive verifier circuit size, which is the primary bottleneck in folding-based proof composition.",
+    "template_id": "academic-research",
+    "background": "Folding schemes (Nova, SuperNova, HyperNova, Protostar) enable efficient recursive proof composition by folding two instances of an NP relation into one. The verifier circuit in these schemes is the dominant cost in recursive composition. Reducing verifier circuit size directly improves recursive proof efficiency, lowers on-chain verification cost, and enables deeper recursion within practical constraints.",
+    "target_users": [
+      {
+        "name": "ZKP protocol researchers",
+        "description": "Researchers working on folding schemes, recursive proofs, and proof composition",
+        "confidence": "high"
+      },
+      {
+        "name": "Recursive proof system implementers",
+        "description": "Engineers implementing recursive proof systems in zkVM or rollup architectures",
+        "confidence": "medium"
+      }
+    ],
+    "business_objectives": [
+      "Advance the state of the art in recursive proof composition efficiency",
+      "Enable more practical recursive proof systems with lower on-chain verification cost"
+    ],
+    "success_criteria": [
+      "Formal definition of the optimized folding scheme with explicit relation, witness, and public input",
+      "Verifier circuit size strictly smaller than baseline folding schemes under comparable parameter settings",
+      "Security analysis proving completeness, knowledge soundness, and zero-knowledge (if applicable) under stated assumptions",
+      "Complexity comparison table showing prover time, verifier time, proof size, and verifier circuit constraint count vs baselines",
+      "Prototype implementation demonstrating the folding scheme with benchmark results under at least two parameter settings"
+    ],
+    "known_requirements": [
+      "The scheme must support recursive composition via folding",
+      "The optimization target is verifier circuit size (constraint count or gate count)",
+      "Security must not be weakened by the optimization"
+    ],
+    "known_constraints": {
+      "deadline": null,
+      "budget": null,
+      "team": [],
+      "tech_stack": [],
+      "compliance": [],
+      "deployment_environment": null
+    },
+    "existing_assets": [],
+    "non_goals": [
+      "Production-grade blockchain integration or deployment",
+      "Smart contract development",
+      "Tokenomics or economic model design",
+      "Frontend application development",
+      "General zkVM construction (focus is on the folding scheme itself)"
+    ],
+    "risks": [
+      "Verifier circuit reduction may increase prover cost or proof size, requiring careful tradeoff analysis",
+      "The optimization may only apply to specific circuit classes or relation types, limiting generality",
+      "Security proof may reveal that circuit reduction introduces new attack vectors",
+      "Prior work may already cover the proposed optimization approach"
+    ],
+    "assumptions": [
+      "The project follows the recursive_proof_or_folding_research pattern as defined in the zkp-research domain template",
+      "The target baseline protocols include Nova, SuperNova, HyperNova, and Protostar",
+      "Folding schemes operate over elliptic curve cycles or algebraic structures suitable for recursion",
+      "The research output will be a research report and/or protocol specification, not a production system",
+      "The verifier circuit is measured in R1CS constraints or Plonkish gate count"
+    ],
+    "open_questions": [
+      {
+        "id": "OQ1",
+        "question": "Should the optimization target R1CS-based folding (Nova-style) or Plonkish/arithmetic-based folding (Protostar-style), or both?",
+        "impact": "Determines the arithmetization model, which affects the verifier circuit structure and optimization approach",
+        "priority": "high"
+      },
+      {
+        "id": "OQ2",
+        "question": "Is the output expected to be a new folding scheme, a modification of an existing scheme, or a general technique applicable to multiple schemes?",
+        "impact": "Determines whether the project follows protocol_optimization or new_protocol_construction pattern",
+        "priority": "high"
+      },
+      {
+        "id": "OQ3",
+        "question": "Should the project include a full prototype implementation or is a cost-model analysis sufficient for feasibility demonstration?",
+        "impact": "Affects scope of the prototype/benchmark phase and resource requirements",
+        "priority": "medium"
+      }
+    ],
+    "readiness": {
+      "ready_for_phase_planning": true,
+      "confidence": 0.85,
+      "reason": "The project has a clear research goal (verifier circuit optimization in folding schemes), an identifiable target area (recursive zkSNARKs), known baseline protocols for comparison, and concrete success criteria. The open questions affect scope details but not the fundamental project viability."
+    }
+  },
+  "next_action": {
+    "recommended_skill": "generate_phase_skeleton",
+    "reason": "Project context is initialized with a clear goal, identifiable domain, and sufficient readiness for phase-level planning. The zkp-research domain template should be used to guide phase generation."
+  }
+}

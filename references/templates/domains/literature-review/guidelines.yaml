@@ -1,0 +1,134 @@
+phase_decomposition_guidelines:
+  - name: discover_before_reading
+    rule: >
+      Literature review must begin with a discovery phase that searches Zotero
+      first, then external sources. Do not start reading papers before the
+      candidate list is assembled and scored.
+    rationale: >
+      Premature reading without comprehensive discovery produces biased coverage
+      and redundant effort when better papers are found later.
+
+  - name: triage_before_deep_analysis
+    rule: >
+      All candidate papers must be triaged (quick-read and scored) before any
+      paper enters deep analysis. Deep analysis is expensive and should be
+      reserved for must-analyze papers only.
+    rationale: >
+      Deep-analyzing every discovered paper wastes effort on marginally relevant
+      or low-quality work. Triage ensures resources go to the papers that matter.
+
+  - name: analyze_before_comparing
+    rule: >
+      Each paper must have a completed structured analysis before it enters the
+      comparison matrix. Comparison from abstracts or triage notes alone is not
+      valid.
+    rationale: >
+      Comparison without deep analysis produces superficial matrices that miss
+      methodological differences and hidden contradictions.
+
+  - name: zotero_as_single_pool
+    rule: >
+      Zotero is the single source of truth for the paper library. Search Zotero
+      first, add external papers immediately, select papers from Zotero only.
+      No shadow lists.
+    rationale: >
+      Maintaining multiple paper lists leads to duplicates, lost references, and
+      inconsistent metadata. A single pool ensures integrity and auditability.
+
+  - name: score_on_merit_not_provenance
+    rule: >
+      Papers are scored on relevance, novelty, and quality regardless of source.
+      A paper from Zotero gets no relevance bonus. A paper from a top venue
+      gets no quality bonus. Analysis scores handle quality assessment.
+    rationale: >
+      Provenance bias distorts the review toward familiar or prestigious sources
+      and obscures relevant work from less visible outlets.
+
+  - name: network_free_analysis
+    rule: >
+      Deep analysis (P3) operates from local storage only. No network calls
+      during analysis. Network access is permitted only in discovery (P1) and
+      library management (P5).
+    rationale: >
+      Network-dependent analysis is not reproducible and can silently change
+      results if sources update or disappear. Analysis must be deterministic.
+
+  - name: honest_gaps_over_fabricated_certainty
+    rule: >
+      Unknown or uncertain information must be marked [?]. Papers that cannot be
+      read must be marked [UNREADABLE]. Never fabricate findings, results, or
+      claims for a paper.
+    rationale: >
+      A review with honest gaps is infinitely more useful than one with
+      fabricated certainty. Fabricated claims propagate errors into every
+      downstream comparison and synthesis.
+
+  - name: ingest_as_you_search
+    rule: >
+      Papers discovered via external sources must be added to Zotero the moment
+      they are found. Do not defer imports to a later step.
+    rationale: >
+      Deferred imports create temporary shadow lists that violate the single-pool
+      principle and risk duplicate discoveries.
+
+recommended_phase_pattern:
+  - name: phase_1
+    title: Paper Discovery and Search
+  - name: phase_2
+    title: Reading and Triage
+  - name: phase_3
+    title: Deep Analysis
+  - name: phase_4
+    title: Comparison and Synthesis
+  - name: phase_5
+    title: Library Management and Maintenance
+
+recommended_stage_types:
+  - type: discovery_stage
+    purpose: search Zotero and external sources for candidate papers
+    typical_outputs:
+      - ranked paper list with composite scores
+      - search log
+      - all external papers added to Zotero
+
+  - type: venue_search_stage
+    purpose: ensure comprehensive coverage of specific conferences or journals
+    typical_outputs:
+      - venue paper list
+      - new papers added to Zotero with venue metadata
+      - updated discovery list
+
+  - type: triage_stage
+    purpose: quick-read and score papers for relevance, novelty, readability
+    typical_outputs:
+      - triage summary with per-paper scores and tier assignments
+      - brief reading notes
+      - tier classification (must-analyze / maybe / skip)
+
+  - type: deep_analysis_stage
+    purpose: produce thorough structured analysis of a single paper
+    typical_outputs:
+      - structured analysis markdown
+      - five-dimension scores (methodology rigor, evidence strength, novelty, clarity, project relevance)
+      - analysis index entry
+
+  - type: comparison_stage
+    purpose: compare analyzed papers side-by-side in a structured matrix
+    typical_outputs:
+      - 9-column comparison matrix
+      - cluster analysis
+      - gap analysis
+
+  - type: synthesis_stage
+    purpose: consolidate findings into a literature positioning or summary
+    typical_outputs:
+      - synthesis narrative
+      - research landscape map
+      - gap and opportunity list
+
+  - type: library_management_stage
+    purpose: maintain Zotero library integrity and completeness
+    typical_outputs:
+      - audit report
+      - import log
+      - structured notes attached to items

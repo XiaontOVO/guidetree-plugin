@@ -1,0 +1,99 @@
+bad_plan:
+  phases:
+    - Research
+    - Design
+    - Implementation
+    - Testing
+    - Delivery
+
+why_bad:
+  - does not identify project type (greenfield, feature, refactoring, spike)
+  - no requirements exploration
+  - no approach selection with trade-offs
+  - no design spec as contract
+  - no implementation plan with exact code
+  - no TDD enforcement
+  - "Testing" is a phase instead of embedded in implementation
+  - no code review
+  - no integration choice
+  - no worktree isolation
+
+good_plan:
+  phases:
+    - id: P1
+      name: Design and Brainstorming
+      outputs:
+        - clarified requirements
+        - 2-3 approaches with trade-offs
+        - user-selected direction
+        - approved design spec
+
+    - id: P2
+      name: Planning
+      outputs:
+        - ordered task list mapping to spec requirements
+        - exact code per task (zero placeholders)
+        - file structure map
+        - self-review confirming spec coverage
+
+    - id: P3
+      name: Implementation
+      outputs:
+        - git worktree and feature branch
+        - failing tests written before production code
+        - minimal passing code
+        - refactored code with all tests passing
+        - commits per TDD cycle
+
+    - id: P4
+      name: Review
+      outputs:
+        - spec compliance report
+        - code quality report
+        - issue classification
+        - all Critical and Important issues resolved
+
+    - id: P5
+      name: Integration
+      outputs:
+        - all tests pass on target branch
+        - user-chosen integration option (merge/PR/keep/discard)
+        - chosen option executed
+        - worktree cleaned up
+
+usage_in_guidetree:
+  create_project_context:
+    use_for:
+      - identifying whether the project is truly a code implementation project
+      - classifying the project type (greenfield, feature, refactoring, spike)
+      - detecting missing requirements
+      - detecting non-goals
+
+  generate_phase_skeleton:
+    use_for:
+      - selecting appropriate phase pattern based on project type
+      - avoiding generic research phases
+      - ensuring design and review phases exist when required
+
+  validate_phase_skeleton:
+    use_for:
+      - checking whether design, planning, review, and integration phases are present when required
+      - rejecting invalid generic plans
+      - rejecting plans that skip TDD or review
+
+  expand_phase_to_stage_dag:
+    use_for:
+      - selecting stage types appropriate to each phase
+      - enforcing dependency rules (design before plan, test before code, review before merge)
+      - preventing implementation stages from appearing before planning stages
+
+  validate_stage_dag:
+    use_for:
+      - checking stage boundaries
+      - checking dependency order
+      - checking that design spec, plan, and review artifacts flow correctly
+
+  expand_stage_to_steps:
+    use_for:
+      - generating concrete implementation tasks
+      - ensuring steps produce design specs, implementation plans, failing tests, passing code, or review reports

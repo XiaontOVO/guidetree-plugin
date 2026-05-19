@@ -1,0 +1,175 @@
+dependency_rules:
+  - rule: prior_art_before_novelty_claim
+    description: >
+      Do not claim novelty before completing a systematic prior art search and
+      element-by-element analysis against identified references.
+
+  - rule: structure_before_claims
+    description: >
+      Claims must be drafted from a structured Problem-Solution-Advantage
+      framework and feature decomposition. Do not draft claims from raw
+      invention disclosure alone.
+
+  - rule: claims_before_specification
+    description: >
+      The specification must support the claims. Claims must be drafted first
+      so the specification can be written to provide adequate support,
+      enablement, and written description.
+
+  - rule: review_before_filing
+    description: >
+      No filing package may be compiled before the complete application passes
+      examiner-level review with all Critical issues resolved.
+
+  - rule: antecedent_basis_must_be_verified
+    description: >
+      Every noun phrase in every claim must have correct antecedent basis:
+      first introduction with "a" or "an", subsequent reference with "the" or
+      "said". This must be verified before proceeding from claim drafting.
+
+  - rule: terminology_consistency_across_sections
+    description: >
+      Terms defined in the claims must be used consistently in the
+      specification and drawings. A term introduced in one section must not
+      carry a different meaning in another.
+
+  - rule: claim_support_must_be_verified
+    description: >
+      Every claim element must have corresponding specification text. A
+      claim-element-to-specification mapping must be produced and verified
+      before the specification phase is complete.
+
+  - rule: embodiment_must_not_contain_experimental_data
+    description: >
+      Embodiment descriptions must describe how to make and use the invention.
+      They must never contain experimental data, accuracy percentages,
+      benchmark results, or test outcomes.
+
+  - rule: jurisdiction_formatting_must_be_isolated
+    description: >
+      Each jurisdiction filing package must follow only its own formatting
+      rules. Two-part claims must not appear in US packages. "FIG. 1" numbering
+      must not appear in CN packages. Reference signs lists must not appear in
+      US packages.
+
+  - rule: novelty_assessment_is_advisory
+    description: >
+      The novelty assessment produced by this pipeline is advisory only. It
+      does not replace a professional patentability opinion from a licensed
+      patent attorney.
+
+
+strict_rules:
+  - id: STRICT.PAT.1
+    rule: >
+      No patent claim drafting plan is valid without a prior art search
+      phase.
+
+  - id: STRICT.PAT.2
+    rule: >
+      No claim is valid with missing or incorrect antecedent basis.
+
+  - id: STRICT.PAT.3
+    rule: >
+      No specification is valid if it contains experimental data, accuracy
+      percentages, benchmark results, or test outcomes.
+
+  - id: STRICT.PAT.4
+    rule: >
+      No filing package is valid without examiner-level review having been
+      completed.
+
+  - id: STRICT.PAT.5
+    rule: >
+      No novelty claim is valid without element-by-element analysis against
+      identified prior art under the applicable jurisdiction standard.
+
+  - id: STRICT.PAT.6
+    rule: >
+      No filing package is valid if it mixes jurisdiction formatting rules.
+
+  - id: STRICT.PAT.7
+    rule: >
+      The specification must support every claim element. A claim-element-to-
+      specification mapping must exist.
+
+  - id: STRICT.PAT.8
+    rule: >
+      Never fabricate patent numbers, application numbers, or citation
+      details. Unverifiable references must be marked [VERIFY].
+
+  - id: STRICT.PAT.9
+    rule: >
+      Never alter, embellish, or extend the user's invention disclosure.
+      The specification must faithfully describe what the inventor disclosed.
+
+  - id: STRICT.PAT.10
+    rule: >
+      If the project is only a novelty assessment, do not invent claim
+      drafting or specification writing phases.
+
+
+agent_planning_rules:
+  - id: PAT.R1
+    rule: >
+      If the project involves drafting patent claims, include a prior art
+      search phase and a novelty assessment phase before claim drafting.
+    severity: mandatory
+
+  - id: PAT.R2
+    rule: >
+      If the project targets multiple jurisdictions, produce separate claim
+      sets and filing packages for each jurisdiction.
+    severity: mandatory
+
+  - id: PAT.R3
+    rule: >
+      If the project includes specification writing, verify claim support
+      (every claim element has corresponding specification text) before
+      completing the phase.
+    severity: mandatory
+
+  - id: PAT.R4
+    rule: >
+      If the project includes EP filing, ensure two-part claim form and
+      reference signs list are included.
+    severity: mandatory
+
+  - id: PAT.R5
+    rule: >
+      If the project includes CN filing, ensure two-part claim form, correct
+      fonts (Song Ti body, Hei Ti headings), and patent request form are
+      included.
+    severity: mandatory
+
+  - id: PAT.R6
+    rule: >
+      If the project includes US filing, ensure inventor's oath or declaration
+      and application data sheet are included.
+    severity: mandatory
+
+  - id: PAT.R7
+    rule: >
+      If the project involves examiner review, use a fresh Agent with zero
+      prior context and a different model family from the drafting Agent.
+    severity: mandatory
+
+  - id: PAT.R8
+    rule: >
+      If the project involves embodiment writing, explicitly verify that no
+      experimental data, accuracy percentages, benchmark results, or test
+      outcomes appear in the specification.
+    severity: mandatory
+
+  - id: PAT.R9
+    rule: >
+      If the project is a provisional filing, phases P4 and P5 may be
+      simplified but P1-P3 must be fully executed.
+    severity: recommended
+
+  - id: PAT.R10
+    rule: >
+      Do not include academic paper writing, experiment execution, code
+      implementation, or commercial deployment phases unless explicitly
+      required by project_context.
+    severity: mandatory

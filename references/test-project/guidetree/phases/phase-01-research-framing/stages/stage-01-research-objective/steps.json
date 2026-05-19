@@ -1,0 +1,215 @@
+{
+  "skill": "expand_stage_to_steps",
+  "version": "1.0.0",
+  "summary": "Expanded phase_1_stage_1 (Research Objective Clarified) into 5 executable steps. Steps 1-3 follow the P1.S1 typical_outputs (refined research question, target technical bottleneck, success criteria). Step 4 addresses the arithmetization target scoping (resolving UQ1). Step 5 is a verification and handoff step.",
+  "project_id": "folding-scheme-recursive-zksnark-opt",
+  "phase_id": "phase_1",
+  "stage_id": "phase_1_stage_1",
+  "stage_name": "Research Objective Clarified",
+  "steps": [
+    {
+      "id": "phase_1_stage_1_step_1",
+      "stage_id": "phase_1_stage_1",
+      "name": "Refine Research Question",
+      "objective": "Transform the raw project goal into a precise, technically meaningful research question that specifies the optimization target and scope.",
+      "action": "Draft a refined research question that specifies: (1) the folding scheme component being optimized (verifier circuit), (2) the metric for measuring improvement (constraint count or gate count), (3) the class of folding schemes under consideration, and (4) the constraints on the optimization (must preserve soundness and completeness). Document the question in a structured format with question text, scope, and exclusions.",
+      "expected_output": "A refined research question document containing: precise question text, scope specification, excluded topics, and the relationship between the question and the project goal.",
+      "acceptance_criteria": [
+        "Research question is not merely 'study ZKP' or 'optimize folding schemes'",
+        "Question specifies verifier circuit reduction as the optimization target",
+        "Scope identifies whether the target is R1CS-based, Plonkish-based, or both",
+        "Question is falsifiable — it can be disproven by later analysis"
+      ],
+      "inputs": [
+        "project goal from project_context",
+        "initial research question from project_context"
+      ],
+      "dependencies": [],
+      "risks": [
+        "Question may be too broad if both R1CS and Plonkish folding are included",
+        "Question may be too narrow if only one specific scheme is targeted"
+      ],
+      "owner_role": null,
+      "effort_estimate": null,
+      "status": "ready"
+    },
+    {
+      "id": "phase_1_stage_1_step_2",
+      "stage_id": "phase_1_stage_1",
+      "name": "Identify Technical Bottleneck",
+      "objective": "Identify which component of the verifier circuit in existing folding schemes dominates the cost, providing a concrete optimization target.",
+      "action": "Analyze the verifier circuit structure of representative folding schemes (Nova, Protostar) to identify the dominant cost component. Document which operations (elliptic curve scalar multiplications, hash computations, polynomial evaluations, commitment verifications) contribute most to verifier circuit size. Produce a bottleneck analysis table.",
+      "expected_output": "A bottleneck analysis table listing: verifier circuit components, estimated constraint/gate count per component, percentage of total verifier circuit, and which components are amenable to optimization.",
+      "acceptance_criteria": [
+        "At least one identifiable bottleneck or hypothesis is stated",
+        "Bottleneck analysis references specific verifier circuit components (not just 'the verifier is expensive')",
+        "Analysis identifies which components are amenable to optimization vs inherently required"
+      ],
+      "inputs": [
+        "refined research question from step 1"
+      ],
+      "dependencies": ["phase_1_stage_1_step_1"],
+      "risks": [
+        "Bottleneck hypothesis may be wrong without detailed prior-art analysis (which comes in stage 3)",
+        "Different folding schemes may have different bottleneck structures"
+      ],
+      "owner_role": null,
+      "effort_estimate": null,
+      "status": "not_started"
+    },
+    {
+      "id": "phase_1_stage_1_step_3",
+      "stage_id": "phase_1_stage_1",
+      "name": "Define Success Criteria",
+      "objective": "Define concrete, verifiable success criteria for the research project that tie to the verifier circuit optimization goal.",
+      "action": "Draft success criteria that specify: (1) minimum verifier circuit reduction threshold relative to baseline, (2) security requirements (completeness, knowledge soundness must be preserved), (3) acceptable tradeoff bounds (how much prover cost or proof size increase is tolerable), (4) required evidence type (formal proof + complexity analysis + benchmark). Each criterion must be verifiable by a third party.",
+      "expected_output": "A success criteria document listing each criterion with: criterion text, verification method, acceptable threshold or evidence, and dependency on downstream phases.",
+      "acceptance_criteria": [
+        "Each success criterion is verifiable by inspection, review, test, or measurable evidence",
+        "No criterion uses vague phrases like 'improved performance' or 'better efficiency'",
+        "Security preservation is explicitly stated as a success criterion",
+        "Tradeoff bounds are specified (verifier circuit reduction is not meaningful at unlimited cost elsewhere)"
+      ],
+      "inputs": [
+        "refined research question from step 1",
+        "bottleneck analysis from step 2"
+      ],
+      "dependencies": ["phase_1_stage_1_step_2"],
+      "risks": [
+        "Success criteria may be too strict, making the project infeasible",
+        "Tradeoff bounds may be arbitrary without prior-art grounding"
+      ],
+      "owner_role": null,
+      "effort_estimate": null,
+      "status": "not_started"
+    },
+    {
+      "id": "phase_1_stage_1_step_4",
+      "stage_id": "phase_1_stage_1",
+      "name": "Scope Arithmetization Target",
+      "objective": "Resolve whether the optimization targets R1CS-based folding (Nova-style), Plonkish/arithmetic-based folding (Protostar-style), or both, and document the decision with rationale.",
+      "action": "Compare R1CS-based and Plonkish-based folding approaches in terms of: (1) verifier circuit structure, (2) known optimization opportunities, (3) existing prior art density, (4) relevance to the bottleneck hypothesis from step 2. Make a scoped decision on the arithmetization target and document the rationale. If both are in scope, specify how they will be handled (separate analyses or unified framework).",
+      "expected_output": "An arithmetization scoping document containing: target arithmetization model(s), rationale for inclusion/exclusion, expected verifier circuit structure differences, and implications for downstream phases.",
+      "acceptance_criteria": [
+        "Arithmetization target is explicitly stated (R1CS, Plonkish, or both)",
+        "Rationale is provided for the choice",
+        "Decision resolves open question UQ1 or documents why it remains deferred",
+        "Implications for phase_2 (formal model) and phase_4 (protocol development) are noted"
+      ],
+      "inputs": [
+        "refined research question from step 1",
+        "bottleneck analysis from step 2"
+      ],
+      "dependencies": ["phase_1_stage_1_step_2"],
+      "risks": [
+        "Choosing only one arithmetization may limit the contribution scope",
+        "Choosing both may make the project too broad"
+      ],
+      "owner_role": null,
+      "effort_estimate": null,
+      "status": "not_started"
+    },
+    {
+      "id": "phase_1_stage_1_step_5",
+      "stage_id": "phase_1_stage_1",
+      "name": "Verify Objective Completeness",
+      "objective": "Review the outputs of steps 1-4 against the stage acceptance criteria and prepare a handoff package for stage 2 (ZKP Subdomain Classified).",
+      "action": "Review each stage acceptance criterion and verify it is satisfied by the step outputs. Record pass/fail evidence for each criterion. If any criterion is not satisfied, identify what additional work is needed. Prepare a handoff package containing: the refined research question, bottleneck analysis, success criteria, arithmetization scoping decision, open issues, and dependencies for stage 2.",
+      "expected_output": "A verification record with pass/fail evidence for each stage acceptance criterion, plus a handoff package document for stage 2.",
+      "acceptance_criteria": [
+        "Every stage acceptance criterion is evaluated with pass/fail evidence",
+        "Open issues are documented with impact assessment",
+        "Handoff package contains all outputs required by stage 2 inputs",
+        "No criterion is marked as satisfied without concrete evidence"
+      ],
+      "inputs": [
+        "refined research question from step 1",
+        "bottleneck analysis from step 2",
+        "success criteria from step 3",
+        "arithmetization scoping from step 4"
+      ],
+      "dependencies": ["phase_1_stage_1_step_3", "phase_1_stage_1_step_4"],
+      "risks": [
+        "Stage acceptance criteria may not all be satisfiable at this stage without prior-art data from stage 3"
+      ],
+      "owner_role": null,
+      "effort_estimate": null,
+      "status": "not_started"
+    }
+  ],
+  "step_dependency_edges": [
+    ["phase_1_stage_1_step_1", "phase_1_stage_1_step_2"],
+    ["phase_1_stage_1_step_2", "phase_1_stage_1_step_3"],
+    ["phase_1_stage_1_step_2", "phase_1_stage_1_step_4"],
+    ["phase_1_stage_1_step_3", "phase_1_stage_1_step_5"],
+    ["phase_1_stage_1_step_4", "phase_1_stage_1_step_5"]
+  ],
+  "stage_coverage": {
+    "stage_goal_covered": true,
+    "stage_outputs_covered": [
+      {
+        "stage_output": "refined research question with precise optimization target",
+        "covered_by_step_ids": ["phase_1_stage_1_step_1"]
+      },
+      {
+        "stage_output": "target technical bottleneck identification",
+        "covered_by_step_ids": ["phase_1_stage_1_step_2"]
+      },
+      {
+        "stage_output": "success criteria for verifier circuit reduction",
+        "covered_by_step_ids": ["phase_1_stage_1_step_3"]
+      }
+    ],
+    "stage_acceptance_criteria_covered": [
+      {
+        "stage_acceptance_criterion": "Research objective is not merely 'study ZKP' or 'optimize folding schemes' but specifies verifier circuit reduction as the optimization target",
+        "covered_by_step_ids": ["phase_1_stage_1_step_1"]
+      },
+      {
+        "stage_acceptance_criterion": "A technical bottleneck or hypothesis is identifiable (e.g., which component of the verifier circuit dominates cost)",
+        "covered_by_step_ids": ["phase_1_stage_1_step_2"]
+      },
+      {
+        "stage_acceptance_criterion": "Success can be evaluated in later phases via concrete metrics (constraint count or gate count reduction)",
+        "covered_by_step_ids": ["phase_1_stage_1_step_3"]
+      },
+      {
+        "stage_acceptance_criterion": "Objective distinguishes between optimizing an existing scheme vs proposing a new construction",
+        "covered_by_step_ids": ["phase_1_stage_1_step_1", "phase_1_stage_1_step_4"]
+      }
+    ],
+    "coverage_notes": [
+      "All 3 stage outputs are covered by at least one step",
+      "All 4 stage acceptance criteria are covered by at least one step",
+      "Step 4 (Scope Arithmetization Target) partially resolves UQ1 and contributes to the acceptance criterion about distinguishing optimization types",
+      "Step 5 (Verify Objective Completeness) is a verification and handoff step as required by step_policy.include_verification_steps and include_handoff_step"
+    ]
+  },
+  "execution_assumptions": [
+    "The researcher has basic familiarity with folding schemes (Nova, Protostar) sufficient to identify bottleneck hypotheses",
+    "Detailed prior-art analysis is deferred to stage 3 (Prior-Art Landscape Mapped)",
+    "The arithmetization scoping decision in step 4 may remain partially open if insufficient data is available at this stage"
+  ],
+  "unresolved_questions": [
+    {
+      "id": "UQ1",
+      "question": "Should the optimization target R1CS-based folding (Nova-style) or Plonkish/arithmetic-based folding (Protostar-style), or both?",
+      "impact": "Step 4 is designed to resolve this question; if it cannot be fully resolved, the decision is deferred with documented rationale",
+      "priority": "high",
+      "handling_strategy": "proceed_with_assumption"
+    }
+  ],
+  "validation_notes": {
+    "target_stage_found": true,
+    "target_stage_belongs_to_phase": true,
+    "step_count_valid": true,
+    "dependency_valid": true,
+    "stage_coverage_valid": true,
+    "execution_level_valid": true
+  },
+  "next_action": {
+    "recommended_skill": "validate_steps",
+    "reason": "Steps are generated for phase_1_stage_1 and appear valid. They should be validated before execution.",
+    "suggested_target_step_id": "phase_1_stage_1_step_1"
+  }
+}

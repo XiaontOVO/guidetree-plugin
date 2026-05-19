@@ -1,0 +1,72 @@
+phase:
+  id: P3
+  name: Adversarial Review
+  purpose: >
+    Construct the strongest possible rejection memo against the paper, then
+    objectively adjudicate each rejection point. This identifies the paper's
+    actual weaknesses versus perceived weaknesses and ensures the audit is not
+    merely confirming what the author hopes is true.
+
+  when_to_use: >
+    Use for peer review preparation, self-audits preparing for submission, and
+    any audit where the paper's argumentative strength matters. Skip only for
+    citation-only audits or when the paper is already accepted.
+
+  inputs:
+    - manuscript text
+    - claims verification results from P1 (if available)
+    - citation audit results from P2 (if available)
+
+  outputs:
+    - attack memo (~200 words) from fresh Agent
+    - decomposed atomic rejection points
+    - adjudication classification per point (answered / partially / unresolved)
+    - reasoning for each classification
+    - prioritized list of unresolved points for revision
+
+  acceptance_criteria:
+    - attack memo written by fresh Agent with zero prior context
+    - attacker is a different model family from the one that wrote/revised the paper
+    - adjudication by a second fresh Agent (different from attacker)
+    - rejection points are atomic (one concern per point)
+    - each point classified with reasoning
+    - unresolved points prioritized by severity and impact
+
+  typical_stages:
+    - id: P3.S1
+      name: Attack Memo Construction
+      goal: >
+        Dispatch a fresh Agent (zero prior context, different model family) to
+        write the strongest possible rejection memo targeting methodology, claims,
+        novelty, significance, and experimental design.
+      outputs:
+        - attack memo (~200 words)
+        - initial decomposition into atomic rejection points
+      acceptance_criteria:
+        - fresh Agent used (zero prior context)
+        - different model family from paper author/reviewer
+        - memo targets substantive weaknesses, not typos
+        - goal is to find every exploitable weakness, not to be fair
+
+    - id: P3.S2
+      name: Adjudication
+      goal: >
+        Dispatch a second fresh Agent to objectively classify each rejection
+        point as answered, partially answered, or unresolved, with reasoning.
+      outputs:
+        - classification per point with reasoning
+        - prioritized list of unresolved points
+        - partially answered points flagged as revision candidates
+      acceptance_criteria:
+        - adjudicator is fresh Agent (different from attacker)
+        - each point classified individually (not in batches)
+        - reasoning is specific, not generic
+        - unresolved points prioritized by severity and impact
+
+  common_risks:
+    - same Agent writing both attack memo and adjudication
+    - attacker from same model family as paper author (shared blind spots)
+    - non-atomic rejection points (multiple concerns lumped together)
+    - shallow attack that targets only surface issues
+    - adjudication that confirms the attack without critical assessment
+    - skipping adjudication and treating the attack memo as final

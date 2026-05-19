@@ -1,0 +1,95 @@
+phase:
+  id: P2
+  name: Formal Problem and Security Model Definition
+  purpose: >
+    Define the mathematical object of study: relation, language, witness,
+    public inputs, adversary model, assumptions, and security properties.
+
+  when_to_use: >
+    Mandatory for protocol research, security claims, or any work proposing a
+    new ZKP construction.
+
+  inputs:
+    - clarified research question
+    - prior-art map
+    - selected baseline protocols
+    - notation baseline
+
+  outputs:
+    - formal statement relation
+    - witness and public input definition
+    - security properties
+    - adversarial model
+    - cryptographic assumptions
+    - notation and definitions
+
+  acceptance_criteria:
+    - relation/language is formally defined
+    - witness and public inputs are unambiguous
+    - completeness is defined
+    - soundness or knowledge soundness is defined
+    - zero-knowledge property is defined where applicable
+    - assumptions are explicit
+    - model matches the intended protocol setting
+
+  typical_stages:
+    - id: P2.S1
+      name: Statement Relation Formalized
+      goal: >
+        Define the relation R, language L, witness space, public input space,
+        and correctness condition.
+      outputs:
+        - formal relation definition
+        - input/witness notation
+        - valid instance condition
+      acceptance_criteria:
+        - relation is mathematically precise
+        - witness/public input separation is clear
+        - edge cases are identified
+
+    - id: P2.S2
+      name: Security Properties Specified
+      goal: >
+        Define completeness, soundness, knowledge soundness, zero-knowledge,
+        succinctness, or other required properties.
+      outputs:
+        - property definitions
+        - adversarial goals
+        - success/failure conditions
+      acceptance_criteria:
+        - each property has a checkable definition
+        - irrelevant properties are excluded
+        - definitions align with prior literature
+
+    - id: P2.S3
+      name: Assumption and Setup Model Declared
+      goal: >
+        State cryptographic assumptions and setup/trust model.
+      outputs:
+        - assumption list
+        - setup model
+        - trust assumptions
+      acceptance_criteria:
+        - assumptions are explicit
+        - setup model is compatible with target protocol
+        - no hidden trusted party is introduced
+
+    - id: P2.S4
+      name: Evaluation Metrics Defined
+      goal: >
+        Define how correctness, security, and performance will be evaluated.
+      outputs:
+        - metric list
+        - measurement method
+        - comparison criteria
+      acceptance_criteria:
+        - metrics include proof size, prover time, verifier time, memory, setup, or constraints where relevant
+        - metrics are tied to research claims
+        - benchmark dimensions are not vague
+
+  common_risks:
+    - informal relation definition
+    - hidden trusted setup assumption
+    - mixing soundness and knowledge soundness
+    - missing adversarial model
+    - using performance metrics before defining security

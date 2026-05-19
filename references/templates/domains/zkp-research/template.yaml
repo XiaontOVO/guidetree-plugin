@@ -1,0 +1,65 @@
+template_name: zkp_research_phase_stage_template
+version: 1.0.0
+type: guidetree_domain_template
+domain: zero_knowledge_proof_research
+
+description: >
+  Domain-specific phase/stage decomposition template for Zero-Knowledge Proof
+  research projects. This template defines how an agent should divide ZKP
+  research work into phases and stages. It is not an executable skill. It is a
+  planning reference used by GuideTree skills when generating, validating, or
+  repairing project structures for ZKP research.
+
+intended_use:
+  used_by:
+    - generate_phase_skeleton
+    - validate_phase_skeleton
+    - expand_phase_to_stage_dag
+    - validate_stage_dag
+    - expand_stage_to_steps
+    - validate_steps
+
+  not_used_as:
+    - executable_skill
+    - runtime_orchestrator
+    - state_update_mechanism
+    - direct_project_executor
+
+core_principle: >
+  ZKP research must be decomposed around research uncertainty, formal problem
+  definition, protocol construction, security reasoning, complexity analysis,
+  implementation feasibility, benchmarking, and reproducible validation.
+
+domain_scope:
+  includes:
+    - zero-knowledge proof protocol research
+    - zkSNARK research
+    - zkSTARK research
+    - polynomial commitment schemes
+    - arithmetization
+    - proof system optimization
+    - recursive proofs
+    - lookup arguments
+    - folding schemes
+    - accumulation schemes
+    - zkVM research
+    - privacy-preserving protocol design
+    - verifiable computation
+    - proving system performance analysis
+    - security proof review
+    - cryptographic assumption analysis
+    - prototype prover/verifier implementation
+    - benchmark and reproducibility work
+
+  excludes_by_default:
+    - production-grade blockchain integration
+    - audited cryptographic deployment
+    - tokenomics
+    - frontend application development
+    - smart contract product engineering
+    - legal/privacy compliance review
+    - marketing material creation
+    - commercial launch planning
+
+  note: >
+    Excluded items may be added only if explicitly included in project_context.

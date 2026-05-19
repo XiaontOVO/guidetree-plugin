@@ -1,0 +1,111 @@
+phase:
+  id: P3
+  name: Implementation
+  purpose: >
+    Execute the implementation plan using test-driven development in an
+    isolated git worktree. Every production code change follows the
+    red-green-refactor TDD cycle. Fresh subagents per task ensure
+    self-contained work. Two-stage review (spec compliance then code quality)
+    validates each task before it is considered complete.
+
+  when_to_use: >
+    Use for all code implementation projects that have an approved design spec
+    and a validated implementation plan. This is the core execution phase.
+
+  inputs:
+    - approved design specification
+    - validated implementation plan with exact code
+    - existing codebase (for feature additions and refactoring)
+
+  outputs:
+    - git worktree and feature branch created
+    - baseline tests verified passing
+    - all implementation tasks completed via TDD
+    - failing tests written before production code
+    - minimal production code making tests pass
+    - refactored code with all tests still passing
+    - commits per completed TDD cycle
+    - spec review results per task
+    - code quality review results per task
+
+  acceptance_criteria:
+    - worktree created and baseline tests pass
+    - every task follows red-green-refactor TDD cycle
+    - no production code exists without a corresponding failing test first
+    - two-stage review completed per task (spec compliance, code quality)
+    - all Critical and Important issues resolved
+    - commits made per completed TDD cycle
+    - all tasks from the implementation plan are accounted for
+
+  typical_stages:
+    - id: P3.S1
+      name: Worktree Set Up
+      goal: >
+        Create an isolated git worktree for the development branch, verify
+        the environment, and confirm baseline tests pass before any
+        implementation begins.
+      outputs:
+        - new branch created from current HEAD
+        - worktree added and accessible
+        - .gitignore verified
+        - baseline test results (all passing)
+      acceptance_criteria:
+        - new branch created from current HEAD
+        - worktree added and accessible
+        - .gitignore covers build artifacts and generated files
+        - baseline tests pass (starting state is green)
+
+    - id: P3.S2
+      name: TDD Implementation Complete
+      goal: >
+        Execute all implementation tasks from the plan using the
+        red-green-refactor TDD cycle. Each task is self-contained and
+        produces a commit upon completion.
+      outputs:
+        - failing tests written before production code
+        - minimal production code making each test pass
+        - refactored code where improvements are visible
+        - commits per completed TDD cycle
+      acceptance_criteria:
+        - failing test written before any production code
+        - production code is minimal (just enough to pass the test)
+        - refactoring done if improvements are visible (all tests still pass)
+        - commit made for each completed TDD cycle
+        - all tasks from the implementation plan are completed
+
+    - id: P3.S3
+      name: Spec Compliance Verified
+      goal: >
+        Verify that the implementation matches the design specification.
+        Identify any missing requirements, spec violations, or unimplemented
+        features.
+      outputs:
+        - spec compliance report
+        - list of missing requirements (if any)
+        - list of spec violations (if any)
+      acceptance_criteria:
+        - every spec requirement has a corresponding implementation
+        - no spec violations detected
+        - gaps are reported clearly
+
+    - id: P3.S4
+      name: Code Quality Reviewed
+      goal: >
+        Review the implementation for code cleanliness, idiomatic style,
+        test adequacy, and structural maintainability.
+      outputs:
+        - code quality report
+        - issue classification (Critical / Important / Minor)
+        - improvement suggestions
+      acceptance_criteria:
+        - code is clean and idiomatic for the language/framework
+        - tests are adequate and meaningful
+        - structure is maintainable
+        - issues classified by severity
+
+  common_risks:
+    - baseline tests fail on worktree setup (environment issue)
+    - tempted to write production code without a failing test
+    - skipping the refactor step when improvements are visible
+    - spec compliance issues discovered late (should have been caught in P3.S3)
+    - task scope creep during implementation

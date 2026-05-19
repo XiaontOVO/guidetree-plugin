@@ -1,0 +1,64 @@
+template_name: patent_filing_phase_stage_template
+version: 1.0.0
+type: guidetree_domain_template
+domain: patent_filing
+
+description: >
+  Domain-specific phase/stage decomposition template for patent application
+  drafting projects. This template defines how an agent should divide patent
+  filing work into phases and stages. It is not an executable skill. It is a
+  planning reference used by GuideTree skills when generating, validating, or
+  repairing project structures for patent filing.
+
+intended_use:
+  used_by:
+    - generate_phase_skeleton
+    - validate_phase_skeleton
+    - expand_phase_to_stage_dag
+    - validate_stage_dag
+    - expand_stage_to_steps
+    - validate_steps
+
+  not_used_as:
+    - executable_skill
+    - runtime_orchestrator
+    - state_update_mechanism
+    - direct_project_executor
+
+core_principle: >
+  Patent filing must be decomposed around prior art certainty, invention
+  structuring, claim scope definition, specification enablement, and
+  jurisdiction compliance. Claims define the legal boundary; the specification
+  supports the claims; the format satisfies the jurisdiction. Never draft claims
+  before understanding the prior art, and never write the specification before
+  the claims are defined.
+
+domain_scope:
+  includes:
+    - prior art search and novelty assessment
+    - invention structuring via Problem-Solution-Advantage framework
+    - patent claim drafting (independent and dependent)
+    - specification writing (embodiment descriptions, figure processing)
+    - claim support verification
+    - examiner-level review of drafted applications
+    - jurisdiction-specific formatting for CN, US, and EP
+    - patent database search (Google Patents, Espacenet, CNIPA)
+    - novelty analysis under 35 USC 102/103, Art 22 CNPL, Art 54/56 EPC
+    - antecedent basis verification
+    - reference numeral assignment and consistency checking
+    - two-part claim form drafting (EP and CN)
+    - inventor's oath/declaration preparation (US)
+    - provisional and non-provisional application drafting
+
+  excludes_by_default:
+    - academic paper writing
+    - experiment execution or empirical validation
+    - code implementation or software development
+    - commercial deployment or market analysis
+    - trademark or copyright registration
+    - patent litigation or opposition proceedings
+    - patent portfolio strategy or licensing negotiation
+    - trade secret analysis
+
+  note: >
+    Excluded items may be added only if explicitly included in project_context.

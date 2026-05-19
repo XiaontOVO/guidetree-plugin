@@ -1,0 +1,117 @@
+phase:
+  id: P2
+  name: Idea Generation and Validation
+  purpose: >
+    Generate, sharpen, and validate research ideas from literature gaps, and
+    produce a locked design brief that serves as the contract for all
+    downstream work. This phase takes the evidence foundation from the
+    literature survey and converts it into a testable research hypothesis with
+    verified novelty.
+
+  when_to_use: >
+    Mandatory for any project that proposes a new method, technique, or
+    contribution. Not needed for pure surveys or reproduction studies that do
+    not claim novelty.
+
+  inputs:
+    - literature survey outputs
+    - comparison matrix
+    - gap and contradiction annotations
+    - open problem list
+    - terminology baseline
+
+  outputs:
+    - candidate idea list linked to literature gaps
+    - Socratic design log for shortlisted ideas
+    - novelty report with prior art comparison
+    - locked design brief (problem, hypothesis, method, contribution, execution path)
+
+  acceptance_criteria:
+    - at least 8 candidate ideas generated, each linked to a specific literature gap
+    - Socratic design log produced for each shortlisted idea
+    - novelty report with prior art search across at least 2 sources per component
+    - design brief locked for the chosen idea with all required elements
+    - no idea survives without passing novelty verification
+
+  typical_stages:
+    - id: P2.S1
+      name: Idea Brainstorming
+      goal: >
+        Generate a broad set of candidate research ideas directly grounded in
+        the literature gaps identified during the survey. Quantity before
+        quality — do not self-censor early ideas.
+      outputs:
+        - candidate idea list (8-12 ideas)
+        - each idea linked to a specific literature gap
+        - feasibility, novelty, and impact scores
+        - shortlist of top 2-3 ideas with pilot descriptions
+      acceptance_criteria:
+        - at least 8 ideas generated
+        - every idea cites the literature gap that motivates it
+        - scoring covers feasibility, novelty, and impact
+        - rejected ideas documented with rationale
+        - shortlist is not the final choice — sharpening comes next
+
+    - id: P2.S2
+      name: Idea Sharpening
+      goal: >
+        Take shortlisted ideas through rigorous Socratic design questioning.
+        The purpose is to kill weak ideas early, not to confirm them.
+      outputs:
+        - Socratic design log for each idea
+        - clarified core claim per idea
+        - disproof conditions
+        - minimal experiment definitions
+      acceptance_criteria:
+        - each idea has a stated core claim in one sentence
+        - each idea has a stated condition that would disprove it
+        - each idea has a minimal experiment that tests it
+        - ideas that cannot survive questioning are killed
+
+    - id: P2.S3
+      name: Novelty Verification
+      goal: >
+        Verify that surviving ideas are sufficiently novel by searching for
+        closest prior art across multiple sources and cross-verifying with an
+        independent assessment.
+      outputs:
+        - prior art search results per idea
+        - closest prior art identification
+        - novelty distance assessment
+        - cross-model verification results
+        - novelty verdict (pass, conditional, fail)
+      acceptance_criteria:
+        - core claim extracted and decomposed into searchable components
+        - prior art search covers at least 2 sources per component
+        - closest prior art explicitly identified and compared
+        - novelty distance assessed with justification
+        - cross-model verification completed with disagreements recorded
+        - final verdict is unambiguous
+
+    - id: P2.S4
+      name: Design Brief Construction
+      goal: >
+        Produce a locked design brief for the surviving idea that serves as the
+        contract for all downstream work. Changes require explicit revision.
+      outputs:
+        - problem statement
+        - hypothesis
+        - proposed method
+        - expected contribution
+        - high-level execution path
+        - success criteria
+      acceptance_criteria:
+        - problem statement is specific and technically meaningful
+        - hypothesis is falsifiable
+        - proposed method is described at a level sufficient for protocol design
+        - contribution type is explicit (new method, improvement, analysis, etc.)
+        - execution path covers the remaining phases
+        - design brief is locked — changes require explicit revision
+
+  common_risks:
+    - generating ideas not grounded in literature gaps
+    - anchoring on the first interesting idea without exploring alternatives
+    - novelty check too shallow — single source, single search query
+    - overclaiming novelty by comparing against weak prior art
+    - design brief too vague to support protocol design
+    - refusing to kill ideas that fail sharpening

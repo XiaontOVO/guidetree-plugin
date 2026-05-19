@@ -1,0 +1,173 @@
+phase_decomposition_guidelines:
+  - name: design_before_planning
+    rule: >
+      A code implementation project must start from a clear design before
+      decomposing into tasks. Do not begin planning until the design spec is
+      approved and complete.
+    rationale: >
+      Planning without design produces task lists that lack coherence,
+      miss edge cases, and require constant rework.
+
+  - name: plan_before_code
+    rule: >
+      Write an implementation plan with exact code and zero placeholders before
+      any production code is written. If you cannot write the exact code, the
+      design spec is underspecified.
+    rationale: >
+      Coding without a plan leads to ad-hoc decisions, scope creep, and
+      code that does not map clearly to requirements.
+
+  - name: test_before_implement
+    rule: >
+      Every production code change must follow the TDD cycle: write a failing
+      test first, then write minimal code to pass, then refactor. This order
+      is non-negotiable.
+    rationale: >
+      Code written without a failing test first is unverified by design.
+      TDD ensures every line of production code exists for a reason.
+
+  - name: review_before_merge
+    rule: >
+      Every line of production code must pass through spec compliance review,
+      then code quality review, before integration. No shortcuts, no
+      "I'll review it later."
+    rationale: >
+      Unreviewed code introduces defects, spec violations, and maintainability
+      debt that compound over time.
+
+  - name: integrate_before_done
+    rule: >
+      A feature is not done until it is integrated. Tests must pass on the
+      target branch, the user must choose the integration path, and the
+      worktree must be cleaned up.
+    rationale: >
+      Code on an isolated branch that has never been integrated is
+      undelivered work.
+
+  - name: one_question_at_a_time
+    rule: >
+      When exploring requirements, ask one clarifying question at a time and
+      wait for the answer. Never batch questions.
+    rationale: >
+      Batched questions overwhelm the user and produce lower-quality answers.
+      Sequential questions allow each answer to inform the next.
+
+  - name: yagni_ruthlessly
+    rule: >
+      Do not design for hypothetical future requirements. Do not add
+      abstractions "just in case." Build what is needed now, nothing more.
+    rationale: >
+      Speculative code adds complexity without value and makes future changes
+      harder, not easier.
+
+recommended_phase_pattern:
+  - name: phase_1
+    title: Design and Brainstorming
+  - name: phase_2
+    title: Planning
+  - name: phase_3
+    title: Implementation
+  - name: phase_4
+    title: Review
+  - name: phase_5
+    title: Integration
+
+
+recommended_stage_types:
+  - type: requirements_exploration_stage
+    purpose: clarify project requirements and constraints through targeted questions
+    typical_outputs:
+      - clarified requirements
+      - ambiguities resolved
+      - constraints identified
+
+  - type: approach_selection_stage
+    purpose: propose and compare design approaches with explicit trade-offs
+    typical_outputs:
+      - 2-3 approaches with trade-offs
+      - user-selected direction
+      - rationale for selection
+
+  - type: design_spec_stage
+    purpose: write a complete design specification document
+    typical_outputs:
+      - design spec
+      - architecture overview
+      - interface definitions
+      - error handling strategy
+      - testing strategy
+
+  - type: task_decomposition_stage
+    purpose: decompose the design spec into ordered implementation tasks
+    typical_outputs:
+      - task list
+      - spec-to-task mapping
+      - file structure map
+
+  - type: implementation_plan_stage
+    purpose: write exact code for each task with zero placeholders
+    typical_outputs:
+      - implementation plan
+      - exact code per task
+      - self-review report
+
+  - type: worktree_setup_stage
+    purpose: create isolated git worktree and verify baseline
+    typical_outputs:
+      - new branch
+      - worktree
+      - baseline test results
+
+  - type: tdd_implementation_stage
+    purpose: execute implementation tasks using red-green-refactor TDD
+    typical_outputs:
+      - failing tests
+      - minimal passing code
+      - refactored code
+      - commits per cycle
+
+  - type: spec_review_stage
+    purpose: verify implementation matches the design specification
+    typical_outputs:
+      - spec compliance report
+      - missing requirements
+      - spec violations
+
+  - type: code_quality_review_stage
+    purpose: evaluate code cleanliness, idioms, and maintainability
+    typical_outputs:
+      - quality report
+      - issue classification (Critical/Important/Minor)
+      - improvement suggestions
+
+  - type: code_review_stage
+    purpose: conduct two-stage review (spec compliance then code quality)
+    typical_outputs:
+      - two-stage review report
+      - issue classification
+      - fix verification
+
+  - type: fix_issues_stage
+    purpose: resolve Critical and Important issues from review
+    typical_outputs:
+      - fixes applied
+      - regression tests passing
+      - issue resolution log
+
+  - type: test_verification_stage
+    purpose: verify all tests pass on the target branch
+    typical_outputs:
+      - test results
+      - failure report if any
+
+  - type: branch_completion_stage
+    purpose: present integration options and execute user's choice
+    typical_outputs:
+      - integration option selected
+      - merge/PR/keep/discard result
+
+  - type: worktree_cleanup_stage
+    purpose: clean up worktree and branch artifacts
+    typical_outputs:
+      - cleanup confirmation
+      - final state report

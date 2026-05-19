@@ -1,0 +1,115 @@
+bad_plan:
+  phases:
+    - Research
+    - Design
+    - Implementation
+    - Testing
+    - Delivery
+
+why_bad:
+  - does not identify the research type
+  - no literature survey phase
+  - no novelty verification gate
+  - no experiment protocol before execution
+  - no baseline comparison
+  - no claims-evidence backbone
+  - "testing" is too generic for research validation
+  - no audit phase
+  - no statistical rigor specification
+  - no prescribed writing order
+
+good_plan:
+  phases:
+    - id: P1
+      name: Literature Discovery and Analysis
+      outputs:
+        - search log with queries and hit counts
+        - structured paper summaries
+        - cross-paper comparison matrix
+        - gap and contradiction annotations
+
+    - id: P2
+      name: Idea Generation and Validation
+      outputs:
+        - candidate ideas linked to literature gaps
+        - Socratic design log
+        - novelty report with prior art comparison
+        - locked design brief
+
+    - id: P3
+      name: Experiment Planning and Protocol
+      outputs:
+        - experiment protocol with statistical tests
+        - data schema
+        - experiment blocks with claim mapping
+        - ordered execution todolist
+
+    - id: P4
+      name: Code Implementation
+      outputs:
+        - design spec with module-to-block mapping
+        - source code with test suite
+        - code review log
+        - integration test results
+
+    - id: P5
+      name: Experiment Execution and Analysis
+      outputs:
+        - deployment and environment log
+        - sanity seed and full execution results
+        - statistical analysis report
+        - raw results in specified schema
+
+    - id: P6
+      name: Paper Writing and Compilation
+      outputs:
+        - claims-evidence matrix
+        - paper sections in prescribed order
+        - publication-quality figures
+        - compiled PDF
+
+    - id: P7
+      name: Research Audit and Revision
+      outputs:
+        - claims audit report
+        - citation audit report
+        - adversarial kill argument assessment
+        - rebuttal draft
+
+usage_in_guidetree:
+  create_project_context:
+    use_for:
+      - identifying whether the project is academic research
+      - classifying the research type (survey, full project, reproduction, revision)
+      - detecting missing research question
+      - detecting non-goals (production, commercial, legal)
+
+  generate_phase_skeleton:
+    use_for:
+      - selecting the appropriate phase pattern for the research type
+      - avoiding generic software engineering phases
+      - ensuring evidence-integrity phases are present
+      - preventing phase skipping
+
+  validate_phase_skeleton:
+    use_for:
+      - checking whether literature, novelty, protocol, and audit phases are present when required
+      - rejecting generic plans that lack research-specific gates
+      - rejecting plans that skip protocol or audit phases
+
+  expand_phase_to_stage_dag:
+    use_for:
+      - selecting stage types appropriate to each research phase
+      - enforcing dependency rules (literature before ideas, protocol before execution)
+      - preventing experiment execution stages from appearing before protocol stages
+
+  validate_stage_dag:
+    use_for:
+      - checking stage boundaries and outputs
+      - checking research dependency order
+      - verifying that evidence flows forward from experiments to paper to audit
+
+  expand_stage_to_steps:
+    use_for:
+      - generating concrete research tasks
+      - ensuring steps produce literature logs, experiment protocols, code, statistical analyses, or paper sections

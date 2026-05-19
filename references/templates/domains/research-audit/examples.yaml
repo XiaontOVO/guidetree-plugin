@@ -1,0 +1,106 @@
+bad_plan:
+  phases:
+    - Read the Paper
+    - Check the Numbers
+    - Review
+    - Fix
+    - Write Response
+    - Final Check
+
+why_bad:
+  - does not identify audit type or scope
+  - "Check the Numbers" is vague; no claim extraction, evidence matching, or failure modes
+  - no citation audit
+  - "Review" is generic; no adversarial structure or independence requirement
+  - "Fix" is too generic; no iterative structure or fresh Agent requirement
+  - "Write Response" has no safety gates
+  - "Final Check" is not a quality gate with independent reviewers
+
+good_plan:
+  phases:
+    - id: P1
+      name: Claims Verification
+      outputs:
+        - claim inventory with locations
+        - claim-to-evidence mapping
+        - failure mode analysis per claim
+        - discrepancy report
+
+    - id: P2
+      name: Citation Audit
+      outputs:
+        - existence verification results
+        - metadata verification results
+        - context verification results
+        - replacement recommendations
+
+    - id: P3
+      name: Adversarial Review
+      outputs:
+        - attack memo from fresh Agent
+        - atomic rejection points
+        - adjudication classification
+        - prioritized unresolved points
+
+    - id: P4
+      name: Iterative Improvement
+      outputs:
+        - per-round review assessments
+        - fixes implemented per round
+        - improvement trajectory
+        - final assessment status
+
+    - id: P5
+      name: Rebuttal Drafting
+      outputs:
+        - atomized concern list
+        - rebuttal strategy
+        - draft rebuttal
+        - safety gate results (provenance, commitment, coverage)
+        - stress test report
+
+    - id: P6
+      name: Quality Gating
+      outputs:
+        - structural review scorecard
+        - rigor review scorecard
+        - domain review scorecard
+        - weighted composite score
+        - PASS/WARN/FAIL decision
+
+usage_in_guidetree:
+  create_project_context:
+    use_for:
+      - identifying whether the project is truly a research audit
+      - classifying the audit type (full_pipeline, peer_review_response, self_audit, citation_only)
+      - detecting missing audit targets (no paper, no raw data, no reviews)
+      - detecting non-goals (original research, paper writing, experiment design)
+
+  generate_phase_skeleton:
+    use_for:
+      - selecting appropriate audit phase pattern based on audit type
+      - avoiding generic software or research phases
+      - ensuring audit-specific milestones exist
+
+  validate_phase_skeleton:
+    use_for:
+      - checking whether claims verification and citation audit phases are present when required
+      - rejecting invalid generic plans
+      - rejecting plans that skip mandatory audit phases
+
+  expand_phase_to_stage_dag:
+    use_for:
+      - selecting stage types appropriate to each audit phase
+      - enforcing dependency rules (claims before citations, audit before attack)
+      - preventing adversarial or rebuttal stages from appearing before audit stages
+
+  validate_stage_dag:
+    use_for:
+      - checking stage boundaries
+      - checking audit dependency order
+      - checking evidence flow and independence requirements
+
+  expand_stage_to_steps:
+    use_for:
+      - generating concrete audit tasks
+      - ensuring steps produce verification results, discrepancy reports, attack memos, gate assessments, or rebuttal drafts

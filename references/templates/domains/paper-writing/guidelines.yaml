@@ -1,0 +1,166 @@
+phase_decomposition_guidelines:
+  - name: claims_before_writing
+    rule: >
+      Define the thesis, claims, and evidence mapping before writing any prose.
+      Every paragraph should advance at least one claim.
+    rationale: >
+      Writing without knowing what you are arguing produces incoherent papers.
+      The claims-evidence matrix is the structural backbone.
+
+  - name: figures_before_prose
+    rule: >
+      Generate all figures before drafting the main text. Figures carry the
+      evidence story and determine what the text must explain.
+    rationale: >
+      Visual evidence is the primary communication channel in most papers.
+      Writing prose without knowing the figures leads to misalignment.
+
+  - name: structure_before_detail
+    rule: >
+      Complete the outline, section plan, and page budget before drafting
+      individual sections.
+    rationale: >
+      Detailed drafting without structural constraints produces papers that
+      exceed page limits or miss required sections.
+
+  - name: compile_before_improve
+    rule: >
+      Produce a complete, compiling PDF before attempting quality improvement.
+      Get it done, then make it good.
+    rationale: >
+      Improving text that has never compiled wastes effort on sections that may
+      change during compilation debugging. A compiling PDF is the baseline for
+      improvement.
+
+  - name: review_before_submit
+    rule: >
+      At least one structured review round must pass before the paper is
+      considered submittable. Banned-word audit, overclaim detection, and
+      GPT-style detection are mandatory.
+    rationale: >
+      Unreviewed papers contain preventable errors. Automated checks catch
+      issues that authors miss by familiarity.
+
+  - name: reproducibility_mandatory
+    rule: >
+      Every figure must have a saved generation script or specification. Data
+      figures need Python scripts, architecture diagrams need FigureSpec JSON,
+      Mermaid diagrams need .mmd sources, AI illustrations need prompts.
+    rationale: >
+      Figures without provenance cannot be revised or verified. Reproducibility
+      is a publication requirement, not optional.
+
+  - name: evidence_grounds_claims
+    rule: >
+      No claim may appear in the paper without supporting evidence or an
+      explicit confidence flag. "Significantly" requires a statistical test.
+      "Proves" requires a proof. "Outperforms" requires a comparison.
+    rationale: >
+      Overclaiming undermines credibility and reviewer trust. Evidence-backed
+      language is the standard for academic writing.
+
+recommended_phase_pattern:
+  - name: phase_1
+    title: Paper Planning
+  - name: phase_2
+    title: Figure Generation
+  - name: phase_3
+    title: Writing
+  - name: phase_4
+    title: Compilation
+  - name: phase_5
+    title: Improvement
+  - name: phase_6
+    title: Presentation
+
+recommended_stage_types:
+  - type: outline_stage
+    purpose: define paper structure, section goals, and page budget
+    typical_outputs:
+      - paper outline
+      - section plan
+      - page budget
+
+  - type: claims_evidence_stage
+    purpose: map every claim to supporting evidence and flag gaps
+    typical_outputs:
+      - claims-evidence matrix
+      - gap report
+      - evidence inventory
+
+  - type: citation_stage
+    purpose: scaffold and verify all required references
+    typical_outputs:
+      - citation list with DBLP status
+      - verified BibTeX entries
+      - unverified citation flags
+
+  - type: data_figure_stage
+    purpose: generate data-driven plots from result files
+    typical_outputs:
+      - data figures (PDF/SVG)
+      - generation scripts
+      - figure manifest
+
+  - type: diagram_stage
+    purpose: produce architecture, system, and process diagrams
+    typical_outputs:
+      - architecture diagrams (SVG)
+      - FigureSpec JSON sources
+      - mermaid diagrams (.mmd + SVG)
+
+  - type: illustration_stage
+    purpose: create conceptual or teaser illustrations
+    typical_outputs:
+      - AI illustrations
+      - prompts and review scores
+      - manifest entries
+
+  - type: drafting_stage
+    purpose: write LaTeX sections with quality auditing
+    typical_outputs:
+      - LaTeX section files
+      - audit reports
+      - claim-evidence cross-references
+
+  - type: compilation_stage
+    purpose: compile LaTeX to PDF and resolve errors
+    typical_outputs:
+      - compiled PDF
+      - compilation log
+      - fix-attempt records
+
+  - type: review_stage
+    purpose: structured paper review and issue identification
+    typical_outputs:
+      - review report
+      - banned-word scan results
+      - overclaim and GPT-style detection results
+
+  - type: fix_recompile_stage
+    purpose: implement review fixes and recompile
+    typical_outputs:
+      - revised LaTeX
+      - recompiled PDF
+      - version snapshot
+
+  - type: slides_stage
+    purpose: generate Beamer slides with speaker notes
+    typical_outputs:
+      - Beamer source
+      - compiled slides PDF
+      - speaker notes
+
+  - type: poster_stage
+    purpose: generate conference poster
+    typical_outputs:
+      - poster LaTeX source
+      - compiled poster PDF
+      - pitch script
+
+  - type: talk_prep_stage
+    purpose: prepare talk delivery with timing and assurance checks
+    typical_outputs:
+      - talk script with timing
+      - assurance checklist
+      - rehearsal notes

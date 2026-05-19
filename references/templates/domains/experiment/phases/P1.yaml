@@ -1,0 +1,78 @@
+phase:
+  id: P1
+  name: Planning and Protocol
+  purpose: >
+    Convert a design brief into a fully specified experiment plan. This phase
+    produces the four artifacts that all downstream phases depend on: protocol,
+    schema, blocks, and todolist. No experiment code should be written and no
+    GPU resources committed until this phase is complete and validated.
+
+  when_to_use: >
+    Use for all experiment projects. The protocol and schema are the contract
+    between planning and execution; skipping this phase makes downstream work
+    uninterpretable and wastes compute.
+
+  inputs:
+    - design brief or research question
+    - known constraints (hardware, time, budget)
+    - research claims or hypotheses to test
+    - known baselines or reference configurations
+    - project context with scope and non-goals
+
+  outputs:
+    - experiment protocol (7-step workflow)
+    - 6-file data schema with field-level specifications
+    - experiment blocks with claim mapping and milestone assignments
+    - 3-level todolist enumerating all block/config/seed combinations
+
+  acceptance_criteria:
+    - protocol covers all 7 steps with explicit inputs and outputs
+    - 6-file data schema is complete with field names, types, and constraints
+    - every research claim from the design brief maps to at least one block
+    - milestone ordering enforced (Sanity -> Baseline -> Main -> Decision -> Polish)
+    - todolist enumerates all block/config/seed combinations
+    - no ambiguity: an independent reader could follow the protocol without questions
+
+  typical_stages:
+    - id: P1.S1
+      name: Protocol and Schema Defined
+      goal: >
+        Write the experiment protocol and data schema that govern the entire
+        experiment lifecycle. These are the foundational documents that define
+        how the experiment will be conducted and what outputs it must produce.
+      outputs:
+        - experiment protocol (CONFIGURE through ARCHIVE)
+        - 6-file data schema with field specifications
+        - schema-protocol cross-reference
+      acceptance_criteria:
+        - protocol covers all 7 steps with inputs, outputs, and failure handling
+        - each step has clear acceptance criteria
+        - 6-file schema is complete with field names, types, and constraints
+        - every metric in the protocol has a corresponding field in the schema
+        - no ambiguity: an independent reader could execute the protocol
+
+    - id: P1.S2
+      name: Experiment Blocks Designed
+      goal: >
+        Decompose research claims into concrete experiment blocks, each with a
+        clear purpose, milestone priority, success criterion, and dependency
+        relationship. Generate the 3-level todolist for dispatch.
+      outputs:
+        - block definitions with claim mapping
+        - milestone assignments per block
+        - block dependency graph (DAG)
+        - 3-level todolist (block, config, seed)
+      acceptance_criteria:
+        - every research claim maps to at least one experiment block
+        - each block has an assigned milestone priority
+        - block dependencies form a DAG with no cycles
+        - success criteria are measurable and tied to specific claims
+        - milestone ordering enforced: Sanity before Baseline before Main before Decision before Polish
+        - todolist covers all block/config/seed combinations
+
+  common_risks:
+    - protocol written at too high a level to be executable
+    - schema does not cover all metrics referenced in the protocol
+    - claims without corresponding experiment blocks
+    - missing baseline or sanity blocks
+    - todolist that underestimates total compute cost

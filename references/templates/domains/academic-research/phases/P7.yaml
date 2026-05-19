@@ -1,0 +1,126 @@
+phase:
+  id: P7
+  name: Research Audit and Revision
+  purpose: >
+    Verify the integrity of the completed manuscript through a multi-layer
+    audit: claims verification, citation audit, adversarial stress-test,
+    iterative review-fix, and rebuttal preparation. This is the final
+    integrity gate before submission. If the adversarial kill argument holds,
+    the paper needs fundamental revision, not patching.
+
+  when_to_use: >
+    Mandatory for any project that produces a paper for submission. No paper
+    may be submitted without completing the full audit pipeline. This phase
+    applies regardless of deadline pressure.
+
+  inputs:
+    - compiled manuscript
+    - claims-evidence matrix
+    - raw experiment results
+    - statistical analysis report
+
+  outputs:
+    - claims audit report (every numeric claim traced to raw data)
+    - citation audit report (every citation verified)
+    - adversarial kill argument with assessment
+    - review-fix convergence log
+    - rebuttal draft with evidence-backed responses
+
+  acceptance_criteria:
+    - every numeric claim traced to raw experiment output with pass/fail verdict
+    - every citation verified for existence, metadata, and supporting context
+    - adversarial kill argument constructed and assessed
+    - review-fix loop converged with no blocking issues
+    - rebuttal draft covers anticipated reviewer objections with evidence
+    - audit report has zero unresolved discrepancies before the paper proceeds
+
+  typical_stages:
+    - id: P7.S1
+      name: Claims Verification
+      goal: >
+        Verify every numeric claim in the paper by tracing it to raw experiment
+        output. Pass/fail status for each claim. This catches transcription
+        errors, rounding mistakes, and unsupported assertions.
+      outputs:
+        - extracted numeric claims list
+        - per-claim verification against raw data
+        - discrepancy report with root cause analysis
+        - statistical claim recomputation results
+      acceptance_criteria:
+        - every numeric claim in the paper is extracted and listed
+        - each claim is traced to a specific raw experiment output file
+        - paper values are compared against raw values with verdicts
+        - statistical claims independently recomputed from raw data
+        - discrepancies are flagged with root cause analysis
+
+    - id: P7.S2
+      name: Citation Audit
+      goal: >
+        Verify every citation for existence, correct metadata, and supporting
+        context. This catches fabricated citations, misattributed citations,
+        and unsupported citations.
+      outputs:
+        - citation verification report
+        - per-citation verdict (exists, misattributed, unsupported, fabricated)
+      acceptance_criteria:
+        - every citation checked for existence
+        - author names, year, venue verified against the actual publication
+        - supporting context verified: the cited work actually supports the claim
+        - fabricated citations are removed immediately
+        - misattributed citations are corrected
+
+    - id: P7.S3
+      name: Adversarial Review
+      goal: >
+        Construct the strongest possible argument against the paper's core
+        claim. If the kill argument holds, the paper needs fundamental
+        revision, not patching. This is not a formality.
+      outputs:
+        - adversarial kill argument
+        - assessment of whether the kill argument holds
+        - identified vulnerabilities in the paper's logic
+        - recommendations for strengthening the argument
+      acceptance_criteria:
+        - kill argument targets the core claim, not peripheral issues
+        - kill argument is the strongest possible, not a straw man
+        - assessment is honest — if the kill argument holds, this is reported
+        - recommendations are actionable
+
+    - id: P7.S4
+      name: Iterative Review and Revision
+      goal: >
+        Conduct iterative rounds of review and revision. End when a round
+        produces no blocking issues. If issues persist after 3 rounds,
+        escalate for human judgment.
+      outputs:
+        - review-fix log per round
+        - convergence status
+        - revised manuscript sections
+      acceptance_criteria:
+        - each round has explicit review findings and fix actions
+        - blocking issues are resolved before the next round
+        - loop converges with zero blocking issues
+        - if loop does not converge after 3 rounds, escalation is triggered
+
+    - id: P7.S5
+      name: Rebuttal Drafting
+      goal: >
+        Anticipate reviewer objections and prepare evidence-backed rebuttals.
+        This stage prepares for the review process, not for submission.
+      outputs:
+        - anticipated reviewer objections list
+        - evidence-backed rebuttal for each objection
+        - additional experiment suggestions if rebuttal requires new evidence
+      acceptance_criteria:
+        - objections cover the most likely reviewer concerns
+        - each rebuttal cites specific evidence from the paper or experiments
+        - if new evidence is needed, the required experiment is specified
+        - rebuttals are professional and evidence-based, not defensive
+
+  common_risks:
+    - treating the adversarial review as a formality — it must be a genuine attempt to break the paper
+    - accepting weak rebuttals — if the kill argument holds, the paper needs revision
+    - not converging the review-fix loop — each round must reduce blocking issues
+    - fabricating rebuttal evidence — rebuttals must cite existing evidence
+    - citation audit skipping context verification — the cited work must actually support the claim
+    - rushing the audit due to deadline pressure — this is the integrity gate

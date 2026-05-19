@@ -1,0 +1,79 @@
+phase:
+  id: P3
+  name: Execution and Monitoring
+  purpose: >
+    Execute the full experiment matrix defined in the todolist. Dispatch jobs
+    in parallel across available GPUs, handle failures with robust retry logic,
+    monitor progress in real time, and collect output files as jobs complete.
+    This phase transforms the planned experiment into raw result data.
+
+  when_to_use: >
+    Use for all experiment projects after P1 (protocol) and P2 (deployment)
+    are complete and validated. Never dispatch batch jobs before the sanity
+    check passes.
+
+  inputs:
+    - todolist from P1 (all block/config/seed combinations)
+    - deployed experiment code from P2
+    - dispatch target specifications (GPU assignments, resource limits)
+    - sanity check results from P2
+
+  outputs:
+    - dispatch manifest with seed/config/GPU assignments and final status
+    - collected results for all completed seeds
+    - progress report and metrics snapshot
+    - failure log with retry details
+
+  acceptance_criteria:
+    - dispatch manifest generated from todolist with GPU assignments
+    - sanity seed completed successfully before full dispatch
+    - all seeds dispatched or explicitly skipped with documented reason
+    - OOM failures retried with reduced batch size (max 3 retries)
+    - non-OOM failures logged with error details
+    - collected results verified for 6-file compliance
+    - no GPU contention or resource deadlocks
+
+  typical_stages:
+    - id: P3.S1
+      name: Batch Jobs Dispatched
+      goal: >
+        Execute the full experiment matrix by dispatching all seed/config
+        combinations across available GPUs. Handle OOM failures by reducing
+        batch size and retrying. Ensure all seeds either complete or are
+        documented as failed.
+      outputs:
+        - dispatch manifest with GPU assignments
+        - job status report for all dispatched seeds
+        - OOM retry log with batch size adjustments
+        - failure log for non-OOM errors
+      acceptance_criteria:
+        - dispatch manifest generated from todolist
+        - sanity seed completed successfully before full dispatch
+        - all seeds dispatched or skipped with documented reason
+        - OOM failures retried (reduce batch size by half, min 1, max 3 retries)
+        - non-OOM failures logged without blocking remaining jobs
+        - no GPU contention
+
+    - id: P3.S2
+      name: Progress Monitored and Results Collected
+      goal: >
+        Maintain real-time visibility into experiment progress. Detect problems
+        early (stalled jobs, divergence, hardware failures) and collect output
+        files as jobs complete.
+      outputs:
+        - progress report with epoch progress and ETA
+        - metrics snapshot from running and completed jobs
+        - collection log with 6-file compliance verification
+      acceptance_criteria:
+        - all running jobs tracked with current epoch and ETA
+        - stalled jobs detected within threshold (2x expected metric interval)
+        - completed results collected and verified for 6-file compliance
+        - missing or corrupted outputs documented
+        - if systematic failure detected (all seeds diverge), escalated to orchestrator
+
+  common_risks:
+    - all seeds OOM due to underestimated memory requirements
+    - systematic divergence indicating a code or configuration bug
+    - GPU hardware failure during long runs
+    - result files corrupted or incomplete
+    - stalled jobs consuming GPU resources without progress

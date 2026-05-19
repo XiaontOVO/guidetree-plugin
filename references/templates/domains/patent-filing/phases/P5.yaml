@@ -1,0 +1,76 @@
+phase:
+  id: P5
+  name: Review and Jurisdiction Formatting
+  purpose: >
+    Subject the complete application to multi-round examiner-level review, then
+    compile into jurisdiction-specific filing packages that meet all formatting
+    requirements exactly.
+
+  when_to_use: >
+    Use after P4 (Specification Writing) is complete. The full application
+    (claims + specification + figures) must be reviewed before any filing
+    package is compiled.
+
+  inputs:
+    - complete claims from P3
+    - complete specification from P4
+    - processed figures from P4
+    - target jurisdiction(s)
+
+  outputs:
+    - 7-area examiner review report
+    - all Critical issues resolved
+    - CN filing package (if CN jurisdiction)
+    - US filing package (if US jurisdiction)
+    - EP filing package (if EP jurisdiction)
+
+  acceptance_criteria:
+    - 7-area review completed: clarity, written description, enablement, novelty, obviousness, claim scope, overall quality
+    - all findings classified by severity (Critical / Important / Minor)
+    - all Critical issues resolved
+    - review conducted by fresh Agent (different model family, zero prior context)
+    - CN: two-part claims, Song Ti body / Hei Ti headings, request form included
+    - US: open claims, "FIG. N" numbering, oath/declaration included, ADS included
+    - EP: two-part form per EPC Guidelines, reference signs list, designation of states, EPO Form 1001
+    - no jurisdiction format bleeding
+    - each filing package is self-contained and internally consistent
+
+  typical_stages:
+    - id: P5.S1
+      name: Examiner Review Completed
+      goal: >
+        Subject the complete application to multi-round examiner-level review
+        across 7 areas, using a fresh Agent with zero prior context.
+      outputs:
+        - review report covering clarity, written description, enablement, novelty, obviousness, claim scope, overall quality
+        - issue classification (Critical / Important / Minor)
+        - resolution status for each issue
+      acceptance_criteria:
+        - all 7 review areas covered with specific findings
+        - issues classified by severity
+        - all Critical issues resolved
+        - review conducted by fresh Agent (different model family, zero prior context)
+
+    - id: P5.S2
+      name: Jurisdiction Filing Packages Compiled
+      goal: >
+        Compile the reviewed application into jurisdiction-specific filing
+        packages, each following only its own formatting rules.
+      outputs:
+        - CN filing package (if applicable)
+        - US filing package (if applicable)
+        - EP filing package (if applicable)
+      acceptance_criteria:
+        - CN: two-part claims, Song Ti/Hei Ti fonts, request form, power of attorney if applicable
+        - US: open claims, "FIG. N" numbering, oath/declaration, ADS
+        - EP: two-part form, reference signs list, designation of states, EPO Form 1001
+        - no jurisdiction format bleeding
+        - each package self-contained and internally consistent
+
+  common_risks:
+    - self-review by the same Agent that drafted the application
+    - Critical issues left unresolved before formatting
+    - jurisdiction format bleeding (e.g., EP two-part claims in US package)
+    - missing required forms or documents for a jurisdiction
+    - inconsistent content between jurisdiction packages
+    - examiner review not covering all 7 areas

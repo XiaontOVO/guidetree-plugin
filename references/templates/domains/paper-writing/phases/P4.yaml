@@ -1,0 +1,84 @@
+phase:
+  id: P4
+  name: Compilation
+  purpose: >
+    Produce a valid, publication-ready PDF from the LaTeX source. Diagnose
+    compilation errors, attempt automatic fixes, and verify the output meets
+    structural requirements. This phase establishes the baseline PDF that the
+    improvement phase will polish.
+
+  when_to_use: >
+    Use for all LaTeX-based paper writing projects. A paper that has never
+    compiled cannot be reliably improved.
+
+  inputs:
+    - complete LaTeX source files from P3
+    - references.bib from P3
+    - generated figures from P2
+    - page limit from P1
+
+  outputs:
+    - compiled paper.pdf
+    - compilation log
+    - fix-attempt records (if errors occurred)
+    - post-compilation verification report
+
+  acceptance_criteria:
+    - compilation succeeds with zero errors
+    - all citations resolve (no ?? placeholders)
+    - all figures are included (no missing graphics)
+    - page count is within the target limit or explicitly flagged as over
+    - PDF file size is reasonable (10 KB - 50 MB)
+    - fix attempts are documented if auto-fix was applied
+
+  typical_stages:
+    - id: P4.S1
+      name: LaTeX Compiled
+      goal: >
+        Run latexmk with the appropriate engine flag and produce a PDF. Capture
+        full log output for diagnostics.
+      outputs:
+        - compiled PDF (or error log)
+        - full latexmk output
+      acceptance_criteria:
+        - latexmk command executed with correct engine flag
+        - full log captured regardless of success or failure
+        - engine choice is documented (pdflatex, xelatex, or lualatex)
+
+    - id: P4.S2
+      name: Compilation Errors Fixed
+      goal: >
+        Diagnose and fix compilation errors. Auto-fix is attempted up to 3 times
+        for known error categories. After 3 failures, escalate to the operator.
+      outputs:
+        - fix-attempt records
+        - updated LaTeX source (if fixes applied)
+      acceptance_criteria:
+        - error category is identified for each failure
+        - auto-fix is applied only for known categories: missing packages,
+          undefined references, encoding issues, overfull hbox
+        - maximum 3 auto-fix attempts before escalation
+        - each fix attempt is documented with before/after state
+
+    - id: P4.S3
+      name: Post-Compilation Checks Passed
+      goal: >
+        Verify the compiled PDF meets all structural and content requirements.
+        This is a gate: the paper does not proceed without passing.
+      outputs:
+        - post-compilation verification report
+      acceptance_criteria:
+        - PDF file exists and is non-trivially sized (> 10 KB)
+        - all citation keys resolve (no ?? in the PDF)
+        - all figure references resolve (no missing graphics warnings)
+        - page count is within the target limit or explicitly flagged as over
+        - successful compilation with only non-blocking warnings is acceptable
+          (e.g., overfull hbox < 2pt)
+
+  common_risks:
+    - missing LaTeX packages not installed in the build environment
+    - encoding issues with special characters (especially CJK text)
+    - bibliography backend mismatch (bibtex vs biber)
+    - figure paths not matching the actual file locations
+    - silently ignoring compilation warnings that indicate real problems
+    - exceeding page limit without noticing

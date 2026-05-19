@@ -1,0 +1,105 @@
+phase:
+  id: P7
+  name: Prototype, Experiment, and Benchmark
+  purpose: >
+    Implement or simulate enough of the construction to validate feasibility,
+    measure performance, or reproduce key claims.
+
+  when_to_use: >
+    Use when the research project includes empirical claims, implementation
+    feasibility, benchmarks, or prototype validation.
+
+  inputs:
+    - protocol specification
+    - evaluation metrics
+    - baseline implementation or benchmark data
+    - parameter choices
+
+  outputs:
+    - prototype or simulation
+    - benchmark harness
+    - experiment configuration
+    - benchmark results
+    - reproducibility notes
+
+  acceptance_criteria:
+    - prototype scope is explicit
+    - benchmark environment is described
+    - parameters are recorded
+    - results are reproducible enough for review
+    - baseline comparison is fair
+    - failed or negative results are reported
+
+  typical_stages:
+    - id: P7.S1
+      name: Prototype Scope Defined
+      goal: >
+        Decide what part of the protocol must be implemented or simulated.
+      outputs:
+        - prototype scope
+        - excluded components
+        - implementation assumptions
+      acceptance_criteria:
+        - scope supports research claims
+        - exclusions do not invalidate benchmark
+        - implementation assumptions are listed
+
+    - id: P7.S2
+      name: Benchmark Methodology Designed
+      goal: >
+        Define benchmark cases, parameters, environment, and comparison method.
+      outputs:
+        - benchmark plan
+        - parameter matrix
+        - environment specification
+      acceptance_criteria:
+        - benchmark cases match target use cases
+        - environment is documented
+        - baseline comparison method is fair
+
+    - id: P7.S3
+      name: Prototype Implemented or Simulated
+      goal: >
+        Build the minimum artifact needed to run the experiment.
+      outputs:
+        - prototype code or simulation model
+        - execution instructions
+        - known limitations
+      acceptance_criteria:
+        - artifact runs for target cases
+        - limitations are clear
+        - implementation matches protocol spec
+
+    - id: P7.S4
+      name: Benchmark Results Collected
+      goal: >
+        Run experiments and collect performance data.
+      outputs:
+        - raw results
+        - processed tables
+        - charts if useful
+      acceptance_criteria:
+        - results include required metrics
+        - repeated runs or variance are considered where needed
+        - anomalous results are explained or flagged
+
+    - id: P7.S5
+      name: Reproducibility Package Prepared
+      goal: >
+        Prepare enough information for others to reproduce the experiment.
+      outputs:
+        - run instructions
+        - parameter files
+        - environment notes
+        - data availability statement
+      acceptance_criteria:
+        - another competent researcher can reproduce core results
+        - dependencies are listed
+        - random seeds or data generation methods are documented
+
+  common_risks:
+    - prototype diverges from protocol
+    - benchmark cherry-picking
+    - missing environment details
+    - no baseline implementation
+    - implementation bug mistaken as research result

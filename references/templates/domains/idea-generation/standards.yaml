@@ -1,0 +1,232 @@
+acceptance_standards:
+  literature_survey_quality:
+    must_include:
+      - scope of survey with inclusion criteria
+      - annotated reference list
+      - gap summary per identified opportunity
+      - baseline candidates where applicable
+    unacceptable:
+      - unstructured reading list without gap analysis
+      - references without relevance notes
+      - missing key prior work in the target area
+
+  idea_quality:
+    must_include:
+      - each idea cites at least one literature gap
+      - scoring on defined scales (feasibility, novelty, impact)
+      - pilot feasibility results for top candidates
+      - honest reporting of negative or inconclusive pilot results
+    unacceptable:
+      - ideas generated from a blank slate without literature grounding
+      - scoring without justification
+      - suppressed negative results
+      - fewer than 8 candidate ideas
+
+  research_question_quality:
+    must_include:
+      - falsifiable question statement
+      - explicit success criteria
+      - stated assumptions
+      - at least one plausible confound identified
+    unacceptable:
+      - vague "study X" formulation
+      - unfalsifiable question
+      - unstated assumptions
+      - no confound analysis
+
+  mechanism_quality:
+    must_include:
+      - expected causal mechanism
+      - explicitly stated assumptions
+      - identifiability analysis
+      - confound documentation with proposed mitigations
+    unacceptable:
+      - mechanism described only in intuitive terms
+      - hidden assumptions
+      - no confound analysis
+      - "it should work" reasoning
+
+  design_brief_quality:
+    must_include:
+      - sharpened research question
+      - mechanism with assumptions
+      - identifiability analysis
+      - validation plan with failure conditions
+      - risk register
+      - self-contained and understandable without external context
+    unacceptable:
+      - incomplete segments papered over with invented content
+      - no failure condition in the validation plan
+      - risk register covering only one dimension
+      - design brief requiring oral explanation
+
+  novelty_report_quality:
+    must_include:
+      - explicit claim list
+      - prior art search spanning at least 3 independent sources
+      - claim-by-claim overlap/delta mapping
+      - cross-model verification results
+      - novelty score per claim on a defined, reproducible scale
+    unacceptable:
+      - claims assessed only in aggregate
+      - prior art from only one source
+      - answer-leaking prompts in cross-model verification
+      - novelty scores without justification
+      - threshold failures hidden or downplayed
+
+  roadmap_quality:
+    must_include:
+      - primary and fallback research questions
+      - testable hypotheses with success criteria
+      - stages ordered by dependency with no circular dependencies
+      - measurable go/no-go criteria per gate
+      - explicit scope (in-scope and out-of-scope)
+      - fallback chain with activation conditions
+    unacceptable:
+      - no fallback question
+      - untestable hypotheses
+      - vague milestones without measurable exit conditions
+      - missing scope boundaries
+      - circular dependencies between stages
+
+anti_patterns:
+  - name: brainstorming_without_literature
+    bad_example: >
+      Start generating research ideas by free-associating from the project
+      description without surveying existing work.
+    why_bad: >
+      Ideas generated without reference to known gaps are speculation, not
+      research ideas. They are likely to duplicate existing work or address
+      non-problems.
+    fix: >
+      Add a literature survey stage before idea generation. Require every
+      candidate idea to cite at least one identified gap.
+
+  - name: novelty_without_prior_art
+    bad_example: >
+      Claim that a research idea is novel without systematically searching for
+      prior art.
+    why_bad: >
+      The claim may duplicate existing work. False novelty claims waste months
+      of research time.
+    fix: >
+      Add a multi-source prior art search stage with claim-by-claim comparison.
+
+  - name: applying_x_to_y_without_insight
+    bad_example: >
+      Propose "applying method X to domain Y" without identifying what new
+      understanding, challenge, or phenomenon the application reveals.
+    why_bad: >
+      Merely porting a method from one domain to another without new insight
+      is not a research contribution.
+    fix: >
+      Require the sharpening phase to articulate what the application exposes
+      that was not visible before.
+
+  - name: roadmap_without_novelty_gate
+    bad_example: >
+      Generate a detailed research roadmap before verifying that the idea is
+      genuinely novel.
+    why_bad: >
+      Building a plan for an idea that duplicates existing work is wasted
+      effort. The roadmap may need to be discarded entirely.
+    fix: >
+      Enforce the novelty verification gate before roadmapping begins.
+
+  - name: sharpening_that_invents
+    bad_example: >
+      During the mechanism segment, invent a plausible-sounding causal story
+      to fill a gap in understanding.
+    why_bad: >
+      Invented mechanisms create a false sense of readiness. The design brief
+      appears complete but is built on unsupported assumptions.
+    fix: >
+      Flag incomplete segments as gaps rather than filling them with invented
+      content. Honesty about what is unknown is more valuable than false
+      precision.
+
+  - name: suppressing_negative_results
+    bad_example: >
+      A pilot experiment produces inconclusive or negative results, and the
+      idea is escalated anyway because it "seems promising."
+    why_bad: >
+      Weak ideas do not improve with commitment. The cost of killing an idea
+      early is hours; the cost of killing it late is months.
+    fix: >
+      Report negative and inconclusive results honestly. Use them as kill
+      criteria, not as motivation to continue.
+
+  - name: single_source_novelty_check
+    bad_example: >
+      Search only arXiv for prior art and declare the idea novel based on
+      finding no matches.
+    why_bad: >
+      Single-source search misses relevant work in conferences, journals, and
+      other databases. The novelty assessment is unreliable.
+    fix: >
+      Require at least 3 independent sources (e.g., arXiv, web search, DBLP,
+      Semantic Scholar) for prior art search.
+
+  - name: roadmap_without_fallback
+    bad_example: >
+      Create a roadmap with a single hypothesis and no fallback chain.
+    why_bad: >
+      If the primary hypothesis fails at any gate, the project has no recovery
+      path and must return to square one.
+    fix: >
+      Include a fallback chain referencing the next-best idea from the
+      discovery phase, with explicit activation conditions.
+
+  - name: vague_milestones
+    bad_example: >
+      Define roadmap stages as "explore," "validate," and "finalize" without
+      measurable exit conditions.
+    why_bad: >
+      Vague milestones cannot be evaluated. There is no way to determine
+      whether a stage is complete or the project is on track.
+    fix: >
+      Define measurable go/no-go criteria for every stage gate. Each criterion
+      must be evaluable with evidence.
+
+valid_final_output_types:
+  - type: idea_portfolio
+    required_sections:
+      - literature gap analysis
+      - candidate idea list with scoring
+      - pilot feasibility results
+      - ranked idea report
+
+  - type: design_brief
+    required_sections:
+      - sharpened research question
+      - mechanism with assumptions
+      - identifiability analysis
+      - validation plan with failure conditions
+      - risk register
+
+  - type: novelty_report
+    required_sections:
+      - explicit claim list
+      - prior art search results
+      - claim-by-claim overlap/delta mapping
+      - cross-model verification results
+      - novelty scores with justification
+
+  - type: research_roadmap
+    required_sections:
+      - primary and fallback research questions
+      - testable hypotheses with success criteria
+      - staged roadmap with dependencies
+      - go/no-go criteria per gate
+      - scope boundaries
+      - fallback chain
+
+  - type: idea_generation_report
+    required_sections:
+      - literature gap analysis
+      - candidate idea list with scoring
+      - design brief for top idea
+      - novelty report
+      - research roadmap
+      - fallback chain
+      - limitations

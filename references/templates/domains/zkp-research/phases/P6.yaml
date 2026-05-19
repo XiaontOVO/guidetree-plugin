@@ -1,0 +1,93 @@
+phase:
+  id: P6
+  name: Complexity and Performance Analysis
+  purpose: >
+    Quantify the cost of the construction and compare it with baselines using
+    asymptotic analysis and/or concrete metrics.
+
+  when_to_use: >
+    Use whenever the project claims efficiency, succinctness, scalability,
+    lower prover cost, lower verifier cost, smaller proof size, or reduced setup.
+
+  inputs:
+    - proposed protocol
+    - baseline cost profile
+    - evaluation metrics
+    - parameter definitions
+
+  outputs:
+    - asymptotic complexity analysis
+    - concrete cost model
+    - comparison table
+    - tradeoff analysis
+    - performance claim boundaries
+
+  acceptance_criteria:
+    - prover complexity is analyzed
+    - verifier complexity is analyzed
+    - proof size is analyzed when relevant
+    - memory or constraint cost is analyzed when relevant
+    - baseline comparison is fair
+    - assumptions and parameters are stated
+    - claims distinguish asymptotic and empirical results
+
+  typical_stages:
+    - id: P6.S1
+      name: Cost Dimensions Enumerated
+      goal: >
+        Define all cost dimensions relevant to the research claim.
+      outputs:
+        - cost dimension list
+        - metric definitions
+        - parameter variables
+      acceptance_criteria:
+        - metrics match project claims
+        - missing obvious metrics are justified
+        - parameters are clearly defined
+
+    - id: P6.S2
+      name: Asymptotic Complexity Derived
+      goal: >
+        Derive asymptotic costs of prover, verifier, proof size, setup, or
+        other relevant components.
+      outputs:
+        - complexity formulas
+        - derivation notes
+        - comparison with baseline
+      acceptance_criteria:
+        - formulas are linked to protocol steps
+        - asymptotic notation is used consistently
+        - baseline comparison uses same parameters
+
+    - id: P6.S3
+      name: Concrete Cost Model Built
+      goal: >
+        Estimate concrete costs under selected parameters.
+      outputs:
+        - concrete cost table
+        - parameter settings
+        - sensitivity notes
+      acceptance_criteria:
+        - parameters are realistic
+        - estimates are reproducible
+        - hidden constants or implementation assumptions are stated
+
+    - id: P6.S4
+      name: Tradeoff Analysis Completed
+      goal: >
+        Summarize what improves, what worsens, and under which conditions.
+      outputs:
+        - tradeoff table
+        - claim boundary
+        - recommended use cases
+      acceptance_criteria:
+        - improvements are conditional when necessary
+        - regressions are not hidden
+        - use-case fit is clear
+
+  common_risks:
+    - only reporting favorable metrics
+    - mixing asymptotic and empirical claims
+    - ignoring memory
+    - ignoring setup/prover preprocessing
+    - unfair parameter comparison

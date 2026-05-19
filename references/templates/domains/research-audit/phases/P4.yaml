@@ -1,0 +1,71 @@
+phase:
+  id: P4
+  name: Iterative Improvement
+  purpose: >
+    Iteratively review and fix the paper using fresh Agents each round. The loop
+    continues until the paper receives a positive assessment or MAX_ROUNDS (4)
+    is reached. Each round must be genuinely independent to prevent anchoring
+    bias.
+
+  when_to_use: >
+    Use when the paper has been audited and issues have been identified that
+    require revision. Skip if the paper is already in good shape or if this is a
+    citation-only audit with no paper revision needed.
+
+  inputs:
+    - manuscript text
+    - audit findings from P1 and P2 (if available)
+    - unresolved points from P3 (if available)
+    - MAX_ROUNDS setting (default: 4)
+
+  outputs:
+    - per-round review assessment from fresh Agents
+    - parsed actionable items from each assessment
+    - fixes implemented per round with tracking
+    - improvement trajectory across rounds
+    - final assessment status (positive / MAX_ROUNDS reached)
+
+  acceptance_criteria:
+    - fresh Agent used for every review round (zero prior context)
+    - no prior review context passed between rounds
+    - assessment parsed into specific actionable items
+    - fixes implemented for each item
+    - improvement tracked relative to previous round
+    - loop terminates on positive assessment or MAX_ROUNDS
+
+  typical_stages:
+    - id: P4.S1
+      name: Review Round
+      goal: >
+        Dispatch a fresh Agent to review the current paper state and produce an
+        assessment with specific, actionable items.
+      outputs:
+        - review assessment from fresh Agent
+        - parsed actionable items
+        - positive/negative assessment classification
+      acceptance_criteria:
+        - fresh Agent with zero prior context
+        - assessment includes specific actionable items
+        - positive/negative classification is explicit
+
+    - id: P4.S2
+      name: Fix Implementation
+      goal: >
+        Implement fixes for each actionable item from the review assessment.
+        Track what was addressed and how.
+      outputs:
+        - fixes applied per item
+        - fix tracking with before/after
+        - revised paper
+      acceptance_criteria:
+        - every actionable item addressed (fixed or explicitly deferred)
+        - fixes are traceable to specific review items
+        - improvement trajectory updated
+
+  common_risks:
+    - reusing the same Agent across review rounds (anchoring bias)
+    - passing prior review output to next reviewer (compromises independence)
+    - implementing fixes without tracking (cannot measure improvement)
+    - continuing past MAX_ROUNDS without producing summary
+    - treating MAX_ROUNDS as failure rather than convergence signal
+    - fixing surface issues while leaving structural problems unaddressed

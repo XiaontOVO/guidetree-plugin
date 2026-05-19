@@ -1,0 +1,82 @@
+phase:
+  id: P5
+  name: Integration
+  purpose: >
+    Complete the development branch by verifying all tests pass on the target
+    branch, presenting integration options to the user, executing the chosen
+    option, and cleaning up the worktree. A feature is not done until it is
+    integrated.
+
+  when_to_use: >
+    Use for all code implementation projects that have completed review with
+    all Critical and Important issues resolved. Integration is the final gate
+    before the feature is considered delivered.
+
+  inputs:
+    - reviewed and approved code
+    - all Critical and Important issues resolved
+    - feature branch with commits
+    - worktree location
+
+  outputs:
+    - all tests pass on the target branch
+    - user-chosen integration option (merge / PR / keep / discard)
+    - execution result of chosen option
+    - worktree cleanup confirmation
+
+  acceptance_criteria:
+    - all tests pass before options are presented
+    - user explicitly selects one of the 4 integration options
+    - chosen option executed successfully
+    - worktree cleaned up (if merge or discard)
+    - no force push used at any point
+    - no direct commit to main/master without explicit consent
+
+  typical_stages:
+    - id: P5.S1
+      name: Tests Verified
+      goal: >
+        Run all tests on the development branch and verify they pass. If any
+        test fails, stop and report. Do not proceed to integration options.
+      outputs:
+        - test results (all pass, or failure report)
+      acceptance_criteria:
+        - all tests pass
+        - if any test fails, a failure report is produced and integration is blocked
+
+    - id: P5.S2
+      name: Branch Completed
+      goal: >
+        Present the 4 integration options to the user, wait for their choice,
+        and execute it.
+      outputs:
+        - user's integration choice
+        - execution result
+      acceptance_criteria:
+        - 4 options presented clearly (merge, PR, keep, discard)
+        - user explicitly selects one option
+        - chosen option executed successfully
+        - merge: branch merged to main
+        - PR: pull request created via gh pr create
+        - keep: branch left as-is
+        - discard: branch and worktree deleted
+
+    - id: P5.S3
+      name: Worktree Cleaned Up
+      goal: >
+        Remove the worktree and any temporary artifacts after the integration
+        decision is executed.
+      outputs:
+        - cleanup confirmation
+        - final state report
+      acceptance_criteria:
+        - worktree removed (if merge or discard)
+        - no orphaned worktrees or branches (if merge or discard)
+        - final state reported clearly
+
+  common_risks:
+    - tests pass locally but fail on integration due to environment differences
+    - user wants to merge without review (should be caught in P4)
+    - merge conflicts during integration
+    - worktree not cleaned up after completion
+    - accidental force push during conflict resolution

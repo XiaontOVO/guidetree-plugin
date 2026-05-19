@@ -1,0 +1,103 @@
+bad_plan:
+  phases:
+    - Research
+    - Design
+    - Implementation
+    - Testing
+    - Delivery
+
+why_bad:
+  - does not identify ZKP subdomain
+  - no formal relation
+  - no security model
+  - no prior-art baseline
+  - no proof obligations
+  - "testing" is too generic for cryptographic research
+  - no benchmark or complexity analysis
+  - no final report or claim-evidence mapping
+
+good_plan:
+  phases:
+    - id: P1
+      name: Research Question and Prior Work Established
+      outputs:
+        - clarified ZKP research question
+        - prior-art map
+        - selected baselines
+
+    - id: P2
+      name: Formal Model and Assumptions Defined
+      outputs:
+        - relation definition
+        - witness/public input split
+        - security properties
+        - setup model
+        - assumptions
+
+    - id: P3
+      name: Candidate Construction Specified
+      outputs:
+        - protocol algorithms
+        - parameter definitions
+        - verifier checks
+        - design rationale
+
+    - id: P4
+      name: Security and Complexity Analyzed
+      outputs:
+        - completeness argument
+        - soundness proof sketch
+        - zero-knowledge argument if applicable
+        - prover/verifier/proof-size analysis
+
+    - id: P5
+      name: Prototype and Benchmark Evidence Collected
+      outputs:
+        - prototype or simulation
+        - benchmark results
+        - reproducibility notes
+
+    - id: P6
+      name: Research Report Delivered
+      outputs:
+        - final report
+        - claim-evidence matrix
+        - limitations
+        - future work
+
+usage_in_guidetree:
+  create_project_context:
+    use_for:
+      - identifying whether the project is truly ZKP research
+      - classifying the ZKP subdomain
+      - detecting missing research question
+      - detecting non-goals
+
+  generate_phase_skeleton:
+    use_for:
+      - selecting appropriate ZKP phase pattern
+      - avoiding generic software phases
+      - ensuring research-specific milestones exist
+
+  validate_phase_skeleton:
+    use_for:
+      - checking whether formal model/security/baseline/benchmark phases are present when required
+      - rejecting invalid generic plans
+      - rejecting plans that skip proof obligations
+
+  expand_phase_to_stage_dag:
+    use_for:
+      - selecting stage types appropriate to each ZKP phase
+      - enforcing dependency rules
+      - preventing proof/benchmark stages from appearing too early
+
+  validate_stage_dag:
+    use_for:
+      - checking stage boundaries
+      - checking research dependency order
+      - checking assumptions and evidence flow
+
+  expand_stage_to_steps:
+    use_for:
+      - generating concrete research tasks
+      - ensuring steps produce formal definitions, proof sketches, tables, benchmarks, or reports

@@ -1,0 +1,61 @@
+template_name: academic_research_phase_stage_template
+version: 1.0.0
+type: guidetree_domain_template
+domain: academic_research
+
+description: >
+  Domain-specific phase/stage decomposition template for academic research
+  projects in computer science, AI, and systems. This template defines how an
+  agent should divide academic research work into phases and stages. It is not
+  an executable skill. It is a planning reference used by GuideTree skills when
+  generating, validating, or repairing project structures for academic research.
+
+intended_use:
+  used_by:
+    - generate_phase_skeleton
+    - validate_phase_skeleton
+    - expand_phase_to_stage_dag
+    - validate_stage_dag
+    - expand_stage_to_steps
+    - validate_steps
+
+  not_used_as:
+    - executable_skill
+    - runtime_orchestrator
+    - state_update_mechanism
+    - direct_project_executor
+
+core_principle: >
+  Academic research must be decomposed around evidence integrity, novelty
+  verification, reproducible experimentation, and honest reporting. Every claim
+  must trace to evidence; every method must be reproducible; every experiment
+  must follow a pre-specified protocol. The research pipeline exists to prevent
+  self-deception, not to manufacture positive results.
+
+domain_scope:
+  includes:
+    - literature survey and systematic review
+    - research idea generation and novelty verification
+    - experiment protocol design and statistical planning
+    - research code implementation and validation
+    - experiment execution, monitoring, and analysis
+    - paper writing with claims-evidence backbone
+    - research audit, adversarial review, and rebuttal
+    - ablation studies and sensitivity analysis
+    - baseline replication and comparison
+    - reproducibility packaging
+    - thesis and dissertation research
+    - workshop and conference paper research
+
+  excludes_by_default:
+    - production software deployment
+    - commercial product development
+    - patent filing and intellectual property legal work
+    - marketing and promotional material creation
+    - grant proposal writing (distinct deliverable type)
+    - course curriculum development
+    - user experience research not tied to a research question
+    - regulatory compliance review
+
+  note: >
+    Excluded items may be added only if explicitly included in project_context.

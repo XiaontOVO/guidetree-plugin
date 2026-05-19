@@ -1,0 +1,103 @@
+bad_plan:
+  phases:
+    - Research
+    - Writing
+    - Review
+    - Submission
+
+why_bad:
+  - does not include a claims-evidence matrix
+  - no figure generation phase
+  - no compilation phase
+  - no page budget enforcement
+  - "Research" is too generic for paper writing
+  - no citation verification
+  - no structured improvement with automated checks
+  - review is unspecified (what kind? how many rounds?)
+
+good_plan:
+  phases:
+    - id: P1
+      name: Paper Planning
+      outputs:
+        - paper outline with section goals
+        - claims-evidence matrix
+        - figure plan
+        - citation scaffold
+        - page budget
+
+    - id: P2
+      name: Figure Generation
+      outputs:
+        - data figures (PDF/SVG)
+        - architecture diagrams (SVG)
+        - mermaid diagrams (SVG)
+        - AI illustrations
+        - figure manifest
+
+    - id: P3
+      name: Writing
+      outputs:
+        - LaTeX section files
+        - 5-pass audit reports
+        - banned-word scan results
+        - claim-evidence cross-references
+
+    - id: P4
+      name: Compilation
+      outputs:
+        - compiled PDF
+        - compilation log
+        - post-compilation verification
+
+    - id: P5
+      name: Improvement
+      outputs:
+        - review report
+        - overclaim and GPT-style detection results
+        - revised LaTeX
+        - recompiled PDF with version snapshot
+
+    - id: P6
+      name: Presentation
+      outputs:
+        - Beamer slides with speaker notes
+        - conference poster
+        - talk script with timing
+
+usage_in_guidetree:
+  create_project_context:
+    use_for:
+      - identifying whether the project is truly a paper writing project
+      - classifying the paper type (conference, journal, workshop, presentation-only)
+      - detecting missing claims or evidence
+      - detecting non-goals (experiment execution, code implementation)
+
+  generate_phase_skeleton:
+    use_for:
+      - selecting appropriate paper writing phase pattern
+      - avoiding generic software development phases
+      - ensuring writing-specific milestones exist
+
+  validate_phase_skeleton:
+    use_for:
+      - checking whether planning, figure, writing, compilation, improvement phases are present when required
+      - rejecting invalid generic plans
+      - rejecting plans that skip claims-evidence matrix or citation verification
+
+  expand_phase_to_stage_dag:
+    use_for:
+      - selecting stage types appropriate to each paper writing phase
+      - enforcing dependency rules (claims before prose, figures before drafting)
+      - preventing drafting stages from appearing before planning stages
+
+  validate_stage_dag:
+    use_for:
+      - checking stage boundaries
+      - checking writing dependency order
+      - checking evidence flow from claims matrix through figures to text
+
+  expand_stage_to_steps:
+    use_for:
+      - generating concrete writing tasks
+      - ensuring steps produce outlines, figures, LaTeX sections, PDFs, reviews, or presentation materials

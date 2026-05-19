@@ -1,0 +1,73 @@
+phase:
+  id: P2
+  name: Reading and Triage
+  purpose: >
+    Quick-read candidate papers via MCP to determine which deserve deep
+    analysis. Triage prevents wasting effort on marginally relevant or
+    low-quality work by assigning per-paper scores and tier classifications.
+
+  when_to_use: >
+    Use after discovery (P1) completes. Every candidate paper must be triaged
+    before any deep analysis begins. For quick surveys, this phase may be the
+    primary reading phase with only shallow P3 work.
+
+  inputs:
+    - ranked candidate paper list from P1
+    - research direction and scope definition
+    - Zotero collection for this review
+
+  outputs:
+    - per-paper triage scores (relevance, novelty, readability)
+    - tier classification for each paper (must-analyze / maybe / skip)
+    - brief reading notes per paper
+    - triage summary with statistics
+
+  acceptance_criteria:
+    - all candidate papers from P1 were triaged
+    - MCP was used as the primary reading method
+    - each paper has numeric scores on all three dimensions with brief justification
+    - each paper is assigned a tier (must-analyze / maybe / skip)
+    - no PDFs were downloaded for skip-tier papers
+    - papers that could not be read are marked [UNREADABLE], not fabricated
+    - no deep analysis was performed during triage
+
+  typical_stages:
+    - id: P2.S1
+      name: Papers Quick-Read via MCP
+      goal: >
+        Read each candidate paper via MCP tools to extract enough information
+        for triage scoring. Fall back to local PDF only if MCP access fails.
+      outputs:
+        - brief reading notes per paper (abstract summary, methodology sketch, main result)
+        - access method log (MCP success, fallback, or [UNREADABLE])
+      acceptance_criteria:
+        - MCP was attempted first for every paper with an arXiv ID
+        - reading notes cover at minimum: abstract summary, methodology sketch, main result
+        - papers that could not be read are marked [UNREADABLE] with the reason
+        - no PDF was downloaded solely for triage
+        - no paper was triaged from title and abstract alone without reading
+
+    - id: P2.S2
+      name: Papers Scored and Tiered
+      goal: >
+        Score each triaged paper on relevance, novelty, and readability, and
+        assign a tier classification.
+      outputs:
+        - per-paper scores (relevance 1-5, novelty 1-5, readability 1-5) with justification
+        - tier assignment per paper (must-analyze / maybe / skip)
+        - triage summary with counts per tier
+      acceptance_criteria:
+        - every candidate paper has scores on all three dimensions
+        - each score has a brief justification
+        - tier assignments are consistent with score thresholds
+        - must-analyze tier includes papers most relevant to the research direction
+        - skip-tier papers are those clearly outside scope or with negligible contribution
+        - triage summary includes total counts per tier
+
+  common_risks:
+    - reading too deeply during triage (conflating triage with analysis)
+    - inconsistency in scoring across papers (scope creep in relevance judgments)
+    - over-weighting venue prestige in quality assessment
+    - skipping papers that seem irrelevant but contain useful methods
+    - too many papers classified as must-analyze (triage gate ineffective)
+    - too few papers classified as must-analyze (analysis phase starved)

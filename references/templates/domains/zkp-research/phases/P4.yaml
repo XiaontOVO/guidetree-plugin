@@ -1,0 +1,97 @@
+phase:
+  id: P4
+  name: Proposed Protocol or Technique Development
+  purpose: >
+    Develop the new or modified ZKP construction, optimization, proof technique,
+    arithmetization strategy, commitment integration, or protocol component.
+
+  when_to_use: >
+    Use when the project proposes a novel construction, optimization, or
+    adaptation rather than only surveying existing work.
+
+  inputs:
+    - formal model
+    - baseline analysis
+    - improvement target
+    - cryptographic assumptions
+    - evaluation metrics
+
+  outputs:
+    - proposed construction
+    - protocol flow
+    - algorithms
+    - parameter definitions
+    - design rationale
+    - expected tradeoffs
+
+  acceptance_criteria:
+    - construction is specified precisely
+    - algorithms are unambiguous
+    - inputs/outputs of each algorithm are clear
+    - protocol flow is complete
+    - design choices are justified
+    - expected improvement maps to baseline limitation
+    - assumptions do not silently change
+
+  typical_stages:
+    - id: P4.S1
+      name: Design Strategy Selected
+      goal: >
+        Choose the core technical approach for the proposed improvement.
+      outputs:
+        - design strategy
+        - rejected alternatives
+        - expected benefit
+      acceptance_criteria:
+        - strategy addresses the identified limitation
+        - alternatives are considered
+        - strategy is compatible with formal model
+
+    - id: P4.S2
+      name: Protocol Components Defined
+      goal: >
+        Define cryptographic and algebraic components used by the construction.
+      outputs:
+        - component definitions
+        - dependency on commitments/hash/field/curve/IOP/etc.
+        - parameter list
+      acceptance_criteria:
+        - components are explicit
+        - assumptions are attached to components
+        - parameter choices are not arbitrary
+
+    - id: P4.S3
+      name: Protocol Algorithms Specified
+      goal: >
+        Specify setup, prove, verify, commit, open, fold, aggregate, or other
+        relevant algorithms.
+      outputs:
+        - algorithm descriptions
+        - inputs and outputs
+        - protocol messages
+      acceptance_criteria:
+        - algorithms are complete
+        - verifier checks are clear
+        - prover witness use is explicit
+        - failure conditions are defined
+
+    - id: P4.S4
+      name: Design Rationale and Tradeoffs Documented
+      goal: >
+        Explain why the construction should improve over the baseline and what
+        costs it introduces.
+      outputs:
+        - rationale
+        - tradeoff table
+        - expected improvement claims
+      acceptance_criteria:
+        - improvement claims are connected to mechanisms
+        - tradeoffs are explicit
+        - no security claim is made without later proof obligation
+
+  common_risks:
+    - vague construction
+    - missing verifier algorithm
+    - changing assumptions without stating it
+    - introducing non-black-box components without analysis
+    - optimizing one metric while breaking another

@@ -1,0 +1,64 @@
+template_name: experiment_phase_stage_template
+version: 1.0.0
+type: guidetree_domain_template
+domain: experiment
+
+description: >
+  Domain-specific phase/stage decomposition template for experiment projects.
+  This template defines how an agent should divide experiment work into phases
+  and stages. It is not an executable skill. It is a planning reference used by
+  GuideTree skills when generating, validating, or repairing project structures
+  for computational experiments.
+
+intended_use:
+  used_by:
+    - generate_phase_skeleton
+    - validate_phase_skeleton
+    - expand_phase_to_stage_dag
+    - validate_stage_dag
+    - expand_stage_to_steps
+    - validate_steps
+
+  not_used_as:
+    - executable_skill
+    - runtime_orchestrator
+    - state_update_mechanism
+    - direct_project_executor
+
+core_principle: >
+  Experiment work must be decomposed around protocol design, reproducible
+  execution, statistical rigor, and integrity auditing. Every experiment must
+  start from a protocol that defines what will be measured and why, deploy to
+  hardware with a sanity check before full runs, establish baselines before
+  testing hypotheses, and audit results before making claims.
+
+domain_scope:
+  includes:
+    - experiment protocol design
+    - data schema definition
+    - experiment block design and milestone planning
+    - GPU deployment and infrastructure verification
+    - batch job dispatch and parallel execution
+    - experiment monitoring and progress tracking
+    - statistical analysis with effect sizes and confidence intervals
+    - ablation study design and execution
+    - design-space exploration (DSE) loops
+    - integrity auditing (ground truth provenance, normalization, scope)
+    - reproducibility packaging
+    - checkpoint save/resume for long-running experiments
+    - hyperparameter sensitivity analysis
+    - result collection and 6-file output compliance verification
+
+  excludes_by_default:
+    - paper writing and manuscript preparation
+    - literature survey and systematic review
+    - idea generation or brainstorming phases
+    - production deployment and serving infrastructure
+    - model architecture design research
+    - dataset collection and curation
+    - user interface development
+    - commercial product planning
+    - legal or ethics compliance review
+
+  note: >
+    Excluded items may be added only if explicitly included in project_context.

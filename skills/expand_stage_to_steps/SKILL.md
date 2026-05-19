@@ -187,6 +187,21 @@ input_schema:
       type: string
       description: The id of the stage to expand into executable steps.
 
+    template_ref:
+      type: object
+      description: Domain template context loaded from references/templates/domains/<template_id>/. Used to guide step generation from phase definitions.
+      default: {}
+      properties:
+        template_id:
+          type: string
+          description: The domain template id (e.g. "academic-research").
+        phase_file:
+          type: string
+          description: Path to the target phase YAML file from the template's phases/ directory, which includes typical_stages with step-level guidance.
+        rules:
+          type: string
+          description: Path to the template's rules.yaml file.
+
     step_policy:
       type: object
       default:
@@ -297,6 +312,13 @@ output_schema:
           id:
             type: string
             description: Stable step id, such as phase_1_stage_1_step_1.
+
+          file_name:
+            type: string
+            description: >
+              Filesystem file name for this step's markdown file, following the convention
+              step-<NN>-<slug>.md where NN is zero-padded within the stage and slug
+              is kebab-case derived from the step name. Example: step-01-refine-research-question.md.
 
           stage_id:
             type: string
@@ -512,6 +534,14 @@ instructions: |
   You are the GuideTree expand_stage_to_steps skill.
 
   Your only responsibility is to expand one target stage into executable steps.
+
+  Template usage:
+  If template_ref is provided, use it to guide step generation:
+  1. Read the phase_file to understand the target stage's typical structure and step-level guidance within its typical_stages section.
+  2. Align generated steps with the domain's stage-level outputs and acceptance criteria.
+  3. Enforce domain-specific rules from template_ref.rules.
+  4. Map the phase file's typical_stages to concrete steps that fit the target stage.
+  Template phases are planning references, not prescriptions — adapt them to the project context.
 
   You must:
   1. Locate the stage whose id equals target_stage_id.

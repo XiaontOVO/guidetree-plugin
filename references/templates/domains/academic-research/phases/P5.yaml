@@ -1,0 +1,124 @@
+phase:
+  id: P5
+  name: Experiment Execution and Analysis
+  purpose: >
+    Execute the experiment plan on compute infrastructure, following the
+    sanity-first policy, and produce statistically analyzed results. This
+    phase runs the validated protocol, not ad-hoc experiments. If results
+    contradict the hypothesis, they are reported honestly.
+
+  when_to_use: >
+    Required for any project with empirical claims. This phase runs after the
+    codebase has been implemented, reviewed, and integrated. The experiment
+    protocol must be validated before this phase begins.
+
+  inputs:
+    - experiment protocol
+    - data schema
+    - experiment blocks and todolist
+    - validated codebase
+
+  outputs:
+    - deployment and environment log
+    - sanity seed results per block
+    - full execution dispatch log
+    - monitoring log with anomaly flags
+    - raw results in specified schema
+    - statistical analysis report (tests, confidence intervals, effect sizes)
+
+  acceptance_criteria:
+    - deployment log records full environment specification
+    - sanity seed succeeded for every block before full dispatch
+    - all jobs completed or explicitly flagged with failure reason
+    - raw results conform to the data schema defined in the plan
+    - statistical analysis uses the tests specified in the protocol
+    - no post-hoc test selection without explicit justification
+    - if results contradict the hypothesis, they are reported honestly
+
+  typical_stages:
+    - id: P5.S1
+      name: Deployment and Verification
+      goal: >
+        Deploy the experiment code to the target compute environment, record the
+        full environment specification, and verify deployment with a smoke test.
+      outputs:
+        - deployment log with environment specification
+        - smoke test results
+      acceptance_criteria:
+        - environment specification includes OS, language versions, hardware, and drivers
+        - smoke test executes successfully
+        - output schema matches protocol specification
+
+    - id: P5.S2
+      name: Sanity-First Dispatch
+      goal: >
+        For each experiment block, run a single sanity seed first. Only dispatch
+        the full seed suite after the sanity seed produces reasonable output.
+      outputs:
+        - sanity seed results per block
+        - full seed dispatch log with timestamps and job IDs
+      acceptance_criteria:
+        - sanity seed output is reasonable (no NaN losses, metrics in expected range)
+        - sanity seed completed before full dispatch for each block
+        - if sanity check fails, diagnosis is performed before proceeding
+        - all seeds and job IDs recorded
+
+    - id: P5.S3
+      name: Monitoring and Anomaly Detection
+      goal: >
+        Track job progress, resource usage, and anomalies throughout the
+        experiment run. Log monitoring data at regular intervals.
+      outputs:
+        - monitoring log with job status
+        - resource usage logs
+        - anomaly flags with descriptions
+      acceptance_criteria:
+        - monitoring data logged at regular intervals
+        - anomalies are flagged when detected
+        - failed jobs are documented with failure reasons
+        - resource usage is tracked for reproducibility
+
+    - id: P5.S4
+      name: Statistical Analysis
+      goal: >
+        Collect raw results, apply the pre-specified statistical tests, and
+        compute confidence intervals and effect sizes. No fishing for
+        significant results.
+      outputs:
+        - raw results in specified schema
+        - statistical test results per claim
+        - confidence intervals
+        - effect sizes
+        - analysis report
+      acceptance_criteria:
+        - statistical tests match the protocol specification
+        - no post-hoc test selection without explicit justification
+        - confidence intervals and effect sizes computed
+        - results presented per claim with verdicts
+        - negative results reported honestly
+
+    - id: P5.S5
+      name: Result Integrity Audit
+      goal: >
+        Verify result integrity: check output schema conformance, seed
+        coverage, statistical test correctness, and reproducibility of key
+        results.
+      outputs:
+        - schema conformance report
+        - seed coverage report
+        - statistical test verification
+        - reproducibility check results
+      acceptance_criteria:
+        - all output files conform to the data schema
+        - all specified seeds completed or failures documented
+        - statistical tests verified against raw data
+        - key results reproducible from raw data
+
+  common_risks:
+    - skipping sanity check and dispatching full suite on broken code
+    - not recording environment specification — makes reproducibility impossible
+    - post-hoc test selection (p-hacking)
+    - cherry-picking seeds or excluding failed runs without documentation
+    - not monitoring — jobs may silently fail or OOM
+    - over-interpreting results before completing the full statistical analysis
+    - discarding negative results instead of reporting them

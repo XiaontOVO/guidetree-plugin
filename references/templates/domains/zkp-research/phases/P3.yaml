@@ -1,0 +1,90 @@
+phase:
+  id: P3
+  name: Baseline Construction and Prior-Art Comparison
+  purpose: >
+    Establish the baseline protocol, construction, or technique against which
+    the research contribution will be compared.
+
+  when_to_use: >
+    Mandatory when the project claims improvement, simplification, optimization,
+    or new construction relative to existing work.
+
+  inputs:
+    - prior-art map
+    - formal problem definition
+    - selected metrics
+
+  outputs:
+    - selected baseline protocol(s)
+    - baseline mechanism summary
+    - baseline complexity profile
+    - baseline limitation analysis
+    - comparison plan
+
+  acceptance_criteria:
+    - baseline selection is justified
+    - baseline is relevant to the same problem/model
+    - baseline assumptions are recorded
+    - baseline performance/security properties are summarized
+    - comparison dimensions are fair
+
+  typical_stages:
+    - id: P3.S1
+      name: Baseline Protocol Selected
+      goal: >
+        Select one or more suitable baseline constructions.
+      outputs:
+        - baseline list
+        - selection rationale
+        - excluded alternatives
+      acceptance_criteria:
+        - selected baselines are technically relevant
+        - exclusion reasons are documented
+        - baseline model matches project model or mismatch is noted
+
+    - id: P3.S2
+      name: Baseline Mechanism Analyzed
+      goal: >
+        Explain how the selected baseline works at the level needed for comparison.
+      outputs:
+        - mechanism summary
+        - protocol flow
+        - key algebraic/cryptographic components
+      acceptance_criteria:
+        - explanation is accurate
+        - relevant protocol components are identified
+        - no unsupported simplification hides important assumptions
+
+    - id: P3.S3
+      name: Baseline Cost Profile Established
+      goal: >
+        Estimate or measure baseline proof size, prover cost, verifier cost,
+        memory, setup, communication, or constraint count.
+      outputs:
+        - baseline cost table
+        - complexity formulas
+        - benchmark plan if needed
+      acceptance_criteria:
+        - cost dimensions match evaluation metrics
+        - asymptotic and concrete costs are separated
+        - assumptions behind estimates are stated
+
+    - id: P3.S4
+      name: Baseline Limitation Identified
+      goal: >
+        Identify the specific limitation the research aims to address.
+      outputs:
+        - limitation statement
+        - improvement target
+        - expected tradeoffs
+      acceptance_criteria:
+        - limitation is not vague
+        - improvement target is measurable
+        - possible tradeoffs are acknowledged
+
+  common_risks:
+    - unfair baseline
+    - obsolete baseline without justification
+    - comparing different security models
+    - ignoring setup assumptions
+    - measuring only favorable metrics

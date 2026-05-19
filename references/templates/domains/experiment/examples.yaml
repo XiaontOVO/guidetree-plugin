@@ -1,0 +1,91 @@
+bad_plan:
+  phases:
+    - Research
+    - Design
+    - Implementation
+    - Testing
+    - Delivery
+
+why_bad:
+  - does not identify experiment type
+  - no protocol or schema definition
+  - no sanity check or baseline establishment
+  - no statistical analysis or effect size requirement
+  - no integrity audit
+  - "testing" is too generic for experiment validation
+  - no 6-file output standard
+  - no claim-evidence mapping
+  - no consideration of parallel dispatch or GPU deployment
+
+good_plan:
+  phases:
+    - id: P1
+      name: Planning and Protocol
+      outputs:
+        - experiment protocol
+        - 6-file data schema
+        - experiment blocks with claim mapping
+        - todolist with block/config/seed enumeration
+
+    - id: P2
+      name: Deployment
+      outputs:
+        - experiment code
+        - GPU deployment verification
+        - sanity check report
+        - code review completion
+
+    - id: P3
+      name: Execution and Monitoring
+      outputs:
+        - dispatch manifest
+        - batch job results
+        - progress and collection reports
+
+    - id: P4
+      name: Analysis and Auditing
+      outputs:
+        - statistical analysis report
+        - integrity audit report
+        - ablation design and results (if applicable)
+        - DSE report (if applicable)
+
+usage_in_guidetree:
+  create_project_context:
+    use_for:
+      - identifying whether the project is truly an experiment project
+      - classifying the experiment type (ablation, scaling, reproduction, DSE)
+      - detecting missing protocol or schema requirements
+      - detecting non-goals (paper writing, production deployment)
+
+  generate_phase_skeleton:
+    use_for:
+      - selecting appropriate experiment phase pattern (4-phase or subset)
+      - avoiding generic software engineering phases
+      - ensuring experiment-specific milestones exist (sanity, baseline, main)
+
+  validate_phase_skeleton:
+    use_for:
+      - checking whether protocol, deployment, execution, and analysis phases
+        are present when required
+      - rejecting invalid generic plans (Research, Design, Implementation, Testing)
+      - rejecting plans that skip protocol or sanity check phases
+
+  expand_phase_to_stage_dag:
+    use_for:
+      - selecting stage types appropriate to each experiment phase
+      - enforcing dependency rules (protocol before code, sanity before dispatch)
+      - preventing execution stages from appearing before deployment is validated
+
+  validate_stage_dag:
+    use_for:
+      - checking stage boundaries
+      - checking experiment dependency order
+      - checking that baseline runs precede main runs
+      - verifying 6-file output compliance at each collection stage
+
+  expand_stage_to_steps:
+    use_for:
+      - generating concrete experiment tasks
+      - ensuring steps produce protocols, schemas, dispatch manifests, analysis
+        reports, or audit findings

@@ -1,0 +1,273 @@
+acceptance_standards:
+  protocol_quality:
+    must_include:
+      - 7-step workflow definition (CONFIGURE through ARCHIVE)
+      - explicit inputs and outputs for each step
+      - acceptance criteria per step
+      - failure handling per step
+      - metric references tied to schema fields
+    unacceptable:
+      - vague "train and evaluate"
+      - missing failure handling
+      - metrics referenced but not defined in schema
+      - steps that cannot be independently verified
+
+  schema_quality:
+    must_include:
+      - all 6 file definitions (raw_record, attempts, metrics, config, hardware_info, summary)
+      - field names, types, and constraints for each file
+      - metric field definitions with units and ranges
+      - configuration parameter specifications
+    unacceptable:
+      - missing file definitions
+      - ambiguous field types
+      - metrics in protocol without corresponding schema field
+      - no constraints or validation rules
+
+  block_design_quality:
+    must_include:
+      - claim-to-block mapping (every claim has at least one block)
+      - milestone assignment per block (Sanity, Baseline, Main, Decision, Polish)
+      - block dependency graph (DAG, no cycles)
+      - measurable success criteria per block
+      - 3-level todolist (block, config, seed)
+    unacceptable:
+      - claims without corresponding blocks
+      - missing milestone assignments
+      - circular dependencies between blocks
+      - immeasurable success criteria
+      - todolist that does not cover all block/config/seed combinations
+
+  deployment_quality:
+    must_include:
+      - end-to-end code execution on target GPU
+      - sanity check results with loss curves and metric plausibility
+      - 6-file output validation against schema
+      - frozen configuration matching actual run
+      - checkpoint save and resume verification
+      - cross-model code review report
+    unacceptable:
+      - code that only runs locally but not on target hardware
+      - sanity check skipped or passed with anomalies unexplained
+      - missing output files
+      - configuration drift between protocol and deployment
+      - no code review
+
+  execution_quality:
+    must_include:
+      - dispatch manifest with seed/config/GPU assignments
+      - sanity seed completion before full dispatch
+      - all seeds dispatched or skipped with documented reason
+      - OOM retry log with batch size adjustments
+      - 6-file compliance verification for collected results
+    unacceptable:
+      - full dispatch without sanity check
+      - unexplained missing seeds
+      - OOM failures without retry attempts
+      - results collected without compliance verification
+
+  analysis_quality:
+    must_include:
+      - per-configuration statistics: mean, std, 95% CI
+      - delta against correct baseline under same conditions
+      - effect sizes (Cohen's d) alongside p-values
+      - practically insignificant results flagged
+      - publication-ready tables and figures
+      - confidence interval method documented (bootstrap or parametric)
+    unacceptable:
+      - only raw numbers without aggregate statistics
+      - delta against unrelated or differently-conditioned baseline
+      - p-values without effect sizes
+      - cherry-picked configurations only
+      - non-significant results excluded
+
+  audit_quality:
+    must_include:
+      - ground truth provenance verification with checksums
+      - score normalization consistency check across seeds
+      - dead code detection with execution path analysis
+      - scope verification: no data leakage across train/val/test
+      - pass/fail/advisory per check category
+    unacceptable:
+      - GT provenance assumed without evidence
+      - normalization inconsistency across seeds
+      - reachable but never-executed code paths ignored
+      - train/test split boundaries not verified
+
+anti_patterns:
+  - name: execution_without_protocol
+    bad_example: >
+      Start running experiments immediately because the research question seems
+      clear enough.
+    why_bad: >
+      Without a protocol, there is no contract defining what is being tested,
+      how results will be evaluated, or what constitutes success. Compute is
+      wasted on uninterpretable runs.
+    fix: >
+      Write the protocol and schema before writing any experiment code.
+
+  - name: full_dispatch_without_sanity
+    bad_example: >
+      Dispatch all 50 seeds across 4 GPUs simultaneously to save time.
+    why_bad: >
+      If the code has a bug, produces invalid output, or OOMs, all 50 seeds
+      fail simultaneously. The sanity seed exists to catch these problems with
+      minimal waste.
+    fix: >
+      Run one sanity seed first. Only dispatch the full matrix after it
+      completes successfully.
+
+  - name: unfair_baseline_comparison
+    bad_example: >
+      Compare optimized experiment results against baseline numbers from a
+      different dataset, hardware, or evaluation protocol.
+    why_bad: >
+      The delta may reflect condition differences rather than the variable of
+      interest. Conclusions drawn from unfair comparisons are not credible.
+    fix: >
+      Establish a baseline under identical conditions, changing only the
+      variable of interest.
+
+  - name: significance_without_effect_size
+    bad_example: >
+      Report that the improvement is statistically significant (p < 0.05) without
+      reporting Cohen's d or any measure of practical impact.
+    why_bad: >
+      With enough samples, trivially small differences become statistically
+      significant. P-value alone does not indicate meaningful improvement.
+    fix: >
+      Always report effect size alongside p-value. Flag comparisons where
+      statistical significance exists without practical significance.
+
+  - name: cherry_picked_results
+    bad_example: >
+      Report only the seed or configuration where the improvement is largest,
+      omitting other seeds that show no improvement.
+    why_bad: >
+      Selective reporting misrepresents the true distribution of results and
+      inflates perceived effect sizes.
+    fix: >
+      Report all seeds and configurations. Use aggregate statistics with
+      confidence intervals that reflect the full distribution.
+
+  - name: fabrication_of_ablation_outcomes
+    bad_example: >
+      Reason about what would happen if a component were removed instead of
+      actually running the ablation experiment.
+    why_bad: >
+      Ablation results must come from actual runs. Reasoned outcomes are
+      speculative and cannot be cited as evidence.
+    fix: >
+      Run the ablation experiment. A missing ablation is always preferable to
+      a fabricated one.
+
+  - name: deployment_as_afterthought
+    bad_example: >
+      Write all experiment code locally and plan to deploy just before the
+      deadline.
+    why_bad: >
+      Deployment often reveals environment issues (CUDA version, driver
+      compatibility, memory limits) that require code changes. Late discovery
+      is extremely costly.
+    fix: >
+      Deploy early and run the sanity check as soon as possible. Discover
+      infrastructure problems when there is time to fix them.
+
+  - name: self_audit
+    bad_example: >
+      The same model that executed the experiment also performs the integrity
+      audit.
+    why_bad: >
+      Self-auditing lacks the independent perspective needed to catch the
+      executor's blind spots and assumptions.
+    fix: >
+      Assign the audit to a different model. Cross-model verification provides
+      meaningful independent oversight.
+
+  - name: configuration_drift
+    bad_example: >
+      Modify hyperparameters between the protocol specification and the actual
+      run without updating the protocol document.
+    why_bad: >
+      The protocol no longer reflects what was actually run, breaking
+      reproducibility and potentially invalidating results.
+    fix: >
+      Any configuration change requires updating the protocol and re-running
+      the sanity check.
+
+  - name: conflating_statistical_and_practical_significance
+    bad_example: >
+      Claim the experiment "succeeds" because p < 0.05 while the effect size
+      is d = 0.1 and the absolute improvement is negligible.
+    why_bad: >
+      Statistical significance is a property of sample size and variance, not
+      of practical impact. Misleading claims erode credibility.
+    fix: >
+      Report both p-value and effect size. Flag comparisons where statistical
+      significance exists without practical significance.
+
+valid_final_output_types:
+  - type: experiment_report
+    required_sections:
+      - experiment objective
+      - protocol summary
+      - configuration and hyperparameters
+      - baseline comparison
+      - aggregate statistics (mean, std, CI, effect size)
+      - significance analysis
+      - integrity audit summary
+      - limitations
+      - reproducibility notes
+
+  - type: ablation_study
+    required_sections:
+      - ablation objective
+      - component inventory
+      - ablation variants with success criteria
+      - reviewer question mapping
+      - ablation results (actual runs, not reasoned)
+      - component contribution analysis
+      - limitations
+
+  - type: dse_report
+    required_sections:
+      - search space definition
+      - parameter ranges and constraints
+      - evaluation metric
+      - exploration phase results
+      - directed search phase results
+      - refinement phase results
+      - optimal configuration
+      - sensitivity analysis
+      - convergence evidence
+      - reproducibility notes
+
+  - type: reproduction_study
+    required_sections:
+      - target experiment description
+      - reproduction protocol
+      - environment and configuration
+      - reproduced results
+      - comparison with original
+      - discrepancies and possible causes
+      - reproducibility assessment
+
+  - type: benchmark_package
+    required_sections:
+      - benchmark objective
+      - compared methods or configurations
+      - hardware and software environment
+      - parameter choices
+      - results with statistical rigor
+      - limitations
+      - reproducibility instructions
+
+  - type: integrity_audit_report
+    required_sections:
+      - audit scope
+      - ground truth provenance
+      - score normalization verification
+      - dead code analysis
+      - scope and data leakage check
+      - findings by category (pass/fail/advisory)
+      - recommendations

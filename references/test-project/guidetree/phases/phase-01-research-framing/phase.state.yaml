@@ -1,0 +1,36 @@
+phase_id: phase_1
+phase_name: Research Framing and Literature Grounding
+status: in_progress
+phase_skeleton_valid: true
+
+stage_dag_generated: true
+stage_dag_valid: true
+stage_dag_path: stage_dag.json
+stage_dependency_edges_path: stage_dependency_edges.json
+
+current_stage_id: phase_1_stage_1
+
+stages:
+  - id: phase_1_stage_1
+    name: Research Objective Clarified
+    status: in_progress
+    steps_generated: true
+    steps_valid: true
+
+  - id: phase_1_stage_2
+    name: ZKP Subdomain Classified
+    status: not_started
+    steps_generated: false
+    steps_valid: false
+
+  - id: phase_1_stage_3
+    name: Prior-Art Landscape Mapped
+    status: not_started
+    steps_generated: false
+    steps_valid: false
+
+  - id: phase_1_stage_4
+    name: Contribution Hypothesis Defined
+    status: not_started
+    steps_generated: false
+    steps_valid: false

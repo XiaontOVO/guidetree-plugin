@@ -1,0 +1,141 @@
+phase_decomposition_guidelines:
+  - name: prior_art_before_claims
+    rule: >
+      Prior art must be identified and novelty assessed before drafting claims.
+      Claims drafted without understanding the prior art landscape risk being
+      too narrow, too broad, or anticipated.
+    rationale: >
+      The legal boundary of the patent depends on what already exists. Claiming
+      without prior art knowledge is guessing.
+
+  - name: structure_before_drafting
+    rule: >
+      The invention must be structured via Problem-Solution-Advantage and
+      feature decomposition before drafting any claims or specification text.
+    rationale: >
+      Without structured understanding of what is inventive, claims will lack
+      focus and the specification will miss claim support.
+
+  - name: claims_before_specification
+    rule: >
+      Claims must be drafted and validated before the specification is written.
+      The specification exists to support the claims, not the reverse.
+    rationale: >
+      Writing the specification first leads to claim elements that lack support
+      or specification text that does not correspond to any claim.
+
+  - name: review_before_filing
+    rule: >
+      The complete application must undergo examiner-level review before
+      jurisdiction formatting and filing package compilation.
+    rationale: >
+      Unreviewed applications contain clarity rejections, support gaps, and
+      enablement defects that are expensive to fix after filing.
+
+  - name: claims_define_boundary
+    rule: >
+      Every word in a claim carries legal weight. Broad claims cover more but
+      are harder to defend; narrow claims are easier to defend but cover less.
+      Draft the broadest defensible scope first, then add narrower fallbacks.
+    rationale: >
+      Claims are the legal monopoly boundary. Drafting them carelessly
+      surrenders scope or invites invalidity.
+
+  - name: embodiment_is_recipe_not_report
+    rule: >
+      The specification describes how to make and use the invention. It must
+      never include experimental data, accuracy percentages, benchmark results,
+      or test outcomes.
+    rationale: >
+      Patent specifications are enabling disclosures, not proof-of-concept
+      reports. Including experimental data is a compliance violation across
+      CN, US, and EP jurisdictions.
+
+  - name: jurisdiction_format_isolation
+    rule: >
+      Each jurisdiction filing package must follow its own formatting rules
+      exclusively. Never mix CN, US, and EP formatting in the same package.
+    rationale: >
+      Format bleeding creates non-compliant filings that may be rejected on
+      formalities alone.
+
+  - name: consistent_terminology_throughout
+    rule: >
+      The same term must mean the same concept everywhere in the application:
+      claims, specification, and drawings. Introduce a term once, use it
+      consistently. Never use synonyms for the same concept.
+    rationale: >
+      Inconsistent terminology creates clarity rejections and written
+      description defects.
+
+recommended_phase_pattern:
+  - name: phase_1
+    title: Prior Art and Novelty
+  - name: phase_2
+    title: Invention Structuring
+  - name: phase_3
+    title: Claim Drafting
+  - name: phase_4
+    title: Specification Writing
+  - name: phase_5
+    title: Review and Jurisdiction Formatting
+
+
+recommended_stage_types:
+  - type: prior_art_search_stage
+    purpose: systematically search patent and academic databases for relevant prior art
+    typical_outputs:
+      - prior art search log
+      - cited references with relevance classification
+      - query records
+
+  - type: novelty_assessment_stage
+    purpose: apply jurisdiction-specific legal standards to assess novelty and obviousness
+    typical_outputs:
+      - element-by-element novelty analysis
+      - obviousness analysis with motivation-to-combine
+      - patentability conclusion with confidence level
+
+  - type: invention_structuring_stage
+    purpose: decompose the invention via Problem-Solution-Advantage and feature hierarchy
+    typical_outputs:
+      - PSA statement
+      - feature decomposition (core / supporting / optional)
+      - claimable subject matter types
+      - claim dependency map
+
+  - type: claim_drafting_stage
+    purpose: draft independent and dependent claims with correct antecedent basis and jurisdiction format
+    typical_outputs:
+      - independent claims
+      - dependent claims
+      - jurisdiction-specific claim sets
+      - antecedent basis verification
+
+  - type: figure_processing_stage
+    purpose: process figures with reference numerals and claim-element coverage verification
+    typical_outputs:
+      - figures with reference numerals
+      - brief description of drawings
+      - claim-element coverage matrix
+
+  - type: embodiment_writing_stage
+    purpose: write embodiment descriptions as recipes (how to make and use)
+    typical_outputs:
+      - embodiment descriptions
+      - claim support matrix
+      - best mode disclosure (US)
+
+  - type: examiner_review_stage
+    purpose: subject the complete application to multi-round examiner-level review
+    typical_outputs:
+      - 7-area review report
+      - issue classification by severity
+      - resolution status
+
+  - type: jurisdiction_formatting_stage
+    purpose: compile the application into jurisdiction-specific filing packages
+    typical_outputs:
+      - CN filing package
+      - US filing package
+      - EP filing package

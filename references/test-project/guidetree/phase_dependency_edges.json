@@ -1,0 +1,17 @@
+[
+  ["phase_1", "phase_2"],
+  ["phase_1", "phase_3"],
+  ["phase_2", "phase_3"],
+  ["phase_2", "phase_4"],
+  ["phase_3", "phase_4"],
+  ["phase_2", "phase_5"],
+  ["phase_4", "phase_5"],
+  ["phase_3", "phase_6"],
+  ["phase_4", "phase_6"],
+  ["phase_5", "phase_6"],
+  ["phase_4", "phase_7"],
+  ["phase_6", "phase_7"],
+  ["phase_5", "phase_8"],
+  ["phase_6", "phase_8"],
+  ["phase_7", "phase_8"]
+]

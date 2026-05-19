@@ -1,0 +1,65 @@
+template_name: literature_review_phase_stage_template
+version: 1.0.0
+type: guidetree_domain_template
+domain: literature_review
+
+description: >
+  Domain-specific phase/stage decomposition template for literature review
+  projects. This template defines how an agent should divide literature review
+  work into phases and stages, covering paper discovery, reading, triage, deep
+  analysis, cross-paper comparison, and Zotero-based library management. It is
+  not an executable skill. It is a planning reference used by GuideTree skills
+  when generating, validating, or repairing project structures for literature
+  review projects.
+
+intended_use:
+  used_by:
+    - generate_phase_skeleton
+    - validate_phase_skeleton
+    - expand_phase_to_stage_dag
+    - validate_stage_dag
+    - expand_stage_to_steps
+    - validate_steps
+
+  not_used_as:
+    - executable_skill
+    - runtime_orchestrator
+    - state_update_mechanism
+    - direct_project_executor
+
+core_principle: >
+  Literature review must be decomposed around search completeness, reading
+  efficiency, analytical rigor, comparative evidence, and library integrity.
+  Discovery before reading, triage before deep analysis, analysis before
+  comparison, comparison before synthesis, Zotero as the single pool throughout.
+
+domain_scope:
+  includes:
+    - paper search and discovery (Zotero, arXiv, Semantic Scholar, DBLP, CrossRef)
+    - paper reading and triage with tiered scoring
+    - deep single-paper analysis with structured notes
+    - multi-paper comparison matrices
+    - cross-paper cluster and gap identification
+    - literature synthesis and positioning
+    - Zotero library management (CRUD, deduplication, audit)
+    - venue-specific paper discovery
+    - citation network exploration
+    - research landscape mapping
+    - systematic review methodology
+    - quick survey methodology
+    - gap analysis methodology
+    - literature update methodology
+
+  excludes_by_default:
+    - experiment design and execution
+    - code implementation
+    - paper writing or manuscript drafting
+    - patent filing
+    - production software development
+    - data collection from human subjects
+    - statistical meta-analysis requiring primary data
+    - IRB or ethics board applications
+    - grant proposal writing
+
+  note: >
+    Excluded items may be added only if explicitly included in project_context.

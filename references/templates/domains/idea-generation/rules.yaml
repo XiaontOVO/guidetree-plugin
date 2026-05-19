@@ -1,0 +1,149 @@
+dependency_rules:
+  - rule: literature_before_ideas
+    description: >
+      Do not brainstorm research ideas without first completing a literature
+      survey. Every candidate idea must cite at least one identified gap or
+      open problem from the survey.
+
+  - rule: literature_before_novelty_claim
+    description: >
+      Do not claim novelty before mapping relevant prior work. Novelty claims
+      without prior-art comparison are unverifiable.
+
+  - rule: question_before_method
+    description: >
+      Define the research question before designing methodology. A method
+      without a clear question is a solution looking for a problem.
+
+  - rule: sharpen_before_novelty_check
+    description: >
+      The idea must be sharpened into explicit, falsifiable claims before
+      novelty verification can be meaningful. Vague ideas cannot be checked
+      for novelty.
+
+  - rule: novelty_before_roadmap
+    description: >
+      No roadmap may be generated until the novelty check passes. Building a
+      plan for an idea that duplicates existing work is wasted effort.
+
+  - rule: pilot_before_commitment
+    description: >
+      Do not commit to an idea without pilot feasibility evidence. Theoretical
+      appeal alone is insufficient.
+
+  - rule: assumptions_flow_forward
+    description: >
+      Assumptions identified during sharpening must be carried through novelty
+      verification and into the roadmap. Undocumented assumptions create hidden
+      risks.
+
+  - rule: negative_results_are_valid
+    description: >
+      If an idea fails novelty verification or a pilot produces negative
+      results, the project may still complete with documented findings. Kill
+      ideas early; do not escalate weak ideas.
+
+  - rule: fallback_before_failure
+    description: >
+      The fallback chain must be established in the roadmap before the primary
+      hypothesis encounters its first hard gate. Reactive pivoting is not a
+      strategy.
+
+strict_rules:
+  - id: STRICT.IDEA.1
+    rule: >
+      No idea generation plan is valid without a literature survey stage.
+  - id: STRICT.IDEA.2
+    rule: >
+      No novelty claim is valid without multi-source prior art search.
+  - id: STRICT.IDEA.3
+    rule: >
+      No roadmap is valid without a passing novelty report.
+  - id: STRICT.IDEA.4
+    rule: >
+      No design brief is valid without a falsifiable research question.
+  - id: STRICT.IDEA.5
+    rule: >
+      No validation plan is valid without a failure condition.
+  - id: STRICT.IDEA.6
+    rule: >
+      Negative pilot results are valid outputs; suppression is not.
+  - id: STRICT.IDEA.7
+    rule: >
+      "Applying X to Y" is not novel without demonstrated new insight.
+  - id: STRICT.IDEA.8
+    rule: >
+      Sharpening must surface vagueness, not invent content to fill gaps.
+  - id: STRICT.IDEA.9
+    rule: >
+      Cross-model novelty verification must be independent (no answer-leaking).
+  - id: STRICT.IDEA.10
+    rule: >
+      If the project is only exploratory brainstorming, do not invent novelty
+      verification or roadmapping phases.
+
+agent_planning_rules:
+  - id: IDEA.R1
+    rule: >
+      If the project involves generating research ideas, include a literature
+      survey stage before any brainstorming stage.
+    severity: mandatory
+
+  - id: IDEA.R2
+    rule: >
+      If the project involves claiming novelty, include a novelty verification
+      phase with multi-source prior art search and cross-model verification.
+    severity: mandatory
+
+  - id: IDEA.R3
+    rule: >
+      If the project involves sharpening an idea, include all five Socratic
+      segments: research question, mechanism, identifiability, validation plan,
+      and risk register.
+    severity: mandatory
+
+  - id: IDEA.R4
+    rule: >
+      If the project involves roadmapping, include a fallback chain referencing
+      the next-best idea from discovery with explicit activation conditions.
+    severity: mandatory
+
+  - id: IDEA.R5
+    rule: >
+      If the project involves robotics or embodied-AI ideas, include
+      embodiment, benchmark availability, and sim-first constraints in the
+      discovery stage.
+    severity: mandatory
+
+  - id: IDEA.R6
+    rule: >
+      If a pilot experiment produces negative or inconclusive results, do not
+      escalate the idea without significant revision. Document the results
+      honestly.
+    severity: mandatory
+
+  - id: IDEA.R7
+    rule: >
+      If the project output is a research plan, include explicit scope
+      boundaries (in-scope and out-of-scope) and measurable success criteria.
+    severity: mandatory
+
+  - id: IDEA.R8
+    rule: >
+      Do not include full experiment execution, paper writing, or code
+      implementation phases unless explicitly required by project_context.
+    severity: mandatory
+
+  - id: IDEA.R9
+    rule: >
+      If the novelty report identifies claims below threshold, route back to
+      discovery with the next-best candidate idea before proceeding to
+      roadmapping.
+    severity: mandatory
+
+  - id: IDEA.R10
+    rule: >
+      If the project involves interdisciplinary idea synthesis, include stages
+      for gap identification at the intersection and feasibility assessment
+      across both domains.
+    severity: recommended

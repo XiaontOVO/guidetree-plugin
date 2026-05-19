@@ -1,0 +1,223 @@
+acceptance_standards:
+  claims_verification_quality:
+    must_include:
+      - complete list of quantitative claims with manuscript locations
+      - claim-to-evidence mapping referencing specific raw result files
+      - failure mode analysis covering all 7 modes per claim
+      - severity classification for each discrepancy
+    unacceptable:
+      - using summaries or logs instead of raw results as evidence
+      - checking only a subset of failure modes
+      - rounding that inflates reported values
+      - missing raw result file treated as non-issue
+
+  citation_audit_quality:
+    must_include:
+      - existence verification result for each citation
+      - metadata correctness check for each citation
+      - context appropriateness assessment for each citation
+      - issues classified by layer (existence/metadata/context) and severity
+    unacceptable:
+      - checking existence but not context
+      - accepting citation at face value without verification
+      - fabricating replacement citations
+      - ignoring misattribution because the paper "seems right"
+
+  adversarial_review_quality:
+    must_include:
+      - attack memo from fresh Agent with zero prior context
+      - decomposition into atomic rejection points
+      - classification of each point (answered/partially/unresolved)
+      - prioritized list of unresolved points
+    unacceptable:
+      - attack memo written by same Agent that reviewed the paper
+      - non-atomic rejection points (multiple concerns lumped together)
+      - missing adjudication step
+      - attacking without first understanding the paper
+
+  iterative_improvement_quality:
+    must_include:
+      - review assessment per round from fresh Agent
+      - parsed actionable items from each assessment
+      - fixes implemented and tracked per item
+      - improvement trajectory across rounds
+    unacceptable:
+      - reusing the same Agent across review rounds
+      - passing prior review context to next reviewer
+      - implementing fixes without tracking
+      - continuing past MAX_ROUNDS without summary
+
+  rebuttal_quality:
+    must_include:
+      - atomized list of reviewer concerns
+      - response type for each concern (evidence/experiment/clarification/limitation)
+      - draft rebuttal with per-concern responses
+      - provenance gate result
+      - commitment gate result
+      - coverage gate result
+      - stress test report from fresh Agent
+    unacceptable:
+      - fabricating experiments, numbers, citations, or links
+      - dropping concerns without explicit response
+      - making commitments that are not trackable
+      - skipping any of the three safety gates
+
+  quality_gate_quality:
+    must_include:
+      - 3 subagent scorecards with 1-5 scores and written justifications
+      - weighted composite score (structural 0.25, rigor 0.40, domain 0.35)
+      - PASS/WARN/FAIL decision with threshold logic
+      - specific issues identified for WARN/FAIL results
+    unacceptable:
+      - fewer than 3 independent reviewers
+      - reusing context across subagents
+      - computing unweighted average instead of weighted score
+      - blocking the pipeline on FAIL
+
+
+anti_patterns:
+  - name: claim_verification_by_summary
+    bad_example: >
+      Verify a claim by reading the EXPERIMENT_LOG or a summary table instead of
+      the raw result file.
+    why_bad: >
+      Summaries may contain errors or rounding that masks discrepancies. Only raw
+      data is authoritative.
+    fix: >
+      Always map claims to specific raw result files. If the raw file is missing,
+      flag it as a blocker.
+
+  - name: citation_audit_without_context
+    bad_example: >
+      Verify that cited papers exist but skip checking whether they support the
+      claims they are cited for.
+    why_bad: >
+      Misattribution (citing a paper for a claim it does not support) is more
+      damaging than a metadata typo. Context integrity is the highest-value
+      audit layer.
+    fix: >
+      Complete all three citation layers, prioritizing context (Layer 3) as the
+      most consequential.
+
+  - name: friendly_adversarial_review
+    bad_example: >
+      Have the same Agent that helped write the paper construct the attack memo.
+    why_bad: >
+      Shared context creates shared blind spots. The attacker must be independent.
+    fix: >
+      Use a fresh Agent from a different model family with zero prior context.
+
+  - name: anchored_review_loop
+    bad_example: >
+      Pass the previous round's review to the next reviewer so they can "build on
+      it."
+    why_bad: >
+      Anchoring bias makes each review less independent. The purpose of iteration
+      is fresh perspective, not consensus building.
+    fix: >
+      Each review round uses a fresh Agent that sees only the artifact, not the
+      review history.
+
+  - name: dishonest_rebuttal
+    bad_example: >
+      In a rebuttal, claim that "additional experiments confirm our results"
+      without actually running those experiments.
+    why_bad: >
+      Fabrication in a rebuttal is scientific misconduct. It is worse than
+      admitting a limitation.
+    fix: >
+      If evidence is lacking, acknowledge the limitation honestly. The commitment
+      gate catches this.
+
+  - name: rubber_stamp_quality_gate
+    bad_example: >
+      Use a single reviewer who has seen the entire pipeline history as the
+      quality gate.
+    why_bad: >
+      A reviewer with pipeline context is not independent. Quality gate credibility
+      depends on blank-context evaluation.
+    fix: >
+      Use 3 blank-context subagents, ideally from different model families.
+
+  - name: blocking_on_fail
+    bad_example: >
+      Halt the entire pipeline when the quality gate returns FAIL.
+    why_bad: >
+      Audit findings are advisory. The user decides whether to proceed. Automated
+      blocking removes agency and may not be appropriate for all contexts.
+    fix: >
+      Alert on FAIL but continue. Present findings and let the user decide.
+
+  - name: non_atomic_rejection_points
+    bad_example: >
+      "The methodology is flawed and the experiments are insufficient and the
+      claims are overstated" as a single rejection point.
+    why_bad: >
+      Non-atomic points cannot be individually adjudicated or addressed. They
+      conflate distinct concerns.
+    fix: >
+      Decompose into one concern per point before adjudication.
+
+  - name: citation_replacement_without_verification
+    bad_example: >
+      Replace a failed citation with the first Google Scholar result that looks
+      relevant.
+    why_bad: >
+      Unverified replacements may introduce new errors. The replacement must be
+      verified through the DBLP -> CrossRef -> [VERIFY] chain.
+    fix: >
+      Follow the replacement chain. If no verified replacement is found, mark as
+      [VERIFY] and flag for human review.
+
+
+valid_final_output_types:
+  - type: claims_verification_report
+    required_sections:
+      - claim inventory
+      - claim-to-evidence mapping
+      - failure mode analysis
+      - discrepancy summary with severity
+      - blockers (missing raw data)
+
+  - type: citation_audit_report
+    required_sections:
+      - citation inventory
+      - existence verification results
+      - metadata verification results
+      - context verification results
+      - issues classified by layer and severity
+      - replacement recommendations
+
+  - type: adversarial_review_report
+    required_sections:
+      - attack memo
+      - atomic rejection points
+      - adjudication results
+      - prioritized unresolved points
+      - revision recommendations
+
+  - type: improvement_trajectory_report
+    required_sections:
+      - per-round assessment summary
+      - fixes applied per round
+      - improvement trajectory
+      - final assessment status
+      - remaining issues
+
+  - type: rebuttal_document
+    required_sections:
+      - atomized concern list
+      - per-concern response with evidence trace
+      - provenance gate result
+      - commitment gate result
+      - coverage gate result
+      - stress test report
+
+  - type: quality_gate_report
+    required_sections:
+      - structural review scorecard
+      - rigor review scorecard
+      - domain review scorecard
+      - weighted composite score
+      - PASS/WARN/FAIL decision
+      - specific issues for WARN/FAIL

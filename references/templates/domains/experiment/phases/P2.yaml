@@ -1,0 +1,82 @@
+phase:
+  id: P2
+  name: Deployment
+  purpose: >
+    Translate the experiment protocol into running code on target hardware.
+    Validate that the implementation is correct, efficient, and produces
+    schema-compliant output before committing resources to full batch dispatch.
+    This phase gates all downstream execution: no batch jobs should be
+    dispatched until deployment and sanity check pass.
+
+  when_to_use: >
+    Use for all experiment projects that involve running code on GPU or other
+    compute infrastructure. If experiment code already exists from a prior run
+    and the environment has not changed, a minimal sanity re-check may suffice
+    instead of a full deployment cycle.
+
+  inputs:
+    - experiment protocol from P1
+    - 6-file data schema from P1
+    - block design and todolist from P1
+    - target hardware specifications
+    - known dependencies and environment requirements
+
+  outputs:
+    - configuration-driven experiment code
+    - deployment verification log
+    - sanity check report with loss curves, metric plausibility, and GPU utilization
+    - code review completion report
+
+  acceptance_criteria:
+    - code runs end-to-end on target GPU without errors
+    - sanity check passes: loss decreases, metrics in plausible range, GPU utilized
+    - all 6 output files generated and schema-valid
+    - configuration is frozen and reproducible
+    - cross-model code review completed with no blocking issues
+    - checkpoint save and resume tested and functional
+
+  typical_stages:
+    - id: P2.S1
+      name: Code Implemented and Deployed
+      goal: >
+        Implement experiment code following the protocol specification, deploy
+        to target hardware, and verify that the infrastructure supports the
+        planned experiment.
+      outputs:
+        - configuration-driven experiment code
+        - dependency manifest
+        - deploy log with environment verification
+        - checkpoint save/resume support
+      acceptance_criteria:
+        - code follows protocol specification
+        - all hyperparameters driven from config.yaml
+        - seed management enables deterministic replay
+        - checkpoint save and resume functional
+        - code deployed to target GPU without transfer errors
+        - CUDA, driver, and GPU memory verified on target
+
+    - id: P2.S2
+      name: Sanity Check Passed and Code Reviewed
+      goal: >
+        Run a short sanity check to validate code correctness, output format
+        compliance, and resource sufficiency. Then submit code for cross-model
+        review to catch issues the implementer missed.
+      outputs:
+        - sanity check report with loss curves and metric plausibility
+        - 6-file output validation against schema
+        - cross-model code review report
+        - addressed review findings
+      acceptance_criteria:
+        - sanity check passes: loss decreases, metrics in plausible range
+        - all 6 output files generated and schema-valid
+        - GPU utilization is reasonable (not near-idle, not OOMing)
+        - configuration frozen: config.yaml matches actual run
+        - code review completed by a different model
+        - no blocking review issues remaining
+
+  common_risks:
+    - code runs locally but fails on target GPU (driver mismatch, CUDA version)
+    - sanity check reveals OOM that requires code changes
+    - configuration drift between protocol and implementation
+    - code review reveals fundamental logic errors
+    - checkpoint resume does not produce identical results

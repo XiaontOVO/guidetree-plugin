@@ -1,0 +1,107 @@
+phase:
+  id: P6
+  name: Presentation
+  purpose: >
+    Produce presentation materials from the compiled paper: conference slides,
+    poster, and talk preparation with assurance checks for timing, coverage,
+    and legibility. Presentation materials reflect the improved paper, not the
+    initial draft.
+
+  when_to_use: >
+    Use when the project requires a poster, slides, or talk preparation. This
+    phase should come after the improvement phase (P5) to ensure presentation
+    materials reflect the improved paper. For presentation-only projects (no
+    paper writing), use this phase directly with an existing paper as input.
+
+  inputs:
+    - compiled paper.pdf from P4 or P5
+    - LaTeX source files
+    - generated figures from P2
+    - figure manifest from P2
+    - claims-evidence matrix from P1
+
+  outputs:
+    - Beamer slide deck (source and compiled PDF)
+    - conference poster (source and compiled PDF)
+    - talk script with per-slide timing
+    - poster pitch script
+    - assurance checklist results
+
+  acceptance_criteria:
+    - slides compile to PDF without errors with speaker notes
+    - poster compiles to PDF at correct dimensions
+    - talk script includes per-slide narrative and timing
+    - every key claim from the paper is covered in at least one slide
+    - font sizes meet minimums for legibility (20pt body on slides, 24pt body on poster)
+    - assurance checks pass
+
+  typical_stages:
+    - id: P6.S1
+      name: Slides Generated
+      goal: >
+        Produce a Beamer slide deck that follows the paper structure, with
+        speaker notes for each slide and a full talk script with timing.
+      outputs:
+        - Beamer source (slides.tex)
+        - compiled slides PDF
+        - speaker notes
+        - talk script with per-slide timing
+      acceptance_criteria:
+        - slides compile to PDF without errors
+        - every slide has speaker notes attached
+        - font sizes meet minimums (20pt body text on slides)
+        - every key claim from the paper is covered in at least one slide
+        - slide structure follows: Title -> Motivation -> Problem -> Method -> Results -> Conclusion -> Q&A
+        - maximum 1 main point per slide
+        - no text-heavy slides (maximum 5 bullet points, concise phrasing)
+        - talk script specifies per-slide narrative and estimated time
+
+    - id: P6.S2
+      name: Poster Generated
+      goal: >
+        Create a publication-quality conference poster using tcbposter LaTeX
+        that distills the paper into a single visual layout. The poster must
+        convey the central thesis, key results, and top figures without
+        requiring the viewer to read the full paper.
+      outputs:
+        - poster LaTeX source (poster.tex)
+        - compiled poster PDF
+        - 2-minute poster pitch script
+      acceptance_criteria:
+        - poster compiles to PDF without errors
+        - target dimensions are correct (A0 or A1 as specified by conference)
+        - font sizes meet minimums (24pt body, 48pt title)
+        - poster includes: title, authors, central thesis, at least 3 figures,
+          key results, takeaway
+        - visual review confirms balanced layout and legible figures
+        - content is self-contained (understandable without the paper)
+        - 2-minute pitch script is provided
+
+    - id: P6.S3
+      name: Talk Preparation Completed
+      goal: >
+        End-to-end preparation of a conference talk. Polish delivery, verify
+        timing, and run assurance checks to ensure completeness, proper timing,
+        and legibility.
+      outputs:
+        - final talk script with timing
+        - assurance checklist results (pass/fail for each criterion)
+        - rehearsal notes
+      acceptance_criteria:
+        - total slide count fits time slot (approximately 1-1.5 minutes per slide)
+        - minimum font sizes met (20pt body on slides)
+        - every key claim from the paper is covered in at least one slide
+        - figures are legible when projected
+        - speaker notes exist for every slide
+        - talk script uses natural language (rehearseable, not dense prose)
+        - transition phrases between slides are included
+        - all assurance checks pass; failures are fixed before completion
+
+  common_risks:
+    - slides that are text-heavy instead of figure-driven
+    - poster font sizes too small for 1-2 meter reading distance
+    - talk script too dense to deliver naturally
+    - key claims omitted from slides
+    - figures not legible when projected (too small, low contrast)
+    - presentation based on unimproved paper version
+    - timing miscalculated (too many or too few slides for the slot)

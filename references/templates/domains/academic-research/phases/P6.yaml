@@ -1,0 +1,126 @@
+phase:
+  id: P6
+  name: Paper Writing and Compilation
+  purpose: >
+    Produce a publication-ready manuscript from experiment results, following
+    a claims-evidence backbone and a prescribed writing order that ensures the
+    argument is evidence-first, not narrative-first. The claims-evidence
+    matrix is the backbone of the paper — if a claim lacks evidence, either
+    find the evidence or remove the claim.
+
+  when_to_use: >
+    Required for any project that produces a paper, thesis chapter, or written
+    report. The writing phase begins only after experiment results are
+    available and analyzed.
+
+  inputs:
+    - locked design brief
+    - experiment results and statistical analysis
+    - claims-evidence matrix
+    - literature survey outputs
+
+  outputs:
+    - claims-evidence matrix
+    - paper outline
+    - publication-quality figures
+    - section drafts in prescribed order
+    - compiled PDF
+    - revision log
+
+  acceptance_criteria:
+    - claims-evidence matrix covers every claim from the design brief
+    - writing order followed: method, evaluation, introduction, related work, conclusion, abstract
+    - every figure maps to at least one claim and is referenced in the text
+    - PDF compiles without errors
+    - no claim in the paper lacks supporting evidence in the matrix
+    - all citations resolve correctly
+
+  typical_stages:
+    - id: P6.S1
+      name: Paper Planning
+      goal: >
+        Build the claims-evidence matrix and derive the paper outline. Every
+        claim must be mapped to its supporting evidence with section assignment.
+        Claims without evidence are removed; evidence without claims is
+        investigated.
+      outputs:
+        - claims-evidence matrix
+        - paper outline with section assignments
+      acceptance_criteria:
+        - every claim from the design brief is in the matrix
+        - every claim has a supporting evidence reference
+        - every claim has a section assignment
+        - orphan claims (no evidence) are removed
+        - orphan evidence (no claim) is flagged for investigation
+
+    - id: P6.S2
+      name: Figure Generation
+      goal: >
+        Generate publication-quality figures programmatically from results
+        data. Each figure must map to at least one claim.
+      outputs:
+        - publication-quality figures
+        - figure-to-claim mapping
+      acceptance_criteria:
+        - figures are generated from data, not manually constructed
+        - each figure maps to at least one claim
+        - figures are in the format required by the target venue
+        - axis labels, legends, and captions are complete
+
+    - id: P6.S3
+      name: Section Writing
+      goal: >
+        Draft paper sections in prescribed order: method, evaluation, introduction,
+        related work, conclusion, abstract. The abstract is last because it
+        summarizes everything else.
+      outputs:
+        - LaTeX source for each section
+        - writing order log
+      acceptance_criteria:
+        - method section written before evaluation
+        - evaluation written before introduction
+        - introduction written before related work
+        - conclusion written before abstract
+        - abstract is the last section written
+        - each section references the claims-evidence matrix
+
+    - id: P6.S4
+      name: Compilation
+      goal: >
+        Compile the LaTeX manuscript. Verify all references resolve, figures
+        render, and the document builds without errors.
+      outputs:
+        - compiled PDF
+        - compilation log
+        - reference check results
+      acceptance_criteria:
+        - PDF compiles without errors
+        - all references resolve (no broken citations)
+        - all figures render correctly
+        - page count within target venue limits
+        - no placeholder text remaining
+
+    - id: P6.S5
+      name: Prose Improvement
+      goal: >
+        Revise prose for clarity, conciseness, and academic tone. Remove
+        hedging where evidence is strong; add hedging where it is not. Focus
+        on precision, not decoration.
+      outputs:
+        - revision log with before/after notes
+        - revised manuscript
+      acceptance_criteria:
+        - hedging is calibrated to evidence strength
+        - no vague claims remain that could be precise
+        - academic tone is consistent throughout
+        - no unnecessary jargon
+        - revision log documents all changes
+
+  common_risks:
+    - writing the introduction first — creates narrative lock-in
+    - claims without evidence — the most common form of self-deception
+    - figures not referenced in the text
+    - overclaiming from partial results
+    - hedging strong results or overconfidently stating weak results
+    - leaving compilation to the last minute — LaTeX errors take time to fix
+    - forgetting to update the abstract after revising other sections

@@ -1,0 +1,91 @@
+phase:
+  id: P1
+  name: Design and Brainstorming
+  purpose: >
+    Explore the project requirements, propose multiple design approaches with
+    explicit trade-offs, and produce an approved design specification before
+    any code is written.
+
+  when_to_use: >
+    Use for all code implementation projects unless the design spec is already
+    fully provided and validated. Even feature additions and refactoring
+    projects need at least a lightweight design phase to clarify scope and
+    constraints.
+
+  inputs:
+    - project goal
+    - initial requirements or user request
+    - known constraints (language, framework, platform, dependencies)
+    - existing codebase context (for feature additions and refactoring)
+    - user-provided references or prior art
+
+  outputs:
+    - clarified requirements
+    - constraints identified
+    - 2-3 proposed approaches with explicit trade-offs
+    - user-selected design direction with rationale
+    - approved design specification document
+    - self-review of spec for completeness
+
+  acceptance_criteria:
+    - requirements are explicit and unambiguous
+    - at least 2 approaches proposed with trade-offs stated
+    - user has selected a design direction
+    - design spec covers problem statement, architecture, interfaces, error handling, and testing strategy
+    - self-review completed with findings documented
+    - all gaps from self-review resolved
+    - user has approved the spec
+
+  typical_stages:
+    - id: P1.S1
+      name: Requirements Explored
+      goal: >
+        Clarify the project requirements by asking targeted questions one at
+        a time and resolving all ambiguities.
+      outputs:
+        - clarified requirements
+        - constraints identified
+        - open questions resolved
+      acceptance_criteria:
+        - each clarifying question asked individually (never batched)
+        - all ambiguities resolved or explicitly deferred
+        - constraints are concrete and testable
+
+    - id: P1.S2
+      name: Approach Selected
+      goal: >
+        Propose multiple design approaches with explicit trade-offs and
+        guide the user to select one.
+      outputs:
+        - 2-3 approaches with trade-offs
+        - comparison of complexity, performance, maintainability
+        - user-selected direction with rationale
+      acceptance_criteria:
+        - at least 2 approaches proposed
+        - each approach states how it solves the problem
+        - each approach states what it trades off
+        - each approach states when it is the right choice
+        - user has selected a direction
+
+    - id: P1.S3
+      name: Design Spec Written and Approved
+      goal: >
+        Write a complete design specification based on the selected direction,
+        self-review it for gaps, and obtain user approval.
+      outputs:
+        - design specification document
+        - self-review findings
+        - resolved gaps
+        - user approval
+      acceptance_criteria:
+        - spec covers problem statement, architecture, interfaces, error handling, testing strategy
+        - self-review completed with findings documented
+        - all gaps resolved
+        - user has approved the spec
+
+  common_risks:
+    - requirements too vague to produce a spec
+    - user wants to skip design and go straight to coding
+    - only one approach considered (no trade-off analysis)
+    - design spec lacks error handling or testing strategy
+    - self-review finds gaps but they are not resolved before approval

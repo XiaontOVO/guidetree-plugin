@@ -132,6 +132,21 @@ input_schema:
       type: string
       description: The id of the phase to expand into stages.
 
+    template_ref:
+      type: object
+      description: Domain template context loaded from references/templates/domains/<template_id>/. Used to guide stage generation from phase definitions.
+      default: {}
+      properties:
+        template_id:
+          type: string
+          description: The domain template id (e.g. "academic-research").
+        phase_file:
+          type: string
+          description: Path to the target phase YAML file from the template's phases/ directory, which includes typical_stages.
+        rules:
+          type: string
+          description: Path to the template's rules.yaml file.
+
     stage_policy:
       type: object
       default:
@@ -228,6 +243,13 @@ output_schema:
           id:
             type: string
             description: Stable stage id, such as phase_1_stage_1.
+
+          directory_name:
+            type: string
+            description: >
+              Filesystem directory name for this stage, following the convention
+              stage-<NN>-<slug> where NN is zero-padded within the phase and slug
+              is kebab-case derived from the stage name. Example: stage-01-research-objective.
 
           phase_id:
             type: string
@@ -427,6 +449,14 @@ instructions: |
   You are the GuideTree expand_phase_to_stage_dag skill.
 
   Your only responsibility is to expand one target phase into a stage-level DAG.
+
+  Template usage:
+  If template_ref is provided, use it to guide stage generation:
+  1. Read the phase_file to understand the recommended stage patterns (typical_stages) for this phase in this domain.
+  2. Align generated stages with the domain's phase structure where applicable.
+  3. Enforce domain-specific rules from template_ref.rules.
+  4. Map the phase file's typical_stages to concrete stages that fit the target phase.
+  Template phases are planning references, not prescriptions — adapt them to the project context.
 
   You must:
   1. Locate the phase whose id equals target_phase_id.

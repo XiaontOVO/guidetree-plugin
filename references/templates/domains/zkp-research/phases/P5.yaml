@@ -1,0 +1,97 @@
+phase:
+  id: P5
+  name: Security and Correctness Analysis
+  purpose: >
+    Analyze whether the proposed construction satisfies completeness, soundness,
+    knowledge soundness, zero-knowledge, binding, hiding, or other required
+    properties.
+
+  when_to_use: >
+    Mandatory for new or modified ZKP constructions. Optional only for pure
+    survey projects with no new claims.
+
+  inputs:
+    - formal security definitions
+    - proposed protocol
+    - assumptions
+    - prior proof techniques
+    - baseline security arguments
+
+  outputs:
+    - correctness argument
+    - completeness proof
+    - soundness or knowledge soundness proof sketch
+    - zero-knowledge proof sketch where applicable
+    - assumption dependency map
+    - unresolved proof obligations
+
+  acceptance_criteria:
+    - each claimed property has an argument
+    - assumptions used in each argument are stated
+    - reductions or proof sketches are logically coherent
+    - unresolved gaps are explicitly listed
+    - no property is marked proven without evidence
+    - security model matches the formal definition
+
+  typical_stages:
+    - id: P5.S1
+      name: Correctness and Completeness Established
+      goal: >
+        Show that honest prover and verifier succeed for valid statements.
+      outputs:
+        - correctness argument
+        - completeness proof sketch
+      acceptance_criteria:
+        - honest execution path is clear
+        - verifier acceptance is justified
+        - edge cases are handled
+
+    - id: P5.S2
+      name: Soundness Analyzed
+      goal: >
+        Analyze why a cheating prover cannot convince the verifier of a false
+        statement except with bounded probability.
+      outputs:
+        - soundness argument
+        - extractor or reduction idea if relevant
+        - failure probability bound
+      acceptance_criteria:
+        - adversarial strategy is considered
+        - bound is stated
+        - assumptions are explicit
+        - proof gap is not hidden
+
+    - id: P5.S3
+      name: Zero-Knowledge Analyzed
+      goal: >
+        Analyze simulator construction or privacy argument where zero-knowledge
+        is claimed.
+      outputs:
+        - simulator sketch
+        - indistinguishability argument
+        - leakage analysis
+      acceptance_criteria:
+        - simulator inputs are clear
+        - transcript distribution is addressed
+        - leakage is bounded or acknowledged
+
+    - id: P5.S4
+      name: Assumption Dependency Audited
+      goal: >
+        Map each security property to the assumptions it requires.
+      outputs:
+        - property-to-assumption table
+        - trust model implications
+        - unsupported claims list
+      acceptance_criteria:
+        - no hidden assumption remains
+        - setup assumptions are included
+        - unsupported claims are flagged
+
+  common_risks:
+    - handwavy proof
+    - confusing intuition with proof
+    - zero-knowledge simulator missing
+    - extractor not defined
+    - changing model mid-proof
+    - ignoring Fiat-Shamir assumptions if applicable

@@ -1,0 +1,7 @@
+[
+  ["phase_1_stage_1_step_1", "phase_1_stage_1_step_2"],
+  ["phase_1_stage_1_step_2", "phase_1_stage_1_step_3"],
+  ["phase_1_stage_1_step_2", "phase_1_stage_1_step_4"],
+  ["phase_1_stage_1_step_3", "phase_1_stage_1_step_5"],
+  ["phase_1_stage_1_step_4", "phase_1_stage_1_step_5"]
+]

@@ -1,0 +1,274 @@
+acceptance_standards:
+  outline_quality:
+    must_include:
+      - thesis statement
+      - section list with goals and target lengths
+      - page budget per section
+      - figure plan with type, source, and claim mapping
+    unacceptable:
+      - "write the paper" without section breakdown
+      - no page budget
+      - figures not mapped to claims
+
+  claims_evidence_matrix_quality:
+    must_include:
+      - every claim the paper intends to make
+      - evidence source for each claim
+      - confidence level for each claim
+      - gap report for unflagged missing evidence
+    unacceptable:
+      - claims with no evidence and no flag
+      - "the results show improvement" without specifying which result
+      - missing gap analysis
+
+  citation_scaffold_quality:
+    must_include:
+      - required reference list
+      - DBLP lookup status for each reference
+      - verified BibTeX entries
+      - flag for unverified entries
+    unacceptable:
+      - BibTeX fabricated from memory
+      - missing venue or year
+      - author names not verified
+
+  figure_quality:
+    must_include:
+      - figure in publication-ready format (PDF or SVG)
+      - saved generation script or specification
+      - self-contained caption
+      - claim mapping in figure manifest
+    unacceptable:
+      - raster-only output when vector is achievable
+      - no generation script
+      - caption that repeats the section text without explaining the figure
+      - wrong arrow direction in diagrams
+
+  drafting_quality:
+    must_include:
+      - LaTeX source following the section plan
+      - 5-pass audit result (structure, clarity, accuracy, notation, grammar)
+      - banned-word scan result
+      - claim-evidence cross-reference
+    unacceptable:
+      - unstructured prose dump
+      - no audit performed
+      - banned words present
+      - orphaned claims not flagged
+
+  compilation_quality:
+    must_include:
+      - compiled PDF with zero errors
+      - all citations resolved (no ?? placeholders)
+      - all figures included
+      - page count within target limit or explicitly flagged
+    unacceptable:
+      - missing references
+      - missing figures
+      - over page limit without flag
+      - compilation errors silently ignored
+
+  improvement_quality:
+    must_include:
+      - structured review report with categorized issues
+      - all banned-word occurrences removed
+      - GPT-style passages rewritten with domain-specific language
+      - overclaims softened to evidence-grounded alternatives
+      - recompiled PDF after fixes
+      - version snapshot preserved
+    unacceptable:
+      - review without issue categorization
+      - GPT-style passages merely rephrased, not rewritten
+      - overclaims left unchanged
+      - no recompilation after fixes
+
+  slides_quality:
+    must_include:
+      - Beamer source compiling without errors
+      - speaker notes for every slide
+      - minimum 20pt body text
+      - every key claim covered in at least one slide
+      - talk script with per-slide timing
+    unacceptable:
+      - text-heavy slides (more than 5 bullet points)
+      - no speaker notes
+      - font sizes too small for projection
+      - key claims omitted
+
+  poster_quality:
+    must_include:
+      - tcbposter LaTeX source compiling without errors
+      - correct dimensions (A0 or A1)
+      - minimum 24pt body, 48pt title
+      - self-contained content (understandable without the paper)
+      - pitch script (2 minutes)
+    unacceptable:
+      - wrong dimensions
+      - font too small for 1-2 meter reading distance
+      - requires reading the paper to understand
+      - no pitch script
+
+anti_patterns:
+  - name: writing_without_claims
+    bad_example: >
+      Start drafting sections without a claims-evidence matrix or outline.
+    why_bad: >
+      The paper will ramble, miss key evidence, and likely exceed the page budget.
+    fix: >
+      Add a paper planning phase with claims-evidence matrix before writing.
+
+  - name: prose_before_figures
+    bad_example: >
+      Write the full method and experiments sections, then generate figures to
+      illustrate the text.
+    why_bad: >
+      Figures are evidence, not decoration. Writing without knowing the figures
+      leads to text that describes absent or misaligned visuals.
+    fix: >
+      Generate all figures first, then write prose that explains them.
+
+  - name: fabricating_citations
+    bad_example: >
+      Write BibTeX entries from memory because looking them up takes time.
+    why_bad: >
+      Memory is unreliable for author names, venues, years, and page numbers.
+      Fabricated citations are a form of academic misconduct.
+    fix: >
+      Use the DBLP -> CrossRef -> VERIFY pipeline for every citation.
+
+  - name: improving_uncompiled_text
+    bad_example: >
+      Spend time polishing LaTeX source that has never been compiled, fixing
+      prose while compilation errors remain.
+    why_bad: >
+      Compilation errors may require structural changes that invalidate prose
+      improvements. Polish is wasted on text that may not render correctly.
+    fix: >
+      Compile first, then improve.
+
+  - name: hand_drawn_diagrams
+    bad_example: >
+      Manually draw an SVG architecture diagram by writing raw SVG markup.
+    why_bad: >
+      Hand-drawn diagrams are not reproducible, not verifiable, and error-prone
+      (wrong arrow directions, misaligned nodes).
+    fix: >
+      Use FigureSpec JSON compiled to SVG, or Mermaid source compiled to SVG.
+
+  - name: skipping_quality_audit
+    bad_example: >
+      Draft a section and immediately proceed to the next without running the
+      5-pass audit or banned-word scan.
+    why_bad: >
+      Quality issues accumulate and become harder to fix in aggregate. Early
+      detection prevents late-stage rewrites.
+    fix: >
+      Require audit passage before proceeding to the next section.
+
+  - name: overclaiming_without_evidence
+    bad_example: >
+      Write "our method significantly outperforms all baselines" when the results
+      show improvement on one metric for one parameter setting.
+    why_bad: >
+      Overclaiming destroys reviewer trust. One favorable result does not
+      generalize to "all baselines" without evidence.
+    fix: >
+      Map the claim to specific evidence. Soften to "our method achieves lower
+      error on metric X under setting Y" or flag as conjecture.
+
+  - name: gpt_style_rephrase_instead_of_rewrite
+    bad_example: >
+      Detect GPT-style prose and replace it with a lightly edited version that
+      uses synonyms but preserves the formulaic structure.
+    why_bad: >
+      GPT-style prose is identifiable by structure, not just word choice.
+      Synonym substitution does not fix the underlying formulaic pattern.
+    fix: >
+      Rewrite the passage with precise, domain-specific language and concrete
+      details that only a domain expert would provide.
+
+  - name: ignoring_page_budget
+    bad_example: >
+      Write sections to their natural length without tracking the page budget,
+      then discover the paper is 3 pages over the limit.
+    why_bad: >
+      Cutting content after writing is harder than writing to budget. Important
+      content may be cut arbitrarily.
+    fix: >
+      Enforce the page budget during planning. Track section lengths during
+      drafting. Move overflow to the appendix.
+
+  - name: presentation_without_improvement
+    bad_example: >
+      Generate slides and poster immediately after the first compilation,
+      before any improvement rounds.
+    why_bad: >
+      Presentation materials based on an unimproved paper propagate errors and
+      weak prose to a public-facing artifact.
+    fix: >
+      Complete at least one improvement round before generating presentation
+      materials.
+
+valid_final_output_types:
+  - type: conference_paper
+    required_sections:
+      - abstract
+      - introduction
+      - related work
+      - method or approach
+      - evaluation or experiments
+      - conclusion
+    required_artifacts:
+      - compiled PDF
+      - LaTeX source
+      - claims-evidence matrix
+
+  - type: journal_paper
+    required_sections:
+      - abstract
+      - introduction
+      - related work
+      - method or approach
+      - evaluation or experiments
+      - discussion
+      - conclusion
+    required_artifacts:
+      - compiled PDF
+      - LaTeX source
+      - claims-evidence matrix
+      - improvement report
+
+  - type: workshop_paper
+    required_sections:
+      - abstract
+      - introduction
+      - method or approach
+      - preliminary evaluation
+      - conclusion
+    required_artifacts:
+      - compiled PDF
+      - LaTeX source
+
+  - type: poster
+    required_sections:
+      - title and authors
+      - central thesis
+      - key results
+      - takeaway
+    required_artifacts:
+      - compiled poster PDF
+      - poster LaTeX source
+      - pitch script
+
+  - type: slide_deck
+    required_sections:
+      - title slide
+      - motivation
+      - method
+      - results
+      - conclusion
+      - Q&A
+    required_artifacts:
+      - compiled slides PDF
+      - Beamer source
+      - talk script with timing

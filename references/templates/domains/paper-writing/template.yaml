@@ -1,0 +1,64 @@
+template_name: paper_writing_phase_stage_template
+version: 1.0.0
+type: guidetree_domain_template
+domain: paper_writing
+
+description: >
+  Domain-specific phase/stage decomposition template for academic paper writing
+  projects. This template defines how an agent should divide paper writing work
+  into phases and stages. It is not an executable skill. It is a planning
+  reference used by GuideTree skills when generating, validating, or repairing
+  project structures for paper writing.
+
+intended_use:
+  used_by:
+    - generate_phase_skeleton
+    - validate_phase_skeleton
+    - expand_phase_to_stage_dag
+    - validate_stage_dag
+    - expand_stage_to_steps
+    - validate_steps
+
+  not_used_as:
+    - executable_skill
+    - runtime_orchestrator
+    - state_update_mechanism
+    - direct_project_executor
+
+core_principle: >
+  Paper writing must be decomposed around claim clarity, visual evidence
+  construction, structured drafting, reliable compilation, iterative improvement,
+  and presentation preparation. Claims before prose. Figures before words.
+  Compile before polish. Review before submit.
+
+domain_scope:
+  includes:
+    - academic paper planning and outlining
+    - claims-evidence matrix construction
+    - citation scaffolding and verification
+    - data figure generation (plots, charts, heatmaps)
+    - architecture and system diagrams
+    - mermaid flowchart and sequence diagrams
+    - AI-generated conceptual illustrations
+    - LaTeX section drafting and quality auditing
+    - LaTeX compilation and error resolution
+    - prose quality improvement and overclaim softening
+    - GPT-style detection and rewriting
+    - conference poster generation
+    - Beamer slide deck generation
+    - talk script and delivery preparation
+    - page budget management
+
+  excludes_by_default:
+    - experiment execution and data collection
+    - literature survey as a standalone deliverable
+    - code implementation and debugging
+    - software engineering pipelines
+    - production system deployment
+    - peer review response (separate workflow)
+    - grant proposal writing
+    - thesis or dissertation writing (longer form, different structure)
+    - blog post or article writing
+
+  note: >
+    Excluded items may be added only if explicitly included in project_context.

@@ -1,0 +1,355 @@
+{
+  "skill": "generate_phase_skeleton",
+  "version": "1.0.0",
+  "summary": "Generated an 8-phase skeleton for the folding scheme optimization project, aligned with the zkp-research domain's recursive_proof_or_folding_research pattern. All 8 phases are required: research framing, formal model, baseline comparison, protocol development, security analysis, complexity analysis, prototype/benchmark, and synthesis.",
+  "project_id": "folding-scheme-recursive-zksnark-opt",
+  "phase_skeleton": [
+    {
+      "id": "phase_1",
+      "name": "Research Framing and Literature Grounding",
+      "goal": "Clarify the research objective, technical motivation, target ZKP area, prior work landscape, and expected contribution type for folding scheme optimization.",
+      "rationale": "Folding scheme optimization is a specialized ZKP research topic. Before formal modeling or protocol work, the research question must be precisely scoped, relevant prior work (Nova, SuperNova, HyperNova, Protostar, ProtoGalaxy) must be mapped, and the contribution hypothesis must be stated. This prevents duplicating prior work and ensures the optimization target is meaningful.",
+      "acceptance_criteria": [
+        "Research question explicitly states the folding scheme optimization target (verifier circuit reduction) and scope",
+        "Target ZKP subdomain is identified as folding/recursive proof research",
+        "Key prior works (Nova, SuperNova, HyperNova, Protostar, ProtoGalaxy) are listed with relevance notes",
+        "Expected contribution type is stated (e.g., new folding scheme, modification of existing scheme, or general optimization technique)",
+        "Scope explicitly excludes production deployment, smart contract integration, and frontend development",
+        "Terminology and notation are consistent enough for formal modeling in phase_2"
+      ],
+      "inputs": [
+        "project goal: Folding scheme optimization for recursive zkSNARKs with smaller verifier circuits",
+        "initial research question",
+        "known ZKP area: folding schemes / recursive proofs",
+        "user-provided references (if any)"
+      ],
+      "outputs": [
+        "clarified research question with precise optimization target",
+        "ZKP subdomain classification (folding/recursive proofs)",
+        "prior-art map of folding schemes",
+        "contribution hypothesis",
+        "terminology and notation baseline",
+        "research scope and non-goals"
+      ],
+      "dependencies": [],
+      "risks": [
+        "Research question may be too broad if multiple folding approaches are considered simultaneously",
+        "Missing critical prior work may lead to duplicating existing schemes",
+        "Conflating implementation optimization with cryptographic protocol optimization"
+      ],
+      "status": "in_progress"
+    },
+    {
+      "id": "phase_2",
+      "name": "Formal Problem and Security Model Definition",
+      "goal": "Define the mathematical object of study: the folding relation, witness structure, public inputs, adversary model, cryptographic assumptions, and security properties for the optimized folding scheme.",
+      "rationale": "Per zkp-research domain rules (STRICT.ZKP.1, STRICT.ZKP.2, ZKP.R7), formal definitions are mandatory before any protocol construction. For folding schemes specifically, the folding invariant, accumulator correctness, and verifier circuit cost must be formally defined.",
+      "acceptance_criteria": [
+        "Folding relation is formally defined with input/output specification",
+        "Witness and public input spaces are unambiguous",
+        "Completeness is defined for the folding scheme",
+        "Knowledge soundness is defined for the folding scheme",
+        "Zero-knowledge property is defined or explicitly scoped out with justification",
+        "Folding invariant and accumulator correctness conditions are stated",
+        "Cryptographic assumptions are explicit (e.g., discrete log, knowledge of exponent, algebraic group model)",
+        "Setup/trust model is declared",
+        "Verifier circuit cost model is defined (constraint count or gate count metric)"
+      ],
+      "inputs": [
+        "clarified research question from phase_1",
+        "prior-art map from phase_1",
+        "selected baseline protocols from phase_1",
+        "notation baseline from phase_1"
+      ],
+      "outputs": [
+        "formal folding relation definition",
+        "witness and public input definition",
+        "security properties (completeness, knowledge soundness, zero-knowledge if applicable)",
+        "folding invariant and accumulator correctness conditions",
+        "adversarial model",
+        "cryptographic assumptions",
+        "verifier circuit cost model",
+        "notation and definitions"
+      ],
+      "dependencies": ["phase_1"],
+      "risks": [
+        "Informal relation definition that cannot support security proof",
+        "Hidden trusted setup assumption",
+        "Mixing soundness and knowledge soundness",
+        "Verifier circuit cost model that is incomparable with baselines"
+      ],
+      "status": "not_started"
+    },
+    {
+      "id": "phase_3",
+      "name": "Baseline Construction and Prior-Art Comparison",
+      "goal": "Establish baseline folding schemes (Nova, SuperNova, HyperNova, Protostar) with formal specifications, verifier circuit cost analysis, and known limitations, providing a fair comparison foundation.",
+      "rationale": "Per zkp-research domain rules (STRICT.ZKP.3, ZKP.R2), efficiency claims require baseline comparison. For folding schemes, the verifier circuit size of each baseline must be analyzed under the same cost model defined in phase_2.",
+      "acceptance_criteria": [
+        "At least two baseline folding schemes are formally specified with prover/verifier algorithms",
+        "Verifier circuit cost is analyzed for each baseline under the cost model from phase_2",
+        "Assumptions of each baseline are documented",
+        "Known limitations and tradeoffs of each baseline are identified",
+        "Comparison is on compatible parameter settings and cost metrics"
+      ],
+      "inputs": [
+        "prior-art map from phase_1",
+        "formal model from phase_2",
+        "verifier circuit cost model from phase_2"
+      ],
+      "outputs": [
+        "baseline protocol summaries with formal specifications",
+        "baseline verifier circuit cost tables",
+        "baseline assumption documentation",
+        "known limitations and improvement opportunities"
+      ],
+      "dependencies": ["phase_1", "phase_2"],
+      "risks": [
+        "Unfair baseline comparison due to incompatible parameter settings",
+        "Cherry-picking favorable baselines",
+        "Omitting a relevant baseline scheme"
+      ],
+      "status": "not_started"
+    },
+    {
+      "id": "phase_4",
+      "name": "Proposed Protocol or Technique Development",
+      "goal": "Develop the optimized folding scheme or optimization technique that achieves smaller verifier circuits compared to baselines, with complete protocol specification.",
+      "rationale": "This is the core technical contribution. The proposed construction must address the folding invariant, accumulator correctness, and verifier circuit cost simultaneously. Per ZKP.R7, stages for folding invariant, accumulator correctness, verifier circuit cost, and soundness must be included.",
+      "acceptance_criteria": [
+        "Complete protocol specification including setup, prover algorithm, verifier algorithm, and folding step",
+        "Folding invariant is defined and the construction preserves it",
+        "Accumulator correctness is defined and the construction satisfies it",
+        "Verifier circuit is specified and its cost is estimated under the cost model from phase_2",
+        "Message flow or transcript structure is documented",
+        "Failure cases and edge cases are identified",
+        "The construction is not a trivial modification without meaningful verifier circuit reduction"
+      ],
+      "inputs": [
+        "formal model from phase_2",
+        "baseline specifications from phase_3",
+        "improvement opportunities identified in phase_3"
+      ],
+      "outputs": [
+        "optimized folding scheme specification",
+        "folding invariant analysis",
+        "accumulator correctness analysis",
+        "verifier circuit specification and estimated cost",
+        "prover algorithm specification",
+        "parameter definitions"
+      ],
+      "dependencies": ["phase_2", "phase_3"],
+      "risks": [
+        "Verifier circuit reduction may increase prover cost or proof size unacceptably",
+        "Optimization may only apply to specific circuit classes or relation types",
+        "Construction may not preserve the folding invariant",
+        "The proposed scheme may be equivalent to an existing scheme under different notation"
+      ],
+      "status": "not_started"
+    },
+    {
+      "id": "phase_5",
+      "name": "Security and Correctness Analysis",
+      "goal": "Analyze whether the proposed optimized folding scheme satisfies completeness, knowledge soundness, zero-knowledge (if applicable), and accumulator correctness under the stated assumptions.",
+      "rationale": "Per zkp-research domain rules (STRICT.ZKP.2, STRICT.ZKP.5, ZKP.R3, ZKP.R7), security reasoning must precede performance claims. For folding schemes, the folding invariant and accumulator soundness must be formally analyzed.",
+      "acceptance_criteria": [
+        "Completeness argument is provided with explicit assumptions",
+        "Knowledge soundness proof sketch or reduction is provided",
+        "Zero-knowledge property is analyzed (simulator or indistinguishability argument, or explicit scoping with justification)",
+        "Folding invariant soundness is argued",
+        "Accumulator correctness and soundness are analyzed",
+        "All assumptions used in the proof are traced back to phase_2 assumptions",
+        "Unresolved proof obligations are explicitly stated"
+      ],
+      "inputs": [
+        "formal model from phase_2",
+        "protocol specification from phase_4",
+        "security properties from phase_2"
+      ],
+      "outputs": [
+        "completeness argument",
+        "knowledge soundness proof sketch or reduction",
+        "zero-knowledge simulator sketch (if applicable)",
+        "folding invariant soundness argument",
+        "accumulator soundness argument",
+        "assumption map tracing phase_2 assumptions through the proof",
+        "unresolved proof gaps (if any)"
+      ],
+      "dependencies": ["phase_2", "phase_4"],
+      "risks": [
+        "Security proof may fail for the optimized construction",
+        "Verifier circuit reduction may introduce new attack vectors",
+        "Zero-knowledge may be lost due to verifier optimization",
+        "Proof by intuition instead of formal reduction"
+      ],
+      "status": "not_started"
+    },
+    {
+      "id": "phase_6",
+      "name": "Complexity and Performance Analysis",
+      "goal": "Quantify the prover cost, verifier cost, proof size, and verifier circuit size of the proposed scheme and compare with baselines using the cost model from phase_2.",
+      "rationale": "Per zkp-research domain rules (STRICT.ZKP.3, STRICT.ZKP.4, ZKP.R2), efficiency claims require baseline comparison with pre-defined metrics. The primary metric is verifier circuit size, but all other costs must be analyzed to reveal tradeoffs.",
+      "acceptance_criteria": [
+        "Prover cost is analyzed asymptotically and concretely",
+        "Verifier cost is analyzed asymptotically and concretely",
+        "Proof size is analyzed",
+        "Verifier circuit constraint/gate count is computed and compared against baselines",
+        "Setup/preprocessing cost is analyzed if relevant",
+        "Tradeoffs between verifier circuit reduction and other costs are documented",
+        "All metrics are under the cost model defined in phase_2 and compatible parameter settings from phase_3"
+      ],
+      "inputs": [
+        "protocol specification from phase_4",
+        "baseline cost tables from phase_3",
+        "verifier circuit cost model from phase_2",
+        "security analysis from phase_5"
+      ],
+      "outputs": [
+        "complexity formulas for prover, verifier, proof size",
+        "verifier circuit cost comparison table",
+        "tradeoff analysis",
+        "parameterized cost model"
+      ],
+      "dependencies": ["phase_3", "phase_4", "phase_5"],
+      "risks": [
+        "Only favorable metrics reported, hiding cost increases elsewhere",
+        "Comparison against incompatible baseline parameters",
+        "Vague complexity claims without concrete circuit counts"
+      ],
+      "status": "not_started"
+    },
+    {
+      "id": "phase_7",
+      "name": "Prototype, Experiment, and Benchmark",
+      "goal": "Implement or simulate the optimized folding scheme to validate feasibility and collect empirical performance data under at least two parameter settings.",
+      "rationale": "Per zkp-research domain rules (STRICT.ZKP.4, ZKP.R2), empirical performance claims require benchmark methodology. A prototype validates that the theoretical verifier circuit reduction translates to practical improvement.",
+      "acceptance_criteria": [
+        "Prototype implements the core folding step and verifier circuit",
+        "Hardware/software environment is documented",
+        "Parameter choices are explicitly stated and justified",
+        "At least two parameter settings are benchmarked",
+        "Baseline scheme is implemented under the same framework for fair comparison",
+        "Raw or summarized benchmark results are reported",
+        "Reproducibility instructions are provided",
+        "Implementation scope and known limitations are documented"
+      ],
+      "inputs": [
+        "protocol specification from phase_4",
+        "complexity analysis from phase_6",
+        "baseline specifications from phase_3"
+      ],
+      "outputs": [
+        "prototype implementation",
+        "benchmark plan and methodology",
+        "benchmark results under multiple parameter settings",
+        "baseline comparison results",
+        "implementation notes and limitations",
+        "reproducibility package"
+      ],
+      "dependencies": ["phase_4", "phase_6"],
+      "risks": [
+        "Prototype only implements a subset of the protocol, making empirical claims unreliable",
+        "Benchmark cherry-picking favorable parameter settings",
+        "Implementation bugs masking or exaggerating the optimization effect",
+        "Prototype cost does not reflect the theoretical analysis"
+      ],
+      "status": "not_started"
+    },
+    {
+      "id": "phase_8",
+      "name": "Research Synthesis and Final Deliverable",
+      "goal": "Consolidate formal definitions, construction, security reasoning, complexity analysis, and benchmark results into a coherent research deliverable with explicit claim-evidence mapping.",
+      "rationale": "Per zkp-research domain rules (STRICT.ZKP.9, ZKP.R9), a claim-evidence mapping is required before final delivery. The research synthesis ensures all claims are supported by evidence and limitations are honestly reported.",
+      "acceptance_criteria": [
+        "Final deliverable contains: abstract, problem statement, related work, formal model, construction, security analysis, complexity/benchmark analysis, limitations, and conclusion",
+        "Every research claim is mapped to supporting evidence (formal proof, complexity result, or benchmark)",
+        "Limitations are explicitly stated, including any unresolved proof obligations",
+        "Notation is consistent throughout",
+        "Reproducibility of key results is documented",
+        "The deliverable format matches the intended output type (research report or protocol specification)"
+      ],
+      "inputs": [
+        "research framing from phase_1",
+        "formal model from phase_2",
+        "baseline analysis from phase_3",
+        "protocol specification from phase_4",
+        "security analysis from phase_5",
+        "complexity analysis from phase_6",
+        "benchmark results from phase_7"
+      ],
+      "outputs": [
+        "final research report or protocol specification",
+        "claim-evidence matrix",
+        "limitations document",
+        "reproducibility summary"
+      ],
+      "dependencies": ["phase_5", "phase_6", "phase_7"],
+      "risks": [
+        "Final claims unsupported by evidence from earlier phases",
+        "Missing limitations or overclaiming from partial prototype",
+        "Inconsistent notation across phases",
+        "Claim-evidence gaps where earlier phases did not produce sufficient evidence"
+      ],
+      "status": "not_started"
+    }
+  ],
+  "phase_dependency_edges": [
+    ["phase_1", "phase_2"],
+    ["phase_1", "phase_3"],
+    ["phase_2", "phase_3"],
+    ["phase_2", "phase_4"],
+    ["phase_3", "phase_4"],
+    ["phase_2", "phase_5"],
+    ["phase_4", "phase_5"],
+    ["phase_3", "phase_6"],
+    ["phase_4", "phase_6"],
+    ["phase_5", "phase_6"],
+    ["phase_4", "phase_7"],
+    ["phase_6", "phase_7"],
+    ["phase_5", "phase_8"],
+    ["phase_6", "phase_8"],
+    ["phase_7", "phase_8"]
+  ],
+  "planning_assumptions": [
+    "The project follows the recursive_proof_or_folding_research pattern from zkp-research domain template",
+    "All 8 phases are required (no optional phases for this pattern)",
+    "Phase dependencies are mostly sequential but phase_3 can begin once phase_1 and phase_2 are done",
+    "The primary optimization target is verifier circuit size; other cost metrics may increase but must be analyzed",
+    "The research output is a research report and/or protocol specification"
+  ],
+  "unresolved_questions": [
+    {
+      "id": "UQ1",
+      "question": "Should the optimization target R1CS-based folding (Nova-style) or Plonkish/arithmetic-based folding (Protostar-style), or both?",
+      "impact": "Determines the arithmetization model and verifier circuit structure",
+      "priority": "high",
+      "handling_strategy": "defer_to_stage_planning"
+    },
+    {
+      "id": "UQ2",
+      "question": "Is the output a new folding scheme, a modification of an existing scheme, or a general technique applicable to multiple schemes?",
+      "impact": "Determines whether phase_4 follows new_protocol_construction or protocol_optimization sub-pattern",
+      "priority": "high",
+      "handling_strategy": "defer_to_stage_planning"
+    },
+    {
+      "id": "UQ3",
+      "question": "Should the project include a full prototype implementation or is a cost-model analysis sufficient for feasibility demonstration?",
+      "impact": "Affects scope of phase_7 and resource requirements",
+      "priority": "medium",
+      "handling_strategy": "defer_to_step_planning"
+    }
+  ],
+  "validation_notes": {
+    "phase_count_valid": true,
+    "coverage_valid": true,
+    "dependency_valid": true,
+    "acceptance_criteria_valid": true,
+    "no_stage_or_step_generated": true
+  },
+  "next_action": {
+    "recommended_skill": "validate_phase_skeleton",
+    "reason": "Phase skeleton is generated and appears valid. It should be validated before expansion.",
+    "suggested_target_phase_id": null
+  }
+}

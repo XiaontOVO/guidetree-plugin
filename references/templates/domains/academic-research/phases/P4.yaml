@@ -1,0 +1,122 @@
+phase:
+  id: P4
+  name: Code Implementation
+  purpose: >
+    Build the experiment codebase from the experiment plan through a structured
+    pipeline: design specification, implementation planning, test-driven
+    development, mandatory code review, and integration. No code is merged
+    without passing its test suite and review.
+
+  when_to_use: >
+    Required for any project that needs custom code to run experiments. If the
+    project uses existing code without modification, this phase may be
+    simplified to a verification stage.
+
+  inputs:
+    - experiment protocol
+    - data schema
+    - experiment blocks and todolist
+    - design brief with claim mapping
+
+  outputs:
+    - design spec with module-to-block mapping
+    - implementation plan with task dependencies
+    - source code with test suite
+    - code review log
+    - integration test results
+
+  acceptance_criteria:
+    - design spec maps every module to at least one experiment block
+    - implementation plan covers all modules with dependencies and test requirements
+    - every module has tests written before implementation (TDD mandatory)
+    - all unit and integration tests pass
+    - code review completed with all issues resolved
+    - no module merged without passing its test suite and review
+
+  typical_stages:
+    - id: P4.S1
+      name: Design Specification
+      goal: >
+        Write the technical design spec: module structure, interfaces, data
+        flow, and algorithm choices. Map each module to its experiment block.
+      outputs:
+        - module structure with responsibilities
+        - interface definitions between modules
+        - data flow diagrams
+        - algorithm choices with rationale
+        - module-to-experiment-block mapping
+      acceptance_criteria:
+        - every module has a clear responsibility
+        - interfaces between modules are fully defined
+        - every module maps to at least one experiment block
+        - algorithm choices are justified
+
+    - id: P4.S2
+      name: Implementation Planning
+      goal: >
+        Write the implementation plan: ordered task list with dependencies,
+        test requirements per task, and estimated effort.
+      outputs:
+        - ordered task list
+        - dependency graph between tasks
+        - test requirements per task
+        - effort estimates
+      acceptance_criteria:
+        - task ordering respects dependencies
+        - every task has test requirements
+        - effort estimates are provided
+        - independent tasks are identified for potential parallelization
+
+    - id: P4.S3
+      name: Test-Driven Development
+      goal: >
+        Implement each module using strict TDD: write the test, watch it fail,
+        implement, watch it pass. Dispatch subagents for independent tasks but
+        review all output before merge.
+      outputs:
+        - source code in src/
+        - test suite in tests/
+        - commit log with TDD progression
+      acceptance_criteria:
+        - test written before implementation for every module
+        - red-green-refactor cycle followed
+        - all tests pass after implementation
+        - subagent output reviewed before merge
+
+    - id: P4.S4
+      name: Code Review
+      goal: >
+        Conduct code review: check against design spec, test coverage, and
+        correctness. Log findings and resolutions.
+      outputs:
+        - review findings log
+        - resolution actions
+        - updated code and tests
+      acceptance_criteria:
+        - review checks code against design spec
+        - test coverage verified
+        - all findings logged with severity
+        - all issues resolved before merge
+
+    - id: P4.S5
+      name: Integration
+      goal: >
+        Run integration tests across modules, fix interface mismatches, and
+        verify end-to-end execution with a smoke test.
+      outputs:
+        - integration test results
+        - interface mismatch fixes
+        - smoke test results
+      acceptance_criteria:
+        - all integration tests pass
+        - no interface mismatches remain
+        - smoke test executes successfully with dummy data
+        - output schema matches the data schema from the protocol
+
+  common_risks:
+    - implementing without a design spec — leads to inconsistent interfaces
+    - skipping TDD — leads to untested code and regression bugs
+    - not reviewing subagent output — leads to subtle bugs
+    - integration left too late — interface mismatches discovered late are expensive
+    - over-engineering — building infrastructure beyond what the experiment requires
+    - under-testing edge cases in data loading and preprocessing

@@ -1,0 +1,94 @@
+phase:
+  id: P3
+  name: Experiment Planning and Protocol
+  purpose: >
+    Translate the locked design brief into a fully specified experiment plan:
+    protocol, data schema, experiment blocks, and an ordered execution
+    todolist. No code is written and no experiment is run until this plan is
+    validated. The protocol is the contract that protects result integrity.
+
+  when_to_use: >
+    Mandatory for any project that includes empirical evaluation. Not needed
+    for pure theoretical or survey projects. If the design brief includes
+    claims that require experimental validation, this phase is required.
+
+  inputs:
+    - locked design brief
+    - hypothesis and success criteria
+    - literature comparison matrix (for baseline selection)
+
+  outputs:
+    - experiment protocol document
+    - data schema
+    - experiment blocks with claim mapping
+    - dependency graph
+    - ordered execution todolist with resource estimates
+
+  acceptance_criteria:
+    - protocol specifies datasets, metrics, baselines, and statistical tests for every claim
+    - data schema covers all inputs and outputs with types and constraints
+    - every experiment block maps to at least one claim from the design brief
+    - dependency graph is acyclic with explicit ordering
+    - todolist covers all blocks with no orphan actions
+    - no claim in the design brief lacks a corresponding experiment block
+    - statistical test is specified before any data collection
+
+  typical_stages:
+    - id: P3.S1
+      name: Protocol and Schema Definition
+      goal: >
+        Write the complete experiment specification: datasets, metrics,
+        baselines, hyperparameters, seed strategy, and statistical tests for
+        every claim in the design brief.
+      outputs:
+        - experiment protocol document
+        - data schema for all inputs, intermediates, and outputs
+        - statistical test specification per claim
+      acceptance_criteria:
+        - every dataset has version, source, and access specification
+        - every metric has a precise definition
+        - every baseline has an implementation source
+        - statistical test, null hypothesis, and significance threshold are specified
+        - hyperparameter search space or fixed values are defined
+        - random seed strategy is defined
+
+    - id: P3.S2
+      name: Experiment Block Design
+      goal: >
+        Decompose the protocol into discrete experiment blocks, map each block
+        to claims, define dependencies, and specify execution order.
+      outputs:
+        - experiment block definitions
+        - block-to-claim mapping
+        - dependency graph
+        - execution order
+      acceptance_criteria:
+        - each block has a clear purpose and outputs
+        - every block maps to at least one claim
+        - dependencies are explicit and the graph is acyclic
+        - execution order respects dependencies
+        - no orphan blocks (blocks without claim mapping)
+
+    - id: P3.S3
+      name: Execution Todolist Generation
+      goal: >
+        Generate the 3-level todolist: phase (block), task (sub-experiment),
+        action (single command), with resource estimates. This is the execution
+        contract.
+      outputs:
+        - 3-level todolist with resource estimates
+        - coverage validation against blocks and claims
+      acceptance_criteria:
+        - todolist covers all blocks and tasks
+        - each action is a single command or script invocation
+        - resource estimates (compute, time, memory) are provided
+        - no orphan actions (actions not belonging to any task)
+        - coverage validation confirms all claims have execution paths
+
+  common_risks:
+    - specifying metrics without defining how they are computed
+    - choosing statistical tests after peeking at preliminary results
+    - forgetting to include a baseline or ablation condition
+    - dependency graph with cycles that block execution
+    - todolist too coarse (missing actions) or too fine (micromanagement)
+    - underestimating compute requirements

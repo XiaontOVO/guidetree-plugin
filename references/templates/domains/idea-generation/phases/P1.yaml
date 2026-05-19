@@ -1,0 +1,87 @@
+phase:
+  id: P1
+  name: Discovery and Brainstorming
+  purpose: >
+    Discover and prioritize research ideas by systematically identifying gaps
+    in existing literature, generating candidates that address those gaps, and
+    piloting the strongest contenders.
+
+  when_to_use: >
+    Use for almost all idea generation projects unless a well-formed idea with
+    prior literature grounding is already provided.
+
+  inputs:
+    - project goal or vague research direction
+    - known domain area or target field
+    - user-provided references or starting points
+    - known constraints
+
+  outputs:
+    - literature gap analysis with annotated references
+    - 8-12 candidate research ideas with scoring
+    - pilot feasibility results for top 2-3 candidates
+    - ranked idea report with justification
+
+  acceptance_criteria:
+    - literature gap analysis is grounded in annotated references
+    - at least 8 candidate ideas generated, each grounded in a literature gap
+    - top 2-3 ideas have pilot feasibility results documented
+    - negative or inconclusive pilot results are reported honestly, not suppressed
+    - ranked idea report with scoring justification is produced
+
+  typical_stages:
+    - id: P1.S1
+      name: Literature Survey
+      goal: >
+        Map the existing literature landscape and identify gaps, open problems,
+        and under-explored intersections that motivate candidate research ideas.
+      outputs:
+        - literature gap analysis
+        - annotated reference list
+        - baseline candidates
+        - known limitations
+      acceptance_criteria:
+        - important related works are identified
+        - each reference has relevance notes
+        - gaps or open problems are summarized with evidence
+        - survey scope and inclusion criteria are stated
+
+    - id: P1.S2
+      name: Idea Generation
+      goal: >
+        Generate a broad set of candidate research ideas grounded in identified
+        literature gaps, score them by feasibility, novelty, and impact, and
+        pilot the strongest contenders.
+      outputs:
+        - candidate research ideas with preliminary scoring
+        - pilot feasibility results for top candidates
+        - ranked idea report with justification
+      acceptance_criteria:
+        - at least 8 candidate ideas generated
+        - each idea cites at least one identified literature gap
+        - scoring uses defined scales with explicit justification
+        - top 2-3 ideas have pilot results documented
+        - negative pilot results are reported honestly
+
+    - id: P1.S3
+      name: Pilot Validation
+      goal: >
+        Run small-scale feasibility probes on top-ranked ideas to determine
+        whether they merit further investment in sharpening and novelty
+        verification.
+      outputs:
+        - pilot experiment results
+        - feasibility assessment
+        - go/no-go recommendation per candidate
+      acceptance_criteria:
+        - pilot experiments are run honestly with defined methodology
+        - negative or inconclusive results are reported as such
+        - each pilot has a clear feasibility criterion
+        - recommendations are grounded in evidence, not appeal
+
+  common_risks:
+    - brainstorming without literature grounding (speculation, not research)
+    - generating too few candidates (insufficient exploration)
+    - suppressing negative pilot results (escalating weak ideas)
+    - anchoring on a single favorite idea too early
+    - confusing "interesting" with "researchable"

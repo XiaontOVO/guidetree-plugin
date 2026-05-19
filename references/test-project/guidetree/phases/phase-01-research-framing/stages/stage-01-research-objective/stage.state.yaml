@@ -1,0 +1,37 @@
+stage_id: phase_1_stage_1
+stage_name: Research Objective Clarified
+phase_id: phase_1
+status: in_progress
+
+steps_generated: true
+steps_valid: true
+steps_path: steps.json
+step_dependency_edges_path: step_dependency_edges.json
+
+current_step_id: phase_1_stage_1_step_1
+
+steps:
+  - id: phase_1_stage_1_step_1
+    name: Refine Research Question
+    status: ready
+    file: step-01-refine-research-question.md
+
+  - id: phase_1_stage_1_step_2
+    name: Identify Technical Bottleneck
+    status: not_started
+    file: step-02-identify-technical-bottleneck.md
+
+  - id: phase_1_stage_1_step_3
+    name: Define Success Criteria
+    status: not_started
+    file: step-03-define-success-criteria.md
+
+  - id: phase_1_stage_1_step_4
+    name: Scope Arithmetization Target
+    status: not_started
+    file: step-04-scope-arithmetization-target.md
+
+  - id: phase_1_stage_1_step_5
+    name: Verify Objective Completeness
+    status: not_started
+    file: step-05-verify-objective-completeness.md

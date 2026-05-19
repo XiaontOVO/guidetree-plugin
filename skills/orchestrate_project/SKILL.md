@@ -547,6 +547,11 @@ skill_input_construction_rules: |
 
   For generate_phase_skeleton:
     Include project_context.
+    Include template_ref loaded from references/templates/domains/<template_id>/
+    based on project_context.template_id. The template_ref must contain:
+      - template_id: the domain template id
+      - phase_archetypes: list of phase file paths from the template's phases/ directory
+      - rules: path to the template's rules.yaml
     When invoked for repair: additionally include the validation_report and
     blocking_issues from the failed validate_phase_skeleton run.
 
@@ -555,6 +560,11 @@ skill_input_construction_rules: |
 
   For expand_phase_to_stage_dag:
     Include project_context, phase_skeleton, and target_phase_id.
+    Include template_ref loaded from references/templates/domains/<template_id>/
+    based on project_context.template_id. The template_ref must contain:
+      - template_id: the domain template id
+      - phase_file: path to the target phase file from the template's phases/ directory
+      - rules: path to the template's rules.yaml
     When invoked for repair: additionally include the validation_report and
     blocking_issues from the failed validate_stage_dag run.
 
@@ -564,6 +574,11 @@ skill_input_construction_rules: |
   For expand_stage_to_steps:
     Include project_context, phase_skeleton, target_phase_id, stage_dag,
     and target_stage_id.
+    Include template_ref loaded from references/templates/domains/<template_id>/
+    based on project_context.template_id. The template_ref must contain:
+      - template_id: the domain template id
+      - phase_file: path to the target phase file from the template's phases/ directory
+      - rules: path to the template's rules.yaml
     When invoked for repair: additionally include the validation_report and
     blocking_issues from the failed validate_steps or validate_stage_result run.
 

@@ -1,0 +1,85 @@
+phase:
+  id: P1
+  name: Claims Verification
+  purpose: >
+    Extract every quantitative and qualitative claim from the manuscript, verify
+    each against raw experiment data, and check each for 7 known failure modes.
+    This is the foundational audit: if the numbers are wrong, nothing else
+    matters.
+
+  when_to_use: >
+    Use for almost all research audit projects unless the paper contains no
+    quantitative claims or the claims have already been independently verified.
+
+  inputs:
+    - manuscript text
+    - raw experiment result files
+    - supplementary materials
+    - figure and table captions
+
+  outputs:
+    - claim inventory with manuscript locations
+    - claim-to-evidence mapping referencing specific raw files
+    - failure mode analysis per claim covering all 7 modes
+    - discrepancy report with severity classification
+    - blockers (missing raw data files)
+
+  acceptance_criteria:
+    - all quantitative claims extracted and listed with locations
+    - each claim verified against a specific raw result file
+    - all 7 failure modes checked for each claim
+    - rounding rule applied correctly (84.7% to 85% OK; 84.7% to 85.3% NOT OK)
+    - only raw results used as evidence (no summaries, no logs)
+    - missing raw result files flagged as blockers
+
+  typical_stages:
+    - id: P1.S1
+      name: Claim Extraction
+      goal: >
+        Extract all quantitative and qualitative claims from the manuscript,
+        recording each claim's location, type, and the evidence it references.
+      outputs:
+        - complete claim list with manuscript locations
+        - claim type classification (quantitative, comparative, methodological)
+        - claimed evidence source for each claim
+      acceptance_criteria:
+        - no quantitative claim in the manuscript is missing from the list
+        - each claim has a type classification
+        - claimed evidence sources are identified
+
+    - id: P1.S2
+      name: Evidence Matching
+      goal: >
+        Map each extracted claim to its corresponding raw result file and verify
+        the claim against the raw data.
+      outputs:
+        - claim-to-evidence mapping
+        - verification result per claim (matches, discrepancy, unverified)
+        - severity classification for discrepancies
+      acceptance_criteria:
+        - each claim maps to a specific raw result file
+        - verification uses raw data only (not summaries, logs, or AUTO_REVIEW)
+        - missing raw files are flagged as blockers
+
+    - id: P1.S3
+      name: Failure Mode Check
+      goal: >
+        Check each claim against the 7 known failure modes: inflation,
+        cherry-pick, config mismatch, aggregation, delta, caption-table, and
+        scope overclaim.
+      outputs:
+        - failure mode analysis per claim
+        - failure mode flags with evidence
+        - consolidated discrepancy report
+      acceptance_criteria:
+        - all 7 failure modes checked for each claim
+        - each flag includes specific evidence
+        - rounding rule correctly distinguishes rounding from inflation
+
+  common_risks:
+    - raw experiment files missing or incomplete
+    - claims expressed in prose rather than explicit numbers
+    - implicit claims in figure captions or footnotes
+    - using EXPERIMENT_LOG or summaries instead of raw results
+    - rounding that inflates values going undetected
+    - scope overclaims hidden in abstract or introduction language

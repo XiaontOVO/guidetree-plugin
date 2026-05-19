@@ -1,0 +1,149 @@
+dependency_rules:
+  - rule: claims_before_prose
+    description: >
+      Do not draft any section before the claims-evidence matrix is complete.
+      Every paragraph must advance at least one claim.
+
+  - rule: figures_before_drafting
+    description: >
+      All figures listed in the figure plan must be generated before the writing
+      phase begins. The text must explain existing figures, not wish for them.
+
+  - rule: outline_before_sections
+    description: >
+      The section plan and page budget must exist before any section is drafted.
+      Drafting without structural constraints produces overlong, misaligned text.
+
+  - rule: compile_before_improve
+    description: >
+      A complete, compiling PDF must exist before the improvement phase begins.
+      Improving uncompiled text wastes effort on sections that may change.
+
+  - rule: improve_before_present
+    description: >
+      At least one improvement round must complete before presentation materials
+      are generated. Slides and posters should reflect the improved paper.
+
+  - rule: verified_citations_only
+    description: >
+      No BibTeX entry may be included without completing the DBLP -> CrossRef ->
+      VERIFY pipeline. Fabricated citations are a blocking violation.
+
+  - rule: evidence_grounds_strong_claims
+    description: >
+      Strong claims ("proves", "significantly", "outperforms") require
+      corresponding evidence in the claims-evidence matrix. Overclaims must be
+      softened to evidence-grounded language.
+
+  - rule: generation_script_with_every_figure
+    description: >
+      Every figure must have a saved generation script or specification. A
+      figure without provenance cannot be verified, revised, or reproduced.
+
+  - rule: review_covers_all_sections
+    description: >
+      The structured review must cover every section of the paper. Partial
+      reviews leave gaps that propagate to submission.
+
+  - rule: claims_flow_through_figures
+    description: >
+      Claims in the claims-evidence matrix must map to figures where visual
+      evidence is the primary support. Orphaned claims without figure or data
+      support must be flagged.
+
+strict_rules:
+  - id: STRICT.PAPER.1
+    rule: >
+      No paper plan is valid without a claims-evidence matrix.
+  - id: STRICT.PAPER.2
+    rule: >
+      No citation may be included without completing the DBLP -> CrossRef -> VERIFY pipeline.
+  - id: STRICT.PAPER.3
+    rule: >
+      No figure may be included without a saved generation script or specification.
+  - id: STRICT.PAPER.4
+    rule: >
+      No section may be considered complete without passing the 5-pass quality audit.
+  - id: STRICT.PAPER.5
+    rule: >
+      No paper may be submitted without post-compilation verification (citations resolved, figures included, page count checked).
+  - id: STRICT.PAPER.6
+    rule: >
+      "Significantly" is not permitted without a statistical test and reported p-value.
+  - id: STRICT.PAPER.7
+    rule: >
+      Overclaiming must be detected and softened. "Proves" requires a proof. "Outperforms" requires comparison evidence.
+  - id: STRICT.PAPER.8
+    rule: >
+      GPT-style passages must be rewritten with domain-specific language, not merely rephrased.
+  - id: STRICT.PAPER.9
+    rule: >
+      If the paper has a page limit, no plan is valid without a page budget.
+  - id: STRICT.PAPER.10
+    rule: >
+      If the project is only presentation materials, do not invent paper writing phases.
+
+agent_planning_rules:
+  - id: PAPER.R1
+    rule: >
+      If the project produces a paper, include a paper planning phase with
+      claims-evidence matrix, outline, figure plan, and citation scaffolding
+      before any writing.
+    severity: mandatory
+
+  - id: PAPER.R2
+    rule: >
+      If the paper includes data figures, architecture diagrams, or
+      illustrations, include a figure generation phase before the writing phase.
+    severity: mandatory
+
+  - id: PAPER.R3
+    rule: >
+      If the project writes LaTeX, include a compilation phase with error
+      diagnosis and post-compilation verification.
+    severity: mandatory
+
+  - id: PAPER.R4
+    rule: >
+      If the project targets a conference or journal submission, include an
+      improvement phase with at least one structured review round, banned-word
+      audit, GPT-style detection, and overclaim softening.
+    severity: mandatory
+
+  - id: PAPER.R5
+    rule: >
+      If the project requires a poster or slides, include a presentation phase
+      after the improvement phase.
+    severity: recommended
+
+  - id: PAPER.R6
+    rule: >
+      If the paper includes statistical claims, include a stage for verifying
+      that "significantly" appears only with a reported statistical test.
+    severity: mandatory
+
+  - id: PAPER.R7
+    rule: >
+      If the paper compares against baselines or prior work, include a stage for
+      fair-comparison verification: strongest reported baseline results, same
+      parameter settings, noted differences in setup.
+    severity: mandatory
+
+  - id: PAPER.R8
+    rule: >
+      If the paper includes AI-generated illustrations, include a review stage
+      with scoring (minimum score 9 for acceptance) and regeneration on failure.
+    severity: recommended
+
+  - id: PAPER.R9
+    rule: >
+      Do not include experiment execution, data collection, or code
+      implementation phases unless explicitly required by project_context.
+      This template covers writing, not research or engineering.
+    severity: mandatory
+
+  - id: PAPER.R10
+    rule: >
+      If the paper targets a venue with a page limit, include page budget
+      enforcement during planning and verification during compilation.
+    severity: mandatory

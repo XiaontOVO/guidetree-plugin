@@ -1,0 +1,75 @@
+phase:
+  id: P4
+  name: Roadmapping
+  purpose: >
+    Convert a novelty-verified research idea into an actionable plan and staged
+    roadmap with measurable success criteria and explicit go/no-go gates.
+
+  when_to_use: >
+    Use after the novelty report has passed. Required for all projects that
+    intend to execute on the idea. Skip for pure ideation projects that stop
+    at novelty verification.
+
+  inputs:
+    - design brief from Sharpening and Design
+    - novelty report with passing scores
+    - ranked idea report from P1 (for fallback chain)
+
+  outputs:
+    - primary and fallback research questions
+    - testable hypotheses with success criteria
+    - staged roadmap with dependencies and priorities
+    - go/no-go criteria per gate
+    - scope boundaries
+    - fallback chain with activation conditions
+
+  acceptance_criteria:
+    - plan contains at least one primary and one fallback research question
+    - every hypothesis is testable with a stated success criterion
+    - roadmap stages are ordered by dependency with no circular dependencies
+    - each stage gate has a measurable go/no-go criterion
+    - scope explicitly states what is in-scope and out-of-scope
+    - fallback chain identifies the next-best idea and conditions for activation
+
+  typical_stages:
+    - id: P4.S1
+      name: Plan Generation
+      goal: >
+        Generate a structured PLAN with primary and fallback research questions,
+        testable hypotheses, explicit success criteria, and scope boundaries.
+      outputs:
+        - primary research question
+        - fallback research question
+        - testable hypotheses
+        - success criteria
+        - scope boundaries
+      acceptance_criteria:
+        - at least one primary and one fallback research question exist
+        - every hypothesis is testable
+        - success criteria are measurable
+        - scope boundaries are explicit (in-scope and out-of-scope)
+
+    - id: P4.S2
+      name: Roadmap Generation
+      goal: >
+        Generate a staged ROADMAP with priorities, dependencies, timeline
+        estimates, and measurable go/no-go criteria at each gate.
+      outputs:
+        - stage structure ordered by dependency
+        - priorities within each stage
+        - timeline estimates
+        - go/no-go criteria per gate
+        - fallback chain with activation conditions
+      acceptance_criteria:
+        - stages are ordered by dependency with no circular dependencies
+        - each stage gate has a measurable go/no-go criterion
+        - fallback chain identifies the next-best idea and activation conditions
+        - timeline estimates are realistic
+        - dependencies between stages are explicit
+
+  common_risks:
+    - roadmap without passing novelty report (planning for a non-novel idea)
+    - vague milestones without measurable exit conditions
+    - no fallback chain (project derails on single failure)
+    - circular dependencies between stages
+    - scope creep from the idea generation boundary into full execution

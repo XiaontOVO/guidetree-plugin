@@ -1,0 +1,129 @@
+phase:
+  id: P3
+  name: Writing
+  purpose: >
+    Write the full manuscript in LaTeX. Each section is drafted against the
+    outline, then subjected to multiple quality passes. The writing order
+    follows domain rule PAPER-2: method first, then evaluation, then related
+    work, then introduction, then abstract, then conclusion. The method is the
+    foundation; writing it first ensures the introduction and abstract accurately
+    represent the contribution.
+
+  when_to_use: >
+    Use for all paper writing projects. This is the core drafting phase.
+
+  inputs:
+    - paper outline from P1
+    - claims-evidence matrix from P1
+    - page budget from P1
+    - verified citations from P1
+    - generated figures from P2
+    - figure manifest from P2
+
+  outputs:
+    - LaTeX section files
+    - main paper.tex file
+    - verified references.bib
+    - per-section audit reports
+
+  acceptance_criteria:
+    - all sections are drafted in LaTeX
+    - each section passes the 5-pass quality audit with no blocking issues
+    - banned-word audit reports zero occurrences
+    - every claim in the text maps to evidence in the claims-evidence matrix
+    - section lengths conform to the page budget
+    - bibliography entries follow the DBLP -> CrossRef -> VERIFY pipeline
+    - writing order follows PAPER-2 (method -> evaluation -> related work -> introduction -> abstract -> conclusion)
+
+  typical_stages:
+    - id: P3.S1
+      name: Method Section Drafted
+      goal: >
+        Write the method or approach section first. This is the technical
+        foundation of the paper and must be written before all other sections.
+      outputs:
+        - method section LaTeX file
+        - method audit report
+      acceptance_criteria:
+        - method section follows the section plan goals
+        - passes 5-pass audit with no blocking issues
+        - all notation is defined before first use
+        - every technical claim maps to evidence
+
+    - id: P3.S2
+      name: Evaluation Section Drafted
+      goal: >
+        Write the evaluation or experiments section. This section presents the
+        evidence that supports the paper's claims.
+      outputs:
+        - evaluation section LaTeX file
+        - evaluation audit report
+      acceptance_criteria:
+        - all figures from P2 are referenced and included
+        - every result claim maps to a specific figure or table
+        - statistical claims include test details
+        - comparison with baselines is fair and complete
+
+    - id: P3.S3
+      name: Related Work Section Drafted
+      goal: >
+        Write the related work section. Represent prior work accurately and
+        charitably. Use the strongest reported results from original papers.
+      outputs:
+        - related work section LaTeX file
+        - related work audit report
+      acceptance_criteria:
+        - all citations from the scaffold are included
+        - no straw-man comparisons
+        - positioning of this work relative to prior art is clear
+        - coverage is sufficient for the target venue
+
+    - id: P3.S4
+      name: Introduction Section Drafted
+      goal: >
+        Write the introduction. Now that the method and evaluation are complete,
+        the introduction can accurately represent the contribution.
+      outputs:
+        - introduction section LaTeX file
+        - introduction audit report
+      acceptance_criteria:
+        - thesis statement matches the actual contribution
+        - motivation is clear and compelling
+        - contribution list is concrete and verifiable
+        - paper organization paragraph is accurate
+
+    - id: P3.S5
+      name: Abstract Drafted
+      goal: >
+        Write the abstract last (except for conclusion). It must summarize the
+        completed work, not anticipate it.
+      outputs:
+        - abstract LaTeX file
+        - abstract audit report
+      acceptance_criteria:
+        - abstract summarizes the actual contribution, not a desired one
+        - fits within the venue's abstract length requirement
+        - contains problem, approach, and key result
+        - no claims stronger than those in the body
+
+    - id: P3.S6
+      name: Conclusion Drafted
+      goal: >
+        Write the conclusion. Restate the thesis, summarize evidence, state
+        limitations, and outline future work.
+      outputs:
+        - conclusion section LaTeX file
+        - conclusion audit report
+      acceptance_criteria:
+        - thesis restatement is consistent with introduction
+        - limitations are honestly stated
+        - future work is concrete, not vague
+        - no new claims introduced in the conclusion
+
+  common_risks:
+    - writing introduction before method (thesis may not match actual contribution)
+    - orphaned claims not flagged by audit
+    - section lengths exceeding page budget
+    - notation inconsistency across sections
+    - banned words slipping through
+    - figures referenced but not yet generated

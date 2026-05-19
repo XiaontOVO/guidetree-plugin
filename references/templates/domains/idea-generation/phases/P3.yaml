@@ -1,0 +1,87 @@
+phase:
+  id: P3
+  name: Novelty Verification
+  purpose: >
+    Independently verify that the research idea is genuinely novel by searching
+    multiple sources for prior art and subjecting claims to cross-model
+    verification. This is a hard gate: no roadmap may proceed without a passing
+    novelty score.
+
+  when_to_use: >
+    Use after the idea has been sharpened into explicit claims. Required for
+    all projects that intend to commit resources to execution. Skip only for
+    pure exploratory brainstorming where novelty commitment is not needed.
+
+  inputs:
+    - design brief from Sharpening and Design
+    - explicit claim list
+    - literature references from P1
+
+  outputs:
+    - explicit claim list (refined if needed)
+    - prior art search results from multiple sources
+    - claim-by-claim overlap/delta mapping
+    - cross-model verification results
+    - novelty report with per-claim scores
+
+  acceptance_criteria:
+    - all core claims are explicitly listed and individually assessed
+    - prior art search spans at least 3 independent sources
+    - each claim has a documented delta from its closest prior art
+    - cross-model verification was run independently (no answer-leaking prompts)
+    - novelty scores use a defined, reproducible scale
+    - claims below the novelty threshold are flagged for revision or removal
+
+  typical_stages:
+    - id: P3.S1
+      name: Core Claims Extracted
+      goal: >
+        Extract and decompose all core claims and contributions from the design
+        brief into individually assessable statements.
+      outputs:
+        - explicit claim list
+        - claim decomposition
+        - contribution boundary per claim
+      acceptance_criteria:
+        - all core claims are listed explicitly
+        - each claim is specific enough to be checked against prior art
+        - claims are separated (not assessed only in aggregate)
+        - contribution boundaries are clear
+
+    - id: P3.S2
+      name: Multi-Source Prior Art Search
+      goal: >
+        Search multiple independent sources for prior art and map each claim
+        against found work, documenting overlaps and deltas.
+      outputs:
+        - prior art search results
+        - claim-by-claim overlap mapping
+        - delta documentation
+      acceptance_criteria:
+        - search spans at least 3 independent sources (e.g., arXiv, web, DBLP)
+        - each claim is compared against relevant prior art
+        - overlaps are documented fully, not hidden
+        - deltas are specific and justified
+
+    - id: P3.S3
+      name: Cross-Model Verification
+      goal: >
+        Subject the claims to independent novelty assessment using a different
+        model or perspective, without revealing the desired conclusion.
+      outputs:
+        - independent novelty assessment
+        - discrepancies with initial assessment
+        - final novelty scores with justification
+      acceptance_criteria:
+        - verification was run independently (no answer-leaking prompts)
+        - discrepancies between initial and independent assessment are documented
+        - final novelty scores are on a defined, reproducible scale
+        - claims below threshold are flagged for revision or removal
+        - if novelty fails, route back to P1 with the next-best candidate
+
+  common_risks:
+    - single-source prior art search (misses relevant work)
+    - answer-leaking in cross-model verification (confirmation bias)
+    - assessing novelty only in aggregate (hides per-claim weaknesses)
+    - downplaying threshold failures instead of routing back to discovery
+    - "applying X to Y" claimed as novel without demonstrated new insight

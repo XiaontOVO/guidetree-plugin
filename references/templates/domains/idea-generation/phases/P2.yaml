@@ -1,0 +1,116 @@
+phase:
+  id: P2
+  name: Sharpening and Design
+  purpose: >
+    Transform a vague research idea into a precise, testable design by exposing
+    hidden assumptions and structural weaknesses through five Socratic segments:
+    research question, mechanism, identifiability, validation, and risk.
+
+  when_to_use: >
+    Use when a top-ranked idea from P1 needs to be sharpened before novelty
+    verification. Skip only if the idea is already well-formed with a
+    falsifiable question, explicit mechanism, and documented assumptions.
+
+  inputs:
+    - top-ranked idea from Discovery and Brainstorming
+    - ranked idea report with scoring
+    - pilot feasibility results
+
+  outputs:
+    - falsifiable research question
+    - expected mechanism with stated assumptions
+    - identifiability analysis with confounds
+    - validation plan with failure conditions
+    - risk register
+    - design brief (consolidated)
+
+  acceptance_criteria:
+    - research question is falsifiable in a single experiment
+    - mechanism states assumptions explicitly; unstated assumptions are flagged
+    - at least one plausible confound is identified with a proposed mitigation
+    - validation plan includes a condition under which the hypothesis would be rejected
+    - risk register covers technical, conceptual, and resource dimensions
+    - design brief is self-contained and understandable without external context
+
+  typical_stages:
+    - id: P2.S1
+      name: Research Question Sharpened
+      goal: >
+        Refine the idea into a specific, falsifiable research question with
+        explicit success criteria and scope.
+      outputs:
+        - refined research question
+        - success criteria
+        - scope boundaries
+      acceptance_criteria:
+        - question is not merely "study X"
+        - question is falsifiable in a single experiment
+        - success can be evaluated with evidence
+        - scope excludes irrelevant or out-of-scope work
+
+    - id: P2.S2
+      name: Expected Mechanism Articulated
+      goal: >
+        Articulate the expected causal mechanism connecting intervention to
+        outcome, making all assumptions explicit.
+      outputs:
+        - expected mechanism
+        - stated assumptions
+        - causal chain diagram or description
+      acceptance_criteria:
+        - mechanism is stated, not implied
+        - all assumptions are explicit
+        - unstated assumptions discovered during analysis are flagged as gaps
+        - mechanism is specific enough to be tested
+
+    - id: P2.S3
+      name: Identifiability Checked
+      goal: >
+        Analyze whether the claimed effect can be distinguished from confounds
+        and alternative explanations.
+      outputs:
+        - identifiability analysis
+        - plausible confounds with mitigations
+        - alternative explanations
+      acceptance_criteria:
+        - at least one plausible confound is identified
+        - each confound has a proposed mitigation or assessment
+        - alternative explanations are considered
+        - analysis is honest about unresolvable confounds
+
+    - id: P2.S4
+      name: Validation Plan Designed
+      goal: >
+        Design a validation plan that could falsify the core claim, including
+        negative controls and failure conditions.
+      outputs:
+        - validation plan
+        - negative controls
+        - failure conditions
+      acceptance_criteria:
+        - plan includes a condition under which the hypothesis would be rejected
+        - negative controls are specified
+        - failure conditions are concrete and measurable
+        - plan does not assume success
+
+    - id: P2.S5
+      name: Risk Register Built
+      goal: >
+        Build a risk register covering technical, conceptual, and resource
+        risks with severity and likelihood ratings.
+      outputs:
+        - risk register
+        - severity and likelihood ratings
+        - mitigation strategies
+      acceptance_criteria:
+        - register covers at least technical, conceptual, and resource dimensions
+        - each risk has severity and likelihood ratings
+        - high-severity risks have mitigation strategies
+        - no dimension is omitted without justification
+
+  common_risks:
+    - sharpening that invents content to fill gaps (false precision)
+    - research question too broad or unfalsifiable
+    - mechanism with hidden assumptions
+    - validation plan that cannot fail (confirmation bias)
+    - risk register covering only one dimension

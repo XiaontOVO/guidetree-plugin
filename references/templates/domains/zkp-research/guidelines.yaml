@@ -1,0 +1,142 @@
+phase_decomposition_guidelines:
+  - name: research_question_first
+    rule: >
+      A ZKP research project must start from a clear research question,
+      hypothesis, or technical bottleneck. Do not begin with implementation
+      unless the research target is already formally defined.
+    rationale: >
+      ZKP work easily collapses into coding experiments without proving what is
+      being studied.
+
+  - name: formal_model_before_protocol_claims
+    rule: >
+      Define the statement relation, witness, public input, adversarial model,
+      assumptions, and security properties before claiming protocol novelty.
+    rationale: >
+      Without a formal model, soundness, completeness, and zero-knowledge claims
+      are meaningless.
+
+  - name: protocol_before_optimization
+    rule: >
+      Establish a correct baseline protocol or known reference construction
+      before introducing optimizations.
+    rationale: >
+      Optimizing an unclear construction produces unverifiable results.
+
+  - name: security_before_performance
+    rule: >
+      Security reasoning must precede performance claims. Performance improvement
+      is invalid if it weakens soundness, zero-knowledge, or binding assumptions.
+    rationale: >
+      ZKP research is cryptographic research first, systems optimization second.
+
+  - name: measurable_claims_only
+    rule: >
+      Every research claim must be mapped to either a formal proof, complexity
+      analysis, benchmark result, or reproducible experiment.
+    rationale: >
+      Vague claims such as "more efficient" or "more scalable" are not acceptable.
+
+  - name: compare_against_baselines
+    rule: >
+      New constructions or optimizations must be compared against appropriate
+      prior art or baseline protocols.
+    rationale: >
+      ZKP improvements are only meaningful relative to known constructions.
+
+  - name: reproducibility_required
+    rule: >
+      Experiments, benchmarks, and prototype results must include enough detail
+      for reproduction.
+    rationale: >
+      Cryptographic performance claims without reproducibility are weak.
+
+recommended_phase_pattern:
+  - name: phase_1
+    title: Research Framing and Literature Grounding
+  - name: phase_2
+    title: Formal Problem and Security Model Definition
+  - name: phase_3
+    title: Baseline Construction and Prior-Art Comparison
+  - name: phase_4
+    title: Proposed Protocol / Technique Development
+  - name: phase_5
+    title: Security and Correctness Analysis
+  - name: phase_6
+    title: Complexity and Performance Analysis
+  - name: phase_7
+    title: Prototype / Experiment / Benchmark
+  - name: phase_8
+    title: Research Synthesis and Final Deliverable
+
+recommended_stage_types:
+  - type: research_question_stage
+    purpose: clarify what technical question is being studied
+    typical_outputs:
+      - research question
+      - hypothesis
+      - success criteria
+
+  - type: literature_stage
+    purpose: identify and compare prior work
+    typical_outputs:
+      - paper map
+      - baseline candidates
+      - known limitations
+
+  - type: formalization_stage
+    purpose: define relation, language, witness, inputs, model
+    typical_outputs:
+      - formal definitions
+      - notation
+      - security model
+
+  - type: baseline_stage
+    purpose: establish known construction for comparison
+    typical_outputs:
+      - baseline protocol summary
+      - baseline assumptions
+      - baseline cost model
+
+  - type: construction_stage
+    purpose: define proposed protocol or technical method
+    typical_outputs:
+      - protocol algorithms
+      - message flow
+      - parameter definitions
+
+  - type: security_analysis_stage
+    purpose: reason about correctness and security
+    typical_outputs:
+      - completeness argument
+      - soundness proof sketch
+      - zero-knowledge simulator sketch
+      - assumption map
+
+  - type: complexity_stage
+    purpose: analyze asymptotic and concrete performance
+    typical_outputs:
+      - complexity formulas
+      - proof size analysis
+      - prover/verifier cost table
+
+  - type: implementation_stage
+    purpose: build prototype or simulation
+    typical_outputs:
+      - prototype
+      - implementation notes
+      - known limitations
+
+  - type: benchmark_stage
+    purpose: collect empirical performance data
+    typical_outputs:
+      - benchmark plan
+      - benchmark results
+      - reproducibility package
+
+  - type: synthesis_stage
+    purpose: consolidate research claims and final deliverable
+    typical_outputs:
+      - final report
+      - claim-evidence matrix
+      - limitations

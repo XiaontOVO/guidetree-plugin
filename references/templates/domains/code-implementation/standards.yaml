@@ -1,0 +1,205 @@
+acceptance_standards:
+  design_spec_quality:
+    must_include:
+      - problem statement
+      - chosen approach and rationale
+      - architecture overview (components, relationships, data flow)
+      - interface definitions (APIs, contracts, protocols)
+      - error handling strategy
+      - testing strategy
+    unacceptable:
+      - vague "we will implement X" without interface details
+      - missing error handling
+      - no testing strategy
+      - ambiguous terms without definition
+
+  implementation_plan_quality:
+    must_include:
+      - ordered task list mapping to spec requirements
+      - exact code for each task (no TBD, TODO, "implement later")
+      - file structure map showing which files each task touches
+      - self-review confirming full spec coverage
+    unacceptable:
+      - placeholder code (TBD, TODO, "implement later", "...")
+      - tasks that do not map to spec requirements
+      - missing dependency ordering
+      - spec requirements with no corresponding task
+
+  tdd_cycle_quality:
+    must_include:
+      - failing test written before production code
+      - minimal production code that makes the test pass
+      - refactored code (if improvements visible) with all tests still passing
+      - commit per completed TDD cycle
+    unacceptable:
+      - production code without a failing test
+      - test written after the code it verifies
+      - skipped refactor when improvements are visible
+      - uncommitted completed work
+
+  code_review_quality:
+    must_include:
+      - two-stage review (spec compliance then code quality)
+      - issue classification (Critical / Important / Minor)
+      - fix verification for all Critical and Important issues
+      - Minor issues logged
+    unacceptable:
+      - single-stage review that conflates spec and quality
+      - unclassified issues
+      - unresolved Critical or Important issues
+      - review by the same agent that wrote the code
+
+  integration_quality:
+    must_include:
+      - all tests pass before options are presented
+      - user explicitly selects integration option
+      - chosen option executed successfully
+      - worktree cleaned up (if merge or discard)
+    unacceptable:
+      - presenting options while tests fail
+      - auto-merging without user consent
+      - abandoned worktree after completion
+
+
+anti_patterns:
+  - name: coding_without_design
+    bad_example: >
+      Start implementing features directly from a vague project description
+      without a design spec.
+    why_bad: >
+      Without a design spec, there is no contract for what the code should do.
+      Implementers make ad-hoc decisions, miss edge cases, and produce
+      incoherent code.
+    fix: >
+      Add a design phase with requirements exploration, approach selection,
+      and spec writing before any planning or coding.
+
+  - name: plan_with_placeholders
+    bad_example: >
+      Write an implementation plan that says "implement the parser" with no
+      code, or "TODO: add error handling" as a task.
+    why_bad: >
+      Placeholders hide unknowns. If you cannot write the exact code, the
+      design spec is underspecified and the plan is incomplete.
+    fix: >
+      Flag the gap, return to design, clarify the requirement, then write the
+      exact code in the plan.
+
+  - name: production_code_without_test
+    bad_example: >
+      Write a function, then write a test for it afterward, or skip the test
+      entirely because "it's simple."
+    why_bad: >
+      Code without a failing test first is unverified by design. The test
+      describes the desired behavior; without it, the code may do the wrong
+      thing and appear correct.
+    fix: >
+      Enforce red-green-refactor: failing test first, then minimal code,
+      then refactor.
+
+  - name: quality_review_before_spec_compliance
+    bad_example: >
+      Review code for cleanliness and idioms before checking whether it
+      implements the design spec correctly.
+    why_bad: >
+      Clean code that implements the wrong feature is worse than messy code
+      that implements the right one. Quality review is meaningless if the
+      code does the wrong thing.
+    fix: >
+      Always review spec compliance first. Only proceed to quality review
+      after spec compliance is confirmed.
+
+  - name: merging_without_review
+    bad_example: >
+      Merge a feature branch to main without any code review, or with only
+      a quick glance.
+    why_bad: >
+      Unreviewed code introduces defects, spec violations, and maintainability
+      debt that compound over time.
+    fix: >
+      Require two-stage review (spec compliance then code quality) with
+      issue resolution before integration.
+
+  - name: batching_questions
+    bad_example: >
+      Ask the user five clarifying questions at once during requirements
+      exploration.
+    why_bad: >
+      Batched questions overwhelm the user and reduce answer quality. Later
+      questions may be moot based on earlier answers.
+    fix: >
+      Ask one question at a time. Wait for the answer. Let each answer
+      inform the next question.
+
+  - name: speculative_abstraction
+    bad_example: >
+      Add an interface layer, factory pattern, or plugin system "in case we
+      need it later."
+    why_bad: >
+      Speculative code adds complexity without current value and makes future
+      changes harder, not easier. You Ain't Gonna Need It.
+    fix: >
+      Build only what the spec requires. When future needs arise, refactor
+      then. TDD's refactor step handles this naturally.
+
+  - name: skipping_worktree_isolation
+    bad_example: >
+      Develop directly on the main branch without creating a feature branch
+      or worktree.
+    why_bad: >
+      Direct development on main makes rollback difficult, pollutes the
+      commit history, and risks breaking the stable branch.
+    fix: >
+      Always create a feature branch and worktree. Isolate development work
+      from the stable branch.
+
+  - name: proceeding_with_failing_tests
+    bad_example: >
+      Continue to the next task or review while one or more tests are failing.
+    why_bad: >
+      Failing tests indicate broken behavior. Proceeding on top of broken
+      behavior compounds errors and makes diagnosis harder.
+    fix: >
+      Failing tests are a hard stop. Fix the test or fix the code before
+      proceeding.
+
+
+valid_final_output_types:
+  - type: merged_feature
+    required_artifacts:
+      - approved design spec
+      - implementation plan with exact code
+      - passing test suite
+      - two-stage review report
+      - merged branch or pull request
+
+  - type: pull_request
+    required_artifacts:
+      - approved design spec
+      - implementation plan with exact code
+      - passing test suite
+      - two-stage review report
+      - open pull request with description
+
+  - type: design_spec_only
+    required_artifacts:
+      - problem statement
+      - chosen approach with rationale
+      - architecture overview
+      - interface definitions
+      - error handling strategy
+      - testing strategy
+
+  - type: prototype_spike
+    required_artifacts:
+      - learning goal or hypothesis
+      - spike code
+      - findings and conclusions
+      - recommendation for next steps
+
+  - type: refactored_codebase
+    required_artifacts:
+      - behavioral preservation proof (all existing tests pass)
+      - refactoring summary
+      - two-stage review report
+      - merged or PR-ready branch

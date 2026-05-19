@@ -1,0 +1,67 @@
+template_name: research_audit_phase_stage_template
+version: 1.0.0
+type: guidetree_domain_template
+domain: research_audit
+
+description: >
+  Domain-specific phase/stage decomposition template for multi-phase research
+  audit projects. This template defines how an agent should decompose research
+  audit work into phases and stages. It is not an executable skill. It is a
+  planning reference used by GuideTree skills when generating, validating, or
+  repairing project structures for research audit.
+
+intended_use:
+  used_by:
+    - generate_phase_skeleton
+    - validate_phase_skeleton
+    - expand_phase_to_stage_dag
+    - validate_stage_dag
+    - expand_stage_to_steps
+    - validate_steps
+
+  not_used_as:
+    - executable_skill
+    - runtime_orchestrator
+    - state_update_mechanism
+    - direct_project_executor
+
+core_principle: >
+  Research audit must be decomposed around claims verification, citation
+  integrity, adversarial stress-testing, iterative improvement, rebuttal
+  drafting, and quality gating. Each phase produces audit evidence, never
+  assertions. Audit credibility depends on independence, raw evidence, and
+  adversarial rigor.
+
+domain_scope:
+  includes:
+    - claims extraction and quantitative verification
+    - evidence matching against raw experiment data
+    - failure mode analysis (inflation, cherry-pick, config mismatch, etc.)
+    - citation existence verification
+    - citation metadata correctness checking
+    - citation context appropriateness assessment
+    - adversarial rejection memo construction
+    - objective adjudication of attack points
+    - iterative review-fix loops
+    - review assessment parsing and fix implementation
+    - reviewer concern atomization
+    - rebuttal strategy and drafting
+    - rebuttal safety gating (provenance, commitment, coverage)
+    - rebuttal stress testing
+    - structural quality review
+    - rigor quality review
+    - domain-specific quality review
+    - PASS/WARN/FAIL quality gating
+
+  excludes_by_default:
+    - original research execution
+    - paper writing from scratch
+    - experiment design
+    - code implementation
+    - production deployment
+    - marketing or presentation material creation
+    - legal or compliance review
+    - editorial or copyediting services
+
+  note: >
+    Excluded items may be added only if explicitly included in project_context.

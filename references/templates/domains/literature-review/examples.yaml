@@ -1,0 +1,92 @@
+bad_plan:
+  phases:
+    - Search
+    - Read
+    - Summarize
+    - Manage
+
+why_bad:
+  - no triage gate between reading and deep analysis
+  - "Search" is too vague — no Zotero-first discipline, no external source enumeration
+  - "Read" conflates quick-read triage with deep analysis
+  - "Summarize" skips cross-paper comparison and gap identification
+  - no scoring methodology specified
+  - no mention of Zotero as single pool
+  - no network-free analysis constraint
+  - "Manage" is an afterthought, not integrated into the pipeline
+  - no review subtype adaptation (quick survey vs systematic review)
+
+good_plan:
+  phases:
+    - id: P1
+      name: Paper Discovery and Search
+      outputs:
+        - Zotero-first candidate list with composite scores
+        - external papers ingested into Zotero
+        - search log documenting every source and query
+
+    - id: P2
+      name: Reading and Triage
+      outputs:
+        - MCP-based quick-read notes for each candidate
+        - per-paper scores (relevance, novelty, readability)
+        - tier classification (must-analyze / maybe / skip)
+
+    - id: P3
+      name: Deep Analysis
+      outputs:
+        - structured analysis per must-analyze paper
+        - five-dimension scores per paper
+        - analysis index
+
+    - id: P4
+      name: Comparison and Synthesis
+      outputs:
+        - 9-column comparison matrix
+        - cluster and gap analysis
+        - synthesis narrative
+
+    - id: P5
+      name: Library Management and Maintenance
+      outputs:
+        - deduplicated Zotero library
+        - audit report
+        - structured notes attached to analyzed papers
+
+usage_in_guidetree:
+  create_project_context:
+    use_for:
+      - identifying whether the project is truly a literature review
+      - classifying the review subtype (quick_survey, systematic_review, gap_analysis, literature_update)
+      - detecting missing research direction or scope definition
+      - detecting non-goals (e.g., paper writing, experiment design)
+
+  generate_phase_skeleton:
+    use_for:
+      - selecting appropriate phase pattern based on review subtype
+      - avoiding generic software engineering phases
+      - ensuring discovery and triage phases precede analysis and comparison
+
+  validate_phase_skeleton:
+    use_for:
+      - checking whether discovery, triage, and analysis phases are present and correctly ordered
+      - rejecting plans that skip triage or analyze before discovering
+      - rejecting plans that include irrelevant engineering phases
+
+  expand_phase_to_stage_dag:
+    use_for:
+      - selecting stage types appropriate to each literature review phase
+      - enforcing dependency rules (Zotero first, triage before deep analysis)
+      - preventing analysis stages from appearing before triage
+
+  validate_stage_dag:
+    use_for:
+      - checking stage boundaries and data flow
+      - checking that discovery outputs feed into triage inputs
+      - checking that only triaged must-analyze papers enter deep analysis
+      - ensuring no network calls in analysis stages
+
+  expand_stage_to_steps:
+    use_for:
+      - generating concrete search, reading, analysis, or management tasks
+      - ensuring steps produce scored lists, structured notes, or comparison matrices

@@ -1,0 +1,61 @@
+template_name: code_implementation_phase_stage_template
+version: 1.0.0
+type: guidetree_domain_template
+domain: code_implementation
+
+description: >
+  Domain-specific phase/stage decomposition template for software code
+  implementation projects. This template defines how an agent should divide
+  code implementation work into phases and stages. It is not an executable
+  skill. It is a planning reference used by GuideTree skills when generating,
+  validating, or repairing project structures for software development.
+
+intended_use:
+  used_by:
+    - generate_phase_skeleton
+    - validate_phase_skeleton
+    - expand_phase_to_stage_dag
+    - validate_stage_dag
+    - expand_stage_to_steps
+    - validate_steps
+
+  not_used_as:
+    - executable_skill
+    - runtime_orchestrator
+    - state_update_mechanism
+    - direct_project_executor
+
+core_principle: >
+  Code implementation must be decomposed around requirements clarity, design
+  exploration, precise planning, test-driven development, rigorous review, and
+  safe integration. Design before planning. Plan before code. Test before
+  implement. Review before merge. Integrate before declare done.
+
+domain_scope:
+  includes:
+    - greenfield software projects
+    - feature additions to existing codebases
+    - code refactoring with behavioral preservation
+    - prototype and spike implementations
+    - requirements exploration and clarification
+    - design specification writing
+    - implementation plan creation with exact code
+    - git worktree setup and branch management
+    - test-driven development (red-green-refactor)
+    - spec compliance review
+    - code quality review
+    - branch completion and integration
+    - integration testing and verification
+
+  excludes_by_default:
+    - experiment execution and empirical benchmarking
+    - academic paper writing
+    - literature survey and systematic review
+    - patent filing and legal review
+    - production deployment and infrastructure
+    - UX research and user testing
+    - marketing and documentation sites
+    - project management and sprint planning
+
+  note: >
+    Excluded items may be added only if explicitly included in project_context.

@@ -1,0 +1,143 @@
+dependency_rules:
+  - rule: design_before_planning_tasks
+    description: >
+      Do not decompose tasks until the design spec is approved and complete.
+
+  - rule: plan_before_production_code
+    description: >
+      Do not write production code until the implementation plan contains exact
+      code with zero placeholders for the task at hand.
+
+  - rule: failing_test_before_production_code
+    description: >
+      No production code may be written without a failing test first. The test
+      describes the desired behavior; the code makes the test pass.
+
+  - rule: spec_compliance_before_quality_review
+    description: >
+      Code quality review must not begin until spec compliance is confirmed.
+      A beautifully implemented wrong feature is worse than an ugly correct one.
+
+  - rule: all_tests_pass_before_integration
+    description: >
+      No integration option may be presented until all tests pass on the
+      development branch. Failing tests are a hard stop.
+
+  - rule: explicit_consent_before_merge
+    description: >
+      No merge, push, or branch deletion may occur without explicit user
+      consent. The user must actively choose among the integration options.
+
+  - rule: design_spec_is_the_contract
+    description: >
+      Every downstream artifact (plan, code, test, review) must trace back to
+      the approved design spec. If the spec is wrong, fix the spec first.
+
+  - rule: no_placeholders_in_plans
+    description: >
+      Implementation plans must contain exact code. If exact code cannot be
+      written, the design spec is underspecified. Return to design rather than
+      writing a placeholder.
+
+
+strict_rules:
+  - id: STRICT.CODE.1
+    rule: >
+      No implementation plan is valid with placeholders (TBD, TODO, "implement
+      later", "...").
+  - id: STRICT.CODE.2
+    rule: >
+      No production code is valid without a failing test written first.
+  - id: STRICT.CODE.3
+    rule: >
+      No merge is valid without two-stage review (spec compliance then code
+      quality).
+  - id: STRICT.CODE.4
+    rule: >
+      No integration option may be presented while tests are failing.
+  - id: STRICT.CODE.5
+    rule: >
+      No merge, push, or branch deletion without explicit user consent.
+  - id: STRICT.CODE.6
+    rule: >
+      No force push on any branch under any circumstances.
+  - id: STRICT.CODE.7
+    rule: >
+      No committing directly to main/master without explicit user consent.
+  - id: STRICT.CODE.8
+    rule: >
+      Design spec is the contract. If the spec is wrong, fix the spec first.
+  - id: STRICT.CODE.9
+    rule: >
+      Spec compliance review must precede code quality review. Order is
+      non-negotiable.
+  - id: STRICT.CODE.10
+    rule: >
+      If the project is only a spike, do not invent formal review or
+      integration phases.
+
+
+agent_planning_rules:
+  - id: CODE.R1
+    rule: >
+      If the project involves writing production code, include a design phase
+      with requirements exploration, approach selection, and spec writing.
+    severity: mandatory
+
+  - id: CODE.R2
+    rule: >
+      If the project involves multiple implementation tasks, include a planning
+      phase with task decomposition and exact-code implementation plans.
+    severity: mandatory
+
+  - id: CODE.R3
+    rule: >
+      If the project involves writing production code, include a TDD
+      implementation phase. No production code without a failing test first.
+    severity: mandatory
+
+  - id: CODE.R4
+    rule: >
+      If the project involves merging code, include a review phase with
+      two-stage review (spec compliance then code quality).
+    severity: mandatory
+
+  - id: CODE.R5
+    rule: >
+      If the project involves a feature branch, include an integration phase
+      with test verification, user-chosen integration option, and worktree
+      cleanup.
+    severity: mandatory
+
+  - id: CODE.R6
+    rule: >
+      If the project is a greenfield project, include all five phases
+      (Design, Planning, Implementation, Review, Integration).
+    severity: mandatory
+
+  - id: CODE.R7
+    rule: >
+      If the project is a feature addition to an existing codebase, phases P2
+      through P5 are required. P1 may be lighter but must at least clarify
+      requirements and document the chosen approach.
+    severity: recommended
+
+  - id: CODE.R8
+    rule: >
+      If the project is a refactoring, include P1 (to define scope and
+      behavioral preservation criteria), P3 through P5. P2 may be lighter
+      but must at least list the refactoring steps.
+    severity: recommended
+
+  - id: CODE.R9
+    rule: >
+      If the project is a prototype or spike, include P1 (to define the
+      learning goal) and P3 (to implement). Planning, review, and integration
+      phases are optional for spikes.
+    severity: recommended
+
+  - id: CODE.R10
+    rule: >
+      Do not include experiment execution, paper writing, literature survey, or
+      patent filing phases unless explicitly required by project_context.
+    severity: mandatory

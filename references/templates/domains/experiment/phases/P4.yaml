@@ -1,0 +1,130 @@
+phase:
+  id: P4
+  name: Analysis and Auditing
+  purpose: >
+    Transform raw experiment outputs into statistically sound conclusions, audit
+    the experimental pipeline for integrity, design and execute ablation studies
+    if needed, and explore the design space if optimization is a goal. This phase
+    produces the evidence that supports or refutes the research claims.
+
+  when_to_use: >
+    Use for all experiment projects after P3 (execution) is complete and results
+    have been collected. The analysis and audit stages may run in parallel where
+    there are no dependencies (audit does not block analysis, but audit findings
+    must be incorporated before final claims).
+
+  inputs:
+    - collected results from P3 (all seeds and configurations)
+    - experiment protocol from P1 (for methodology reference)
+    - block design from P1 (for claim mapping)
+    - integrity audit scope requirements
+
+  outputs:
+    - statistical analysis report with effect sizes and confidence intervals
+    - integrity audit report with pass/fail/advisory per category
+    - ablation design and results (if applicable)
+    - DSE report with optimal configuration and sensitivity analysis (if applicable)
+
+  acceptance_criteria:
+    - all metrics reported with mean, std, 95% CI, and effect size
+    - delta computed against correct baseline under same conditions
+    - effect sizes reported alongside p-values
+    - practically insignificant results flagged even when statistically significant
+    - integrity audit completed with pass/fail/advisory per category
+    - ground truth provenance verified with checksums or equivalent evidence
+    - no data leakage across train/val/test splits
+    - ablation design addresses anticipated reviewer questions (if applicable)
+    - DSE results include convergence evidence and iteration log (if applicable)
+
+  typical_stages:
+    - id: P4.S1
+      name: Statistical Analysis Completed
+      goal: >
+        Convert raw experiment outputs into statistically sound, publication-ready
+        conclusions. Compute aggregate metrics, compare against baselines, and
+        produce tables and figures with proper treatment of effect sizes and
+        confidence intervals.
+      outputs:
+        - analysis report with tables, figures, and significance flags
+        - metrics summary with mean, std, CI, delta, effect size, and p-value
+        - publication-ready plots (bar charts, line plots, heatmaps)
+      acceptance_criteria:
+        - per-configuration statistics computed: mean, std, 95% CI
+        - delta against correct baseline under same conditions
+        - effect sizes (Cohen's d) reported alongside p-values
+        - practically insignificant results flagged
+        - confidence interval method documented (bootstrap or parametric)
+        - no fabricated statistics: all derived from actual collected results
+        - non-significant results included, not excluded
+
+    - id: P4.S2
+      name: Integrity Audit Completed
+      goal: >
+        Verify that experiment results are trustworthy by auditing the full
+        experimental pipeline for common integrity issues: ground truth
+        provenance, score normalization consistency, dead code, and scope
+        violations. Findings are advisory and informative, not blocking.
+      outputs:
+        - integrity audit report with pass/fail/advisory per category
+        - dead code report with unreachable code paths
+        - scope verification confirming no data leakage
+      acceptance_criteria:
+        - GT provenance verified with checksums or equivalent evidence
+        - score normalization confirmed consistent across all seeds
+        - dead code identified and documented
+        - no data leakage across train/val/test splits
+        - audit performed by a different model from the executor
+        - findings are advisory: audit does not block the pipeline
+
+    - id: P4.S3
+      name: Ablation Studies Designed
+      goal: >
+        Design follow-up experiments that isolate the contribution of individual
+        components. Approach ablation design from a skeptical reviewer perspective:
+        what would a reviewer ask to see removed or varied? Generate dispatch-ready
+        ablation specifications.
+      outputs:
+        - ablation design specifications with variants and success criteria
+        - reviewer question mapping
+        - ablation todolist with seed/config assignments
+      acceptance_criteria:
+        - every claim-critical component has at least one ablation variant
+        - ablation design addresses anticipated reviewer questions
+        - each ablation has a clear success criterion
+        - hyperparameter sensitivity ranges specified with boundaries
+        - ablation variants follow the 7-step protocol and 6-file standard
+        - no fabricated ablation outcomes: all must come from actual runs
+      when_to_include: >
+        Include when the project involves claim-critical components whose
+        individual contribution needs to be isolated. Omit for simple
+        benchmarking or reproduction studies without component claims.
+
+    - id: P4.S4
+      name: Design Space Exploration Completed
+      goal: >
+        Autonomously explore the design space around high-sensitivity parameters
+        to find optimal configurations. The DSE loop iterates between broad
+        exploration and focused refinement until convergence or budget exhaustion.
+      outputs:
+        - DSE design with parameter ranges, constraints, and stopping criteria
+        - iteration-by-iteration log of configurations evaluated and results
+        - DSE report with optimal configuration and sensitivity analysis
+      acceptance_criteria:
+        - search space defined with explicit parameter ranges and constraints
+        - all three phases completed (exploration, directed search, refinement)
+          or budget exhausted with documented progress
+        - each iteration produces 6-file compliant output for traceability
+        - convergence criterion defined and evaluated
+        - optimal configuration validated with multiple seeds
+        - sensitivity analysis identifies high-impact parameters
+      when_to_include: >
+        Include when the project requires hyperparameter optimization or
+        configuration search beyond the planned experiment matrix. Omit for
+        projects with fixed configurations or single-hypothesis tests.
+
+  common_risks:
+    - statistical analysis reveals no significant results (negative finding, still valid)
+    - integrity audit uncovers data leakage requiring re-execution
+    - ablation experiments are designed but never run (waste of design effort)
+    - DSE loop does not converge within budget
+    - effect sizes are small despite statistical significance

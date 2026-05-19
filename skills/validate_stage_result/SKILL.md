@@ -468,6 +468,7 @@ output_schema:
         required:
           - id
           - issue
+          - location
           - reason
           - required_fix
         properties:
@@ -475,6 +476,9 @@ output_schema:
             type: string
           issue:
             type: string
+          location:
+            type: string
+            description: Where the issue was found (e.g. stage id, step id, output name).
           reason:
             type: string
           required_fix:
@@ -487,12 +491,16 @@ output_schema:
         required:
           - id
           - warning
+          - location
           - suggestion
         properties:
           id:
             type: string
           warning:
             type: string
+          location:
+            type: string
+            description: Where the warning applies (e.g. stage id, step id, output name).
           suggestion:
             type: string
 
@@ -509,8 +517,8 @@ output_schema:
           enum:
             - execute_step
             - expand_stage_to_steps
-            - orchestrate_project
             - validate_stage_result
+            - validate_stage_dag
             - null
         reason:
           type: string
@@ -637,7 +645,7 @@ warning_rules: |
 
 next_action_rules: |
   If valid is true and all stages in the target phase are complete or ready for phase validation:
-  - recommended_skill must be orchestrate_project.
+  - recommended_skill must be validate_stage_dag.
   - suggested_target_phase_id must be target_phase_id.
   - suggested_target_stage_id may be null.
 

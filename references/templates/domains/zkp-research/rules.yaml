@@ -1,0 +1,141 @@
+dependency_rules:
+  - rule: literature_before_novelty_claim
+    description: >
+      Do not claim novelty before mapping relevant prior work.
+
+  - rule: formal_model_before_security_analysis
+    description: >
+      Security analysis must depend on formal definitions of relation,
+      adversary, assumptions, and security properties.
+
+  - rule: baseline_before_performance_claim
+    description: >
+      Efficiency claims require a baseline or prior-art comparison.
+
+  - rule: protocol_before_proof
+    description: >
+      Security proof cannot precede a complete protocol specification.
+
+  - rule: proof_before_final_claim
+    description: >
+      Final cryptographic claims must depend on proof sketches or explicitly
+      stated unresolved proof obligations.
+
+  - rule: metric_before_benchmark
+    description: >
+      Benchmarks require pre-defined metrics and parameter choices.
+
+  - rule: benchmark_before_empirical_claim
+    description: >
+      Empirical performance claims require benchmark results or clearly marked
+      estimates.
+
+  - rule: assumptions_flow_forward
+    description: >
+      Assumptions declared in the formal model must be carried through protocol,
+      proof, complexity, and final report phases.
+
+  - rule: implementation_does_not_replace_proof
+    description: >
+      A prototype can support feasibility or performance claims, but cannot
+      replace cryptographic security proof.
+
+  - rule: negative_results_are_valid_outputs
+    description: >
+      If the proposed approach fails, the project may still complete with a
+      documented impossibility, limitation, or negative finding.
+
+strict_rules:
+  - id: STRICT.ZKP.1
+    rule: >
+      No ZKP protocol research plan is valid without formal definitions.
+  - id: STRICT.ZKP.2
+    rule: >
+      No security claim is valid without an explicit model and assumptions.
+  - id: STRICT.ZKP.3
+    rule: >
+      No efficiency claim is valid without baseline comparison.
+  - id: STRICT.ZKP.4
+    rule: >
+      No empirical claim is valid without benchmark methodology.
+  - id: STRICT.ZKP.5
+    rule: >
+      No zero-knowledge claim is valid without simulator or indistinguishability reasoning.
+  - id: STRICT.ZKP.6
+    rule: >
+      Implementation does not replace proof.
+  - id: STRICT.ZKP.7
+    rule: >
+      Benchmark does not replace security analysis.
+  - id: STRICT.ZKP.8
+    rule: >
+      Prior-art comparison does not prove novelty unless the comparison is relevant and complete enough.
+  - id: STRICT.ZKP.9
+    rule: >
+      Hidden assumptions invalidate the phase/stage plan.
+  - id: STRICT.ZKP.10
+    rule: >
+      If the project is only a survey, do not invent protocol construction phases.
+
+agent_planning_rules:
+  - id: ZKP.R1
+    rule: >
+      If the project involves a new or modified proof protocol, include a formal
+      model phase and a security analysis phase.
+    severity: mandatory
+
+  - id: ZKP.R2
+    rule: >
+      If the project claims performance improvement, include baseline comparison,
+      complexity analysis, and benchmark or cost-model stages.
+    severity: mandatory
+
+  - id: ZKP.R3
+    rule: >
+      If the project claims zero-knowledge, include a stage for simulator or
+      indistinguishability reasoning.
+    severity: mandatory
+
+  - id: ZKP.R4
+    rule: >
+      If the project uses Fiat-Shamir, random oracle, trusted setup, CRS, SRS,
+      pairings, hash assumptions, or polynomial commitments, declare assumptions
+      explicitly.
+    severity: mandatory
+
+  - id: ZKP.R5
+    rule: >
+      If the project focuses on zkVM, distinguish between instruction semantics,
+      arithmetization, proving backend, recursion, and benchmark stages.
+    severity: mandatory
+
+  - id: ZKP.R6
+    rule: >
+      If the project focuses on lookup arguments, include stages for table
+      definition, lookup relation, soundness impact, and cost analysis.
+    severity: recommended
+
+  - id: ZKP.R7
+    rule: >
+      If the project focuses on folding or recursion, include stages for folding
+      invariant, accumulator correctness, verifier circuit cost, and soundness.
+    severity: mandatory
+
+  - id: ZKP.R8
+    rule: >
+      If the project focuses on polynomial commitments, include stages for
+      commitment interface, opening protocol, binding/hiding assumptions, and
+      verifier cost.
+    severity: mandatory
+
+  - id: ZKP.R9
+    rule: >
+      If project output is a paper/report, include final claim-evidence mapping
+      before final delivery.
+    severity: mandatory
+
+  - id: ZKP.R10
+    rule: >
+      Do not include production deployment, smart contract integration, UI, or
+      token-related phases unless explicitly required by project_context.
+    severity: mandatory

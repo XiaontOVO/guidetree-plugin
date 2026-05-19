@@ -1,0 +1,162 @@
+phase_decomposition_guidelines:
+  - name: literature_before_ideation
+    rule: >
+      A research idea generation project must begin with literature grounding.
+      Do not brainstorm without mapping known work and identified gaps.
+    rationale: >
+      Ideas generated without reference to known gaps are speculation, not
+      research ideas. Literature grounding is a prerequisite, not an optional
+      warm-up.
+
+  - name: question_before_method
+    rule: >
+      Define what you are asking before designing how to answer it. The research
+      question must be explicit and falsifiable before considering methodology.
+    rationale: >
+      A method without a clear question is a solution looking for a problem.
+      Sharpening the question first prevents investing in the wrong approach.
+
+  - name: novelty_before_commitment
+    rule: >
+      Verify novelty before committing resources to a roadmap. Building a plan
+      for an idea that duplicates existing work is wasted effort.
+    rationale: >
+      The novelty check is a hard gate. Committing to a non-novel idea wastes
+      months of research time for the researcher and reviewers alike.
+
+  - name: roadmap_before_execution
+    rule: >
+      Create an actionable roadmap with measurable gates before any execution
+      begins. Every stage must have a defined exit condition.
+    rationale: >
+      Research without a plan drifts. Vague milestones are not acceptable;
+      each gate must have a measurable go/no-go criterion.
+
+  - name: kill_ideas_early
+    rule: >
+      Empirical signal outweighs theoretical appeal. If a pilot experiment
+      fails, kill the idea or significantly revise it. Do not escalate a weak
+      idea hoping it will improve later.
+    rationale: >
+      The cost of killing an idea early is hours; the cost of killing it late
+      is months.
+
+  - name: honest_novelty_required
+    rule: >
+      False novelty claims waste months of research time. A novelty score below
+      threshold is a signal to revise or replace the idea, not to adjust the
+      scoring rubric. The standard is external verifiability.
+    rationale: >
+      An independent reviewer should reach the same novelty assessment. Hiding
+      close prior art does not make an idea more novel; it makes the eventual
+      discovery more damaging.
+
+  - name: sharpening_does_not_invent
+    rule: >
+      The sharpening process surfaces vagueness and hidden assumptions; it does
+      not fill in gaps with invented content. If a segment cannot be completed
+      honestly, that incompleteness must be documented, not papered over.
+    rationale: >
+      Honesty about what is unknown is more valuable than false precision.
+      Invented mechanisms create a false sense of readiness.
+
+  - name: fallback_chain_mandatory
+    rule: >
+      Always keep the next-best idea ready to activate. If the primary
+      hypothesis fails at any gate, the project should be able to pivot without
+      returning to square one.
+    rationale: >
+      The ranked idea report from discovery is the source for fallback
+      candidates. Without a fallback chain, a single failure derails the entire
+      project.
+
+recommended_phase_pattern:
+  - name: phase_1
+    title: Discovery and Brainstorming
+  - name: phase_2
+    title: Sharpening and Design
+  - name: phase_3
+    title: Novelty Verification
+  - name: phase_4
+    title: Roadmapping
+
+recommended_stage_types:
+  - type: literature_survey_stage
+    purpose: map prior work, identify gaps, and establish evidence base
+    typical_outputs:
+      - literature gap analysis
+      - annotated reference list
+      - baseline candidates
+      - known limitations
+
+  - type: idea_generation_stage
+    purpose: brainstorm and filter research ideas from literature gaps
+    typical_outputs:
+      - candidate research ideas with scoring
+      - pilot feasibility results for top candidates
+      - ranked idea report
+
+  - type: research_question_stage
+    purpose: refine a vague idea into a precise, falsifiable research question
+    typical_outputs:
+      - sharpened research question
+      - success criteria
+      - falsification conditions
+
+  - type: mechanism_stage
+    purpose: articulate the expected causal mechanism and assumptions
+    typical_outputs:
+      - expected mechanism with assumptions
+      - confound analysis
+      - identifiability assessment
+
+  - type: validation_plan_stage
+    purpose: design a validation plan that could falsify the core claim
+    typical_outputs:
+      - validation plan
+      - negative controls
+      - failure conditions
+
+  - type: risk_register_stage
+    purpose: catalog technical, conceptual, and resource risks
+    typical_outputs:
+      - risk register
+      - severity and likelihood ratings
+      - mitigation strategies
+
+  - type: claim_extraction_stage
+    purpose: extract core claims from the design brief for novelty assessment
+    typical_outputs:
+      - explicit claim list
+      - claim decomposition
+      - contribution boundary per claim
+
+  - type: prior_art_search_stage
+    purpose: search multiple sources for prior art and map overlaps/deltas
+    typical_outputs:
+      - prior art search results
+      - claim-by-claim overlap mapping
+      - delta documentation
+
+  - type: cross_model_verification_stage
+    purpose: independently verify novelty using a different model or perspective
+    typical_outputs:
+      - independent novelty assessment
+      - discrepancies with initial assessment
+      - final novelty scores
+
+  - type: plan_generation_stage
+    purpose: generate a structured PLAN with research questions and success criteria
+    typical_outputs:
+      - primary and fallback research questions
+      - testable hypotheses
+      - success criteria
+      - scope boundaries
+
+  - type: roadmap_generation_stage
+    purpose: generate a staged ROADMAP with priorities, dependencies, and gates
+    typical_outputs:
+      - stage structure with dependencies
+      - priority ordering
+      - go/no-go criteria per gate
+      - fallback chain

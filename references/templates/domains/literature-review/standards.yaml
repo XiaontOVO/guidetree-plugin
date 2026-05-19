@@ -1,0 +1,229 @@
+acceptance_standards:
+  discovery_quality:
+    must_include:
+      - Zotero search with at least three query strategies (keyword, tag, full-text)
+      - external source search (arXiv, Semantic Scholar, DBLP, or CrossRef)
+      - composite score per paper (relevance + recency + impact)
+      - search log documenting every source, query, and result count
+      - all external papers added to Zotero
+    unacceptable:
+      - only one search query attempted
+      - no external sources consulted
+      - papers found externally not added to Zotero
+      - no search log
+      - Zotero not searched first
+
+  triage_quality:
+    must_include:
+      - per-paper scores on all three dimensions (relevance, novelty, readability)
+      - tier assignment (must-analyze / maybe / skip) for every candidate
+      - MCP used as primary reading method
+      - brief reading notes per paper
+    unacceptable:
+      - papers triaged without reading (title/abstract only)
+      - no tier classification
+      - PDFs downloaded for skip-tier papers
+      - papers deep-analyzed during triage
+
+  deep_analysis_quality:
+    must_include:
+      - core findings in the paper's own terms
+      - methodology analysis (approach, assumptions, experimental design)
+      - strengths identification
+      - weaknesses and limitations identification
+      - project relevance assessment
+      - five-dimension scores with brief justification per dimension
+      - uncertain claims marked [?]
+    unacceptable:
+      - analysis from abstract alone
+      - network calls during analysis
+      - fabricated findings or inferred results
+      - missing scoring dimensions
+      - scores without justification
+
+  comparison_matrix_quality:
+    must_include:
+      - 9-column table per paper (citation, question, method, data, main claim, evidence, limitation, relevance, use-as)
+      - every analyzed paper included
+      - at least one cluster identified or explicitly stated that none exist with justification
+      - at least one gap identified or explicitly stated that none exist with justification
+      - unknown entries marked [?]
+    unacceptable:
+      - matrix with fewer than 9 columns
+      - analyzed papers omitted without justification
+      - fabricated matrix entries
+      - no cluster or gap analysis
+      - cells longer than one sentence
+
+  library_management_quality:
+    must_include:
+      - duplicate detection and resolution
+      - orphan identification (items not in any collection)
+      - incomplete metadata detection (missing DOI, abstract, or year)
+      - import log for batch operations
+      - structured notes attached to analyzed papers
+    unacceptable:
+      - duplicates remaining after audit
+      - no audit of incomplete metadata
+      - Zotero API key in shell command arguments or logs
+      - batch imports without logging
+
+anti_patterns:
+  - name: reading_without_discovery
+    bad_example: >
+      Start reading papers the user provided without searching Zotero or
+      external sources for related work.
+    why_bad: >
+      The review will have incomplete coverage. Papers the user listed are a
+      starting point, not the full landscape.
+    fix: >
+      Add a discovery phase that searches Zotero first, then external sources,
+      before any reading begins.
+
+  - name: deep_analyzing_everything
+    bad_example: >
+      Apply deep analysis to every paper returned by a search, including
+      marginally relevant ones.
+    why_bad: >
+      Deep analysis is expensive. Wasting it on irrelevant papers delays the
+      review and produces noise in the comparison matrix.
+    fix: >
+      Add a triage phase with tiered scoring. Deep-analyze only must-analyze
+      papers.
+
+  - name: comparing_from_abstracts
+    bad_example: >
+      Build a comparison matrix using only abstracts and titles because reading
+      every paper takes too long.
+    why_bad: >
+      Abstracts omit methodology details, limitations, and contradictions that
+      only emerge from full-paper analysis.
+    fix: >
+      Require structured analysis before comparison. Use triage to limit the
+      number of papers needing deep analysis.
+
+  - name: shadow_paper_lists
+    bad_example: >
+      Maintain a separate spreadsheet of papers outside Zotero because it is
+      faster than importing them.
+    why_bad: >
+      Dual lists diverge. Papers get lost, metadata becomes inconsistent, and
+      the library cannot be audited.
+    fix: >
+      Use Zotero as the single pool. Import immediately on discovery.
+
+  - name: fabricating_unknown_findings
+    bad_example: >
+      When a paper's results section is unclear, infer what the results probably
+      were and write them as findings.
+    why_bad: >
+      Inferred findings are fabricated findings. They corrupt the comparison
+      matrix and any synthesis built on them.
+    fix: >
+      Mark uncertain claims as [?]. Mark unreadable papers as [UNREADABLE].
+
+  - name: scoring_without_justification
+    bad_example: >
+      Assign a relevance score of 4 to a paper without explaining why.
+    why_bad: >
+      Numeric scores without rationale are unverifiable and unchallengeable.
+      They look objective but are actually arbitrary.
+    fix: >
+      Require a brief justification for every score on every dimension.
+
+  - name: network_calls_during_analysis
+    bad_example: >
+      During deep analysis, look up a paper's citations online to better
+      understand its context.
+    why_bad: >
+      Network-dependent analysis is not reproducible. The analysis may change
+      if the source updates or disappears.
+    fix: >
+      Analyze from local storage only. Note questions for later follow-up, but
+      do not resolve them during analysis.
+
+  - name: conflating_survey_with_systematic_review
+    bad_example: >
+      Call a quick survey a "systematic review" and apply the same rigor
+      requirements.
+    why_bad: >
+      A quick survey (P1-P2, shallow P3) does not require the full pipeline of
+      a systematic review (all 5 phases, rigorous). Mislabeling wastes effort
+      or produces under-rigorous output.
+    fix: >
+      Classify the review subtype upfront and select the appropriate phase
+      pattern.
+
+  - name: skipping_gap_analysis
+    bad_example: >
+      Build a comparison matrix but only identify clusters, not gaps.
+    why_bad: >
+      Gaps are often more valuable than clusters — they identify where the
+      literature is thin and where future work is needed.
+    fix: >
+      Require explicit gap identification in every comparison phase. If no gaps
+      exist, state that with justification.
+
+  - name: treating_library_management_as_afterthought
+    bad_example: >
+      Do all analysis and comparison, then try to clean up Zotero at the end.
+    why_bad: >
+      Duplicates, missing metadata, and orphans accumulate throughout the
+      project. Late cleanup is harder and more error-prone than ongoing
+      maintenance.
+    fix: >
+      Integrate library management as a full phase (P5). Run lightweight
+      audits after discovery and analysis stages.
+
+valid_final_output_types:
+  - type: literature_survey
+    required_sections:
+      - scope and research direction
+      - search methodology
+      - paper taxonomy or classification
+      - per-paper summaries (at minimum for must-analyze papers)
+      - comparison matrix or cross-paper analysis
+      - identified clusters
+      - identified gaps
+      - limitations of the review itself
+      - references
+
+  - type: systematic_review
+    required_sections:
+      - review question and scope
+      - search protocol (sources, queries, inclusion/exclusion criteria)
+      - PRISMA-style flow diagram or equivalent
+      - quality assessment methodology
+      - data extraction tables
+      - synthesis and analysis
+      - gap analysis
+      - review limitations
+      - references
+
+  - type: gap_analysis_report
+    required_sections:
+      - domain scope
+      - literature coverage map
+      - identified gaps per dimension
+      - gap severity and importance assessment
+      - recommendations for future work
+      - references
+
+  - type: comparison_matrix_package
+    required_sections:
+      - 9-column comparison matrix
+      - cluster analysis
+      - gap analysis
+      - methodology notes
+      - per-paper structured analyses (appendix)
+      - references
+
+  - type: library_audit_report
+    required_sections:
+      - audit scope
+      - duplicate list with resolution actions
+      - orphan list
+      - incomplete metadata items
+      - import log
+      - structured notes inventory
+      - recommendations

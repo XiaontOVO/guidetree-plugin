@@ -1,0 +1,173 @@
+phase_decomposition_guidelines:
+  - name: claims_before_citations
+    rule: >
+      Extract and verify all claims before auditing citations. Knowing what is
+      asserted is a prerequisite for checking whether the sources support it.
+    rationale: >
+      Citation context cannot be evaluated without first knowing what claims the
+      paper makes. Claims define the audit surface.
+
+  - name: audit_before_attack
+    rule: >
+      Complete the claims and citation audit before constructing adversarial
+      arguments. Understand the paper's evidence before criticizing it.
+    rationale: >
+      Adversarial review is only credible when grounded in verified facts, not
+      impressions. Premature attack produces shallow or uninformed critiques.
+
+  - name: attack_before_defense
+    rule: >
+      Identify weaknesses through adversarial review before drafting rebuttals.
+      Find the cracks before trying to patch them.
+    rationale: >
+      A rebuttal that has not been tested against the strongest attack is a
+      rebuttal that will fail under peer review.
+
+  - name: iteration_before_finalization
+    rule: >
+      Iterate on the paper through review-fix cycles before committing to a
+      final version. Improve before committing.
+    rationale: >
+      A single-pass revision misses issues that compound review can surface.
+      Iterative improvement converges toward quality.
+
+  - name: gate_before_submission
+    rule: >
+      Run quality gating on all audit artifacts before the work is considered
+      complete. Quality check before release.
+    rationale: >
+      Without an independent quality gate, audit findings may be inconsistent,
+      incomplete, or incorrectly reasoned. The gate is the final credibility
+      check.
+
+recommended_phase_pattern:
+  - name: phase_1
+    title: Claims Verification
+  - name: phase_2
+    title: Citation Audit
+  - name: phase_3
+    title: Adversarial Review
+  - name: phase_4
+    title: Iterative Improvement
+  - name: phase_5
+    title: Rebuttal Drafting
+  - name: phase_6
+    title: Quality Gating
+
+
+recommended_stage_types:
+  - type: claim_extraction_stage
+    purpose: extract all quantitative and qualitative claims from the manuscript
+    typical_outputs:
+      - claim list with locations
+      - claim types (quantitative, comparative, methodological)
+      - claim severity classification
+
+  - type: evidence_matching_stage
+    purpose: verify each claim against raw experiment data
+    typical_outputs:
+      - claim-to-evidence mapping
+      - verification result per claim
+      - discrepancy report
+
+  - type: failure_mode_check_stage
+    purpose: check each claim against known failure modes
+    typical_outputs:
+      - failure mode analysis per claim
+      - severity classification
+      - flagged discrepancies
+
+  - type: existence_verification_stage
+    purpose: verify that every cited paper actually exists
+    typical_outputs:
+      - existence check results
+      - missing or fabricated citation flags
+
+  - type: metadata_verification_stage
+    purpose: verify citation metadata matches the actual paper
+    typical_outputs:
+      - metadata correctness report
+      - corrected metadata entries
+
+  - type: context_verification_stage
+    purpose: verify each citation supports the claim it is used for
+    typical_outputs:
+      - context appropriateness assessment
+      - misattribution flags
+      - overstatement flags
+
+  - type: attack_memo_stage
+    purpose: construct the strongest possible rejection argument
+    typical_outputs:
+      - attack memo
+      - decomposed atomic rejection points
+
+  - type: adjudication_stage
+    purpose: objectively classify each rejection point
+    typical_outputs:
+      - classification per point (answered/partially/unresolved)
+      - prioritized list of unresolved points
+
+  - type: review_round_stage
+    purpose: fresh Agent reviews the paper and produces actionable assessment
+    typical_outputs:
+      - review assessment
+      - parsed actionable items
+
+  - type: fix_implementation_stage
+    purpose: implement fixes for identified issues
+    typical_outputs:
+      - fixes applied per item
+      - improvement tracking
+
+  - type: concern_atomization_stage
+    purpose: decompose reviewer concerns into atomic items
+    typical_outputs:
+      - atomized concern list
+      - priority and addressability assessment
+
+  - type: strategy_building_stage
+    purpose: build rebuttal strategy for each concern
+    typical_outputs:
+      - response type assignment
+      - prioritized response plan
+
+  - type: rebuttal_drafting_stage
+    purpose: draft rebuttal responses for all concerns
+    typical_outputs:
+      - draft rebuttal
+      - per-concern response mapping
+
+  - type: safety_validation_stage
+    purpose: validate rebuttal against provenance, commitment, and coverage gates
+    typical_outputs:
+      - gate pass/fail results
+      - violations requiring revision
+
+  - type: stress_test_stage
+    purpose: fresh Agent stress-tests the rebuttal as hostile reviewer
+    typical_outputs:
+      - stress test report
+      - identified weaknesses
+      - revisions needed
+
+  - type: structural_review_stage
+    purpose: evaluate organization, completeness, and logical flow
+    typical_outputs:
+      - structural score (1-5)
+      - written justification
+      - specific issues
+
+  - type: rigor_review_stage
+    purpose: evaluate methodology, evidence quality, and statistical validity
+    typical_outputs:
+      - rigor score (1-5)
+      - written justification
+      - specific issues
+
+  - type: domain_review_stage
+    purpose: evaluate domain correctness, conventions, and terminology
+    typical_outputs:
+      - domain score (1-5)
+      - written justification
+      - specific issues

@@ -208,6 +208,23 @@ input_schema:
           type: boolean
           default: true
 
+    template_ref:
+      type: object
+      description: Domain template context loaded from references/templates/domains/<template_id>/. Used to guide phase generation from template phase definitions.
+      default: {}
+      properties:
+        template_id:
+          type: string
+          description: The domain template id (e.g. "academic-research").
+        phase_files:
+          type: array
+          items:
+            type: string
+          description: Paths to phase YAML files from the template's phases/ directory.
+        rules:
+          type: string
+          description: Path to the template's rules.yaml file.
+
   additionalProperties: false
 
 output_schema:
@@ -257,6 +274,13 @@ output_schema:
           id:
             type: string
             description: Stable phase id, such as phase_1, phase_2.
+
+          directory_name:
+            type: string
+            description: >
+              Filesystem directory name for this phase, following the convention
+              phase-<NN>-<slug> where NN is zero-padded and slug is kebab-case
+              derived from the phase name. Example: phase-01-research-framing.
 
           name:
             type: string
@@ -416,6 +440,14 @@ instructions: |
   You are the GuideTree generate_phase_skeleton skill.
 
   Your only responsibility is to generate a top-level phase skeleton from an initialized project_context.
+
+  Template usage:
+  If template_ref is provided, use it to guide phase generation:
+  1. Read the phase_files to understand the domain's phase structure and responsibilities.
+  2. Generate phases that align with the template's phase definitions (each phase file -> one phase).
+  3. Enforce domain-specific rules from template_ref.rules.
+  4. Name phases consistently with the domain's phase names.
+  Template phases define stable domain phases — generated phases should align with them but remain project-specific.
 
   You must:
   1. Generate only phases.

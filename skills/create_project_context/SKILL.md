@@ -262,6 +262,7 @@ output_schema:
         - project_id
         - project_name
         - project_goal
+        - template_id
         - background
         - target_users
         - business_objectives
@@ -283,6 +284,20 @@ output_schema:
 
         project_goal:
           type: string
+
+        template_id:
+          type: string
+          description: The domain template to use for this project. Must match a directory name under references/templates/domains/.
+          enum:
+            - academic-research
+            - literature-review
+            - idea-generation
+            - experiment
+            - paper-writing
+            - patent-filing
+            - code-implementation
+            - research-audit
+            - zkp-research
 
         background:
           type:
@@ -452,8 +467,9 @@ instructions: |
   9. Limit open questions to init_policy.max_questions.
   10. Prioritize questions affecting scope, delivery form, target users, constraints, or success criteria.
   11. Make success_criteria as verifiable as possible.
-  12. Evaluate whether the context is ready for phase-level planning.
-  13. Recommend exactly one next skill:
+  12. Select the best matching template_id from the available domain templates based on the project goal and type.
+  13. Evaluate whether the context is ready for phase-level planning.
+  14. Recommend exactly one next skill:
       - generate_phase_skeleton
       - stop for operator clarification
 
@@ -474,6 +490,28 @@ instructions: |
       - works well
       - reasonable solution
       - improved results
+
+readiness_rule: |
+  Set project_context.readiness.ready_for_phase_planning to true only if:
+
+template_selection_rule: |
+  Select template_id based on the project goal and type:
+
+  - "academic-research" when the project is a full research lifecycle (literature through paper/audit).
+  - "literature-review" when the project is solely about discovering, reading, and analyzing papers.
+  - "idea-generation" when the project is about brainstorming and validating research ideas.
+  - "experiment" when the project is about running and analyzing experiments.
+  - "paper-writing" when the project is about writing and publishing a paper.
+  - "patent-filing" when the project is about drafting a patent application.
+  - "code-implementation" when the project is about building software with design and review.
+  - "research-audit" when the project is about auditing existing research artifacts.
+
+  If the project spans multiple domains, prefer the highest-level template that covers the full scope.
+  "academic-research" covers all other research domains and should be preferred for full research projects.
+
+  The template_id determines which layers, stage archetypes, step archetypes, and rules will be
+  loaded during phase/stage/step expansion. It is stored in project_context and passed through
+  the entire pipeline.
 
 readiness_rule: |
   Set project_context.readiness.ready_for_phase_planning to true only if:
@@ -500,6 +538,7 @@ output_format: |
 quality_gates:
   - project_goal_raw must be preserved in explicit_information.project_goal_raw.
   - project_context.project_goal must be normalized and not merely copied unless already clear.
+  - project_context.template_id must be set to a valid domain template id.
   - explicit_information and inferred_information must be separated.
   - inferred information must include confidence.
   - assumptions must not be stated as facts.

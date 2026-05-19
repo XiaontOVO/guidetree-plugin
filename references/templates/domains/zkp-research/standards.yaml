@@ -1,0 +1,234 @@
+acceptance_standards:
+  formal_definition_quality:
+    must_include:
+      - relation or language definition
+      - witness definition
+      - public input definition
+      - valid instance condition
+      - notation table if complex
+    unacceptable:
+      - informal "the prover knows something"
+      - undefined witness
+      - ambiguous public/private split
+
+  security_model_quality:
+    must_include:
+      - completeness definition
+      - soundness or knowledge soundness definition
+      - zero-knowledge definition if privacy is claimed
+      - adversary capability
+      - assumptions
+      - setup/trust model
+    unacceptable:
+      - hidden trusted setup
+      - unstated random oracle assumption
+      - confusing soundness with correctness
+
+  protocol_spec_quality:
+    must_include:
+      - setup algorithm if any
+      - prover algorithm
+      - verifier algorithm
+      - message flow or transcript structure
+      - parameter definitions
+      - failure cases
+    unacceptable:
+      - verifier checks omitted
+      - prover witness use unclear
+      - protocol only described intuitively
+
+  proof_quality:
+    must_include:
+      - claim statement
+      - proof strategy
+      - assumptions used
+      - reduction or simulator sketch where applicable
+      - unresolved gaps if any
+    unacceptable:
+      - "obviously secure"
+      - proof by analogy only
+      - missing simulator for ZK claim
+
+  complexity_quality:
+    must_include:
+      - prover cost
+      - verifier cost
+      - proof size
+      - setup/preprocessing cost if relevant
+      - memory or constraint count where relevant
+      - parameter definitions
+    unacceptable:
+      - only one favorable metric
+      - vague "faster"
+      - comparison against incompatible baseline
+
+  benchmark_quality:
+    must_include:
+      - hardware/software environment
+      - implementation scope
+      - parameter choices
+      - baseline method
+      - raw or summarized results
+      - reproducibility instructions
+    unacceptable:
+      - no environment
+      - no parameter disclosure
+      - cherry-picked results only
+
+  final_report_quality:
+    must_include:
+      - problem statement
+      - related work
+      - formal model
+      - construction
+      - security analysis
+      - complexity/performance analysis
+      - limitations
+      - conclusion
+    unacceptable:
+      - final claims unsupported by evidence
+      - missing limitations
+      - inconsistent notation
+
+anti_patterns:
+  - name: implementation_without_formal_problem
+    bad_example: >
+      Start coding a prover before defining the relation, witness, and security model.
+    why_bad: >
+      The prototype may not correspond to a meaningful ZKP statement.
+    fix: >
+      Add a formal problem definition phase before implementation.
+
+  - name: novelty_without_prior_art
+    bad_example: >
+      Claim a new proof optimization without comparing against known schemes.
+    why_bad: >
+      The claim may duplicate prior work or compare unfairly.
+    fix: >
+      Add prior-art mapping and baseline comparison.
+
+  - name: performance_without_security
+    bad_example: >
+      Claim faster proving time while ignoring soundness or zero-knowledge impact.
+    why_bad: >
+      Cryptographic improvement is invalid if security weakens silently.
+    fix: >
+      Add security analysis before or alongside performance analysis.
+
+  - name: vague_zero_knowledge_claim
+    bad_example: >
+      Say "the protocol is private" without simulator or leakage analysis.
+    why_bad: >
+      Zero-knowledge requires formal indistinguishability or simulation argument.
+    fix: >
+      Add zero-knowledge definition and simulator analysis stage.
+
+  - name: unfair_baseline_comparison
+    bad_example: >
+      Compare optimized implementation against unoptimized baseline under different parameters.
+    why_bad: >
+      Performance conclusion is not credible.
+    fix: >
+      Normalize parameters and document baseline assumptions.
+
+  - name: hidden_setup_assumption
+    bad_example: >
+      Use structured reference string or trusted setup without declaring trust model.
+    why_bad: >
+      Setup assumptions materially affect protocol security and deployability.
+    fix: >
+      Add setup model and assumption audit.
+
+  - name: proof_by_intuition
+    bad_example: >
+      Security section says the construction is secure because it resembles another protocol.
+    why_bad: >
+      Similarity is not a proof.
+    fix: >
+      Provide reduction, simulator, extractor, or clearly mark as conjectural.
+
+  - name: benchmark_cherry_picking
+    bad_example: >
+      Report only the parameter set where the new construction wins.
+    why_bad: >
+      Hides tradeoffs and weakens credibility.
+    fix: >
+      Provide parameter sweep and tradeoff analysis.
+
+  - name: conflating_arithmetization_and_proof_system
+    bad_example: >
+      Treat constraint reduction as proof-system improvement without separating layers.
+    why_bad: >
+      Improvements at different layers have different implications.
+    fix: >
+      Separate arithmetization, commitment, IOP, and proof-system stages.
+
+  - name: overclaiming_from_partial_prototype
+    bad_example: >
+      Claim full protocol efficiency from a prototype that implements only one component.
+    why_bad: >
+      Component-level results may not generalize to full protocol.
+    fix: >
+      Limit claim scope or implement end-to-end benchmark.
+
+valid_final_output_types:
+  - type: research_report
+    required_sections:
+      - abstract or summary
+      - problem statement
+      - related work
+      - formal model
+      - construction or analysis
+      - security reasoning
+      - complexity or benchmark analysis
+      - limitations
+      - conclusion
+
+  - type: protocol_specification
+    required_sections:
+      - notation
+      - setup model
+      - algorithms
+      - security properties
+      - assumptions
+      - proof sketches
+      - parameter guidance
+
+  - type: benchmark_study
+    required_sections:
+      - benchmark objective
+      - compared systems/protocols
+      - methodology
+      - environment
+      - parameters
+      - results
+      - limitations
+      - reproducibility notes
+
+  - type: literature_survey
+    required_sections:
+      - scope
+      - taxonomy
+      - prior-art summaries
+      - comparison dimensions
+      - open problems
+      - research gaps
+
+  - type: prototype_package
+    required_sections:
+      - implementation scope
+      - build/run instructions
+      - protocol correspondence
+      - benchmarks
+      - limitations
+      - reproducibility notes
+
+  - type: security_analysis_note
+    required_sections:
+      - target protocol
+      - formal model
+      - assumptions
+      - claimed properties
+      - proof review
+      - gaps or attacks
+      - recommendations

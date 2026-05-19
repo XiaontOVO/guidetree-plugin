@@ -1,0 +1,73 @@
+phase:
+  id: P2
+  name: Planning
+  purpose: >
+    Decompose the approved design spec into an ordered implementation plan
+    where every task contains exact code with zero placeholders. The plan is
+    the bridge between design and execution -- it must be precise enough that
+    an implementer with no additional context can execute each task.
+
+  when_to_use: >
+    Use for all code implementation projects that have an approved design spec
+    and multiple implementation tasks. For spikes or single-task changes, a
+    lightweight task list may suffice, but the no-placeholder rule still
+    applies.
+
+  inputs:
+    - approved design specification
+    - project constraints (language, framework, platform)
+    - existing codebase structure (for feature additions and refactoring)
+
+  outputs:
+    - ordered task list mapping to spec requirements
+    - exact code for each task (no TBD, TODO, "implement later")
+    - file structure map showing which files each task touches
+    - self-review confirming full spec coverage and zero placeholders
+
+  acceptance_criteria:
+    - every task maps to specific spec requirements
+    - every task contains exact code with zero placeholders
+    - file structure map is complete
+    - tasks are ordered by dependency (foundations first, features later)
+    - no task depends on a later task
+    - self-review confirms full spec coverage
+    - self-review confirms no placeholders detected
+
+  typical_stages:
+    - id: P2.S1
+      name: Tasks Decomposed
+      goal: >
+        Decompose the design spec into an ordered list of implementation
+        tasks, each mapping to specific spec requirements.
+      outputs:
+        - ordered task list
+        - spec-to-task mapping
+        - dependency graph
+      acceptance_criteria:
+        - every spec requirement maps to at least one task
+        - tasks are ordered by dependency
+        - no circular dependencies
+        - each task has a clear scope boundary
+
+    - id: P2.S2
+      name: Implementation Plan Written
+      goal: >
+        Write exact code for each task and produce the complete implementation
+        plan. Run self-review for spec coverage and placeholder detection.
+      outputs:
+        - implementation plan with exact code per task
+        - file structure map
+        - self-review report
+      acceptance_criteria:
+        - every task contains exact code (zero placeholders)
+        - file structure map shows which files each task touches
+        - self-review confirms full spec coverage
+        - self-review finds no placeholders (no TBD, TODO, "implement later", "...")
+        - no task depends on a later task
+
+  common_risks:
+    - cannot write exact code because the design spec is underspecified
+    - tasks are too large (should be decomposed further)
+    - tasks are too small (overhead exceeds value)
+    - placeholder code sneaks in disguised as "utility function" or "helper"
+    - dependency ordering is wrong (task depends on a later task)

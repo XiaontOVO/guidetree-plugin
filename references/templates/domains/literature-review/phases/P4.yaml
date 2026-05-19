@@ -1,0 +1,90 @@
+phase:
+  id: P4
+  name: Comparison and Synthesis
+  purpose: >
+    Compare analyzed papers side-by-side in a 9-column matrix to identify
+    clusters, contradictions, and gaps. Synthesize findings into a coherent
+    literature positioning that maps the research landscape.
+
+  when_to_use: >
+    Use after deep analysis (P3) completes. For quick surveys, this phase may
+    be abbreviated — focusing on a simplified comparison rather than a full
+    matrix. For gap analyses, this phase is the primary deliverable. For
+    systematic reviews, this phase must produce a rigorous synthesis.
+
+  inputs:
+    - structured analyses from P3
+    - analysis index with five-dimension scores
+    - research direction and scope definition
+
+  outputs:
+    - 9-column comparison matrix (citation, question, method, data, main claim, evidence, limitation, relevance, use-as)
+    - cluster analysis (papers addressing the same question or using similar methods)
+    - gap analysis (questions no paper addresses, methods no paper applies, data no paper covers)
+    - synthesis narrative (literature landscape, positioning, opportunities)
+
+  acceptance_criteria:
+    - comparison matrix has exactly 9 columns for every paper
+    - every analyzed paper from P3 is included in the matrix
+    - at least one cluster is identified or explicitly stated that none exist with justification
+    - at least one gap is identified or explicitly stated that none exist with justification
+    - matrix cells are concise (one sentence or phrase per cell)
+    - unknown entries are marked [?], not fabricated
+    - synthesis narrative connects findings to the research direction
+    - contradictions between papers are explicitly noted
+
+  typical_stages:
+    - id: P4.S1
+      name: Comparison Matrix Built
+      goal: >
+        Construct the 9-column comparison matrix using structured analyses from
+        P3. Each paper occupies one row; each column captures a specific
+        analytical dimension.
+      outputs:
+        - 9-column comparison table
+        - matrix methodology notes
+      acceptance_criteria:
+        - matrix has exactly 9 columns per paper
+        - every analyzed paper is included
+        - cells are concise (one sentence or phrase)
+        - unknown entries are marked [?]
+        - the use-as column captures how each paper contributes (baseline, method source, counter-example, etc.)
+
+    - id: P4.S2
+      name: Clusters and Gaps Identified
+      goal: >
+        Analyze the comparison matrix to identify clusters of related work and
+        gaps in the literature landscape.
+      outputs:
+        - cluster analysis (papers grouped by shared question, method, or finding)
+        - gap analysis (unaddressed questions, unapplied methods, uncovered data)
+        - contradiction analysis (papers with conflicting claims)
+      acceptance_criteria:
+        - each cluster is defined by a clear grouping criterion
+        - each gap specifies what is missing and why it matters
+        - contradictions between papers are explicitly identified
+        - if no clusters or gaps exist, this is stated with justification
+
+    - id: P4.S3
+      name: Synthesis Narrative Produced
+      goal: >
+        Write a synthesis narrative that maps the research landscape, positions
+        the current project, and identifies opportunities.
+      outputs:
+        - synthesis narrative
+        - research landscape map
+        - opportunity list
+      acceptance_criteria:
+        - narrative is grounded in the comparison matrix and analysis evidence
+        - landscape map shows major research threads and their relationships
+        - opportunities are specific and actionable
+        - limitations of the review itself are acknowledged
+
+  common_risks:
+    - building the matrix without completing all analyses
+    - identifying clusters but not gaps (or vice versa)
+    - synthesis that merely lists papers without drawing connections
+    - overclaiming the significance of identified gaps
+    - ignoring contradictions between papers
+    - matrix cells that are too verbose or too vague
+    - synthesis disconnected from the matrix evidence

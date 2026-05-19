@@ -1,0 +1,108 @@
+phase:
+  id: P1
+  name: Paper Discovery and Search
+  purpose: >
+    Identify all potentially relevant papers for the research direction by
+    searching Zotero first, then external sources (arXiv, Semantic Scholar,
+    DBLP, CrossRef). Produce a ranked candidate list with composite scores and
+    ensure all external papers are ingested into Zotero.
+
+  when_to_use: >
+    Use for every literature review project. Discovery is always the first
+    phase. Even if the user provides a paper list, search Zotero and external
+    sources to ensure comprehensive coverage.
+
+  inputs:
+    - research direction or topic
+    - initial keywords or search terms
+    - known constraints (year range, venues, language)
+    - user-provided references
+    - Zotero library state
+
+  outputs:
+    - ranked candidate paper list with composite scores (relevance + recency + impact)
+    - search log documenting every source, query, and result count
+    - all externally discovered papers added to Zotero
+    - Zotero collection created or updated for this review
+
+  acceptance_criteria:
+    - Zotero was searched before any external source
+    - at least three different query strategies were attempted in Zotero (keyword, tag, full-text)
+    - at least two external sources were queried (arXiv, Semantic Scholar, DBLP, or CrossRef)
+    - every externally found paper was added to Zotero immediately
+    - each paper has a composite score with brief justification
+    - paper list is sorted by composite score descending
+    - search log records every source, query, and result count
+    - no duplicate entries between Zotero and external results
+
+  typical_stages:
+    - id: P1.S1
+      name: Zotero Library Searched
+      goal: >
+        Search the existing Zotero library for papers relevant to the research
+        direction using multiple query strategies.
+      outputs:
+        - Zotero search results with metadata
+        - per-paper relevance scores
+        - query strategy log
+      acceptance_criteria:
+        - at least three query strategies attempted (keyword, tag, full-text)
+        - results include complete metadata (title, authors, year, abstract, tags)
+        - each result has a relevance score with brief justification
+        - Zotero was searched before any external source
+
+    - id: P1.S2
+      name: External Sources Searched
+      goal: >
+        Search external academic sources (arXiv, Semantic Scholar, DBLP,
+        CrossRef) for papers not already in Zotero and add them immediately.
+      outputs:
+        - external search results with metadata
+        - all new papers added to Zotero with complete metadata
+        - search log per external source
+      acceptance_criteria:
+        - at least two external sources were queried
+        - every new paper was added to Zotero upon discovery
+        - no duplicate entries between Zotero results and external results
+        - each new paper has composite scores (relevance + recency + impact)
+        - search log records each source, query, and result count
+
+    - id: P1.S3
+      name: Venue-Specific Coverage Verified
+      goal: >
+        Ensure comprehensive coverage of relevant venues by searching specific
+        conferences and journals identified during discovery.
+      outputs:
+        - venue paper lists with metadata
+        - new papers added to Zotero with venue metadata
+        - coverage assessment per venue
+      acceptance_criteria:
+        - target venues are identified from initial search results
+        - proceedings are searched via DBLP or CrossRef
+        - papers already in Zotero are not duplicated
+        - new papers are added with correct venue metadata
+        - coverage gaps are explicitly noted
+
+    - id: P1.S4
+      name: Candidate List Scored and Ranked
+      goal: >
+        Merge all discovered papers into a single ranked candidate list with
+        composite scores.
+      outputs:
+        - final ranked candidate list
+        - composite score per paper with justification
+        - coverage summary
+      acceptance_criteria:
+        - all papers from Zotero and external sources are included
+        - each paper has a composite score (relevance + recency + impact)
+        - scores have brief justifications
+        - list is sorted by composite score descending
+        - no duplicate entries
+
+  common_risks:
+    - search queries too narrow, missing relevant papers
+    - search queries too broad, flooding the candidate list with noise
+    - external papers not ingested into Zotero, creating shadow lists
+    - venue coverage gaps for cross-disciplinary topics
+    - recency bias excluding foundational older work
+    - relevance scoring influenced by venue prestige rather than content

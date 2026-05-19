@@ -1,0 +1,301 @@
+acceptance_standards:
+  literature_survey_quality:
+    must_include:
+      - search log with queries, sources, and hit counts
+      - at least 3 distinct search queries across at least 2 sources
+      - structured paper summaries for every paper passing triage
+      - cross-paper comparison matrix
+      - gap and contradiction annotations
+    unacceptable:
+      - single search query on single source
+      - no de-duplication across sources
+      - paper summaries without methodology details
+      - no comparison across papers
+      - gaps not identified
+
+  novelty_report_quality:
+    must_include:
+      - core claim extracted and stated in one sentence
+      - prior art search across at least 2 sources per component
+      - closest prior art explicitly identified
+      - novelty distance assessment with justification
+      - cross-model verification or independent assessment
+      - final verdict: pass, conditional, or fail
+    unacceptable:
+      - "no similar work exists" without search evidence
+      - prior art search on single source only
+      - novelty assessed without comparison to closest work
+      - ambiguous verdict
+
+  experiment_protocol_quality:
+    must_include:
+      - datasets with versions and access specifications
+      - evaluation metrics with definitions
+      - baselines with implementation source
+      - hyperparameter search space or fixed values
+      - random seed strategy
+      - statistical tests specified for each claim
+      - success criteria per claim
+    unacceptable:
+      - "standard metrics" without specifying which
+      - no baseline
+      - statistical test chosen after seeing results
+      - undefined success criteria
+
+  data_schema_quality:
+    must_include:
+      - typed input/output specifications
+      - constraints and validation rules
+      - format specifications (CSV, JSON, binary)
+      - intermediate artifact definitions
+    unacceptable:
+      - untyped outputs
+      - no format specification
+      - missing intermediate artifact schemas
+
+  design_spec_quality:
+    must_include:
+      - module structure with responsibilities
+      - interface definitions between modules
+      - data flow between modules
+      - algorithm choices with rationale
+      - module-to-experiment-block mapping
+    unacceptable:
+      - module without block mapping
+      - undefined interfaces
+      - algorithm choices without rationale
+
+  code_quality:
+    must_include:
+      - tests written before implementation (TDD mandatory)
+      - all unit tests passing
+      - all integration tests passing
+      - code review completed with resolutions
+      - no module merged without test suite and review
+    unacceptable:
+      - untested modules
+      - failing tests at merge time
+      - no code review
+
+  experiment_results_quality:
+    must_include:
+      - environment specification (OS, language versions, hardware)
+      - sanity seed results per block
+      - raw results in specified schema
+      - statistical analysis using pre-specified tests
+      - confidence intervals and effect sizes
+      - failed runs documented with failure reason
+    unacceptable:
+      - no environment specification
+      - full suite dispatched without sanity check
+      - results not in specified schema
+      - post-hoc test selection without justification
+      - cherry-picked seeds or runs
+
+  paper_quality:
+    must_include:
+      - claims-evidence matrix covering every claim
+      - writing order followed: method, evaluation, introduction, related work, conclusion, abstract
+      - every figure mapped to at least one claim and referenced in text
+      - PDF compiles without errors
+      - all citations resolve
+    unacceptable:
+      - claims without supporting evidence
+      - introduction written before method
+      - figures not referenced in text
+      - compilation errors
+      - broken references
+
+  audit_quality:
+    must_include:
+      - every numeric claim traced to raw experiment output
+      - every citation verified for existence and context
+      - adversarial kill argument constructed and assessed
+      - review-fix loop converged with zero blocking issues
+      - rebuttal draft with evidence-backed responses
+    unacceptable:
+      - numeric claims not verified against raw data
+      - citations not checked for existence
+      - no adversarial review attempted
+      - review-fix loop not converged
+      - unresolved discrepancies
+
+anti_patterns:
+  - name: idea_without_literature
+    bad_example: >
+      Start brainstorming research ideas without conducting a literature survey,
+      or generate ideas from intuition alone.
+    why_bad: >
+      Ideas not grounded in prior work are speculative, not research. They
+      likely duplicate existing work or solve problems that are already solved.
+    fix: >
+      Complete the literature survey phase first. Every candidate idea must cite
+      the literature gap that motivates it.
+
+  - name: implementation_without_novelty_check
+    bad_example: >
+      Start coding the experiment before verifying that the idea is novel
+      against prior art.
+    why_bad: >
+      Implementation commitment creates sunk-cost pressure. Once significant
+      code exists, researchers resist abandoning non-novel ideas.
+    fix: >
+      Add a novelty verification stage with multi-source prior art search before
+      any implementation phase.
+
+  - name: experiment_without_protocol
+    bad_example: >
+      Run experiments by iteratively tuning hyperparameters and selecting the
+      best results without a pre-specified protocol.
+    why_bad: >
+      This is p-hacking. Without a pre-specified protocol, any result can be
+      "achieved" by selective reporting.
+    fix: >
+      Write the experiment protocol with statistical tests before any code
+      execution. Lock the protocol before running experiments.
+
+  - name: unfair_baseline_comparison
+    bad_example: >
+      Compare an optimized implementation against an unoptimized baseline, or
+      use different datasets, hardware, or evaluation protocols.
+    why_bad: >
+      The comparison is not fair, so the improvement claim is not credible.
+    fix: >
+      Use the same hardware, dataset splits, evaluation protocol, and
+      hyperparameter search budget for all methods. Report baseline
+      re-implementation details.
+
+  - name: vague_contribution_claim
+    bad_example: >
+      Claim "our method is more efficient" or "our approach achieves better
+      performance" without specifying the metric, baseline, and magnitude.
+    why_bad: >
+      Vague claims cannot be verified or falsified. They are marketing, not
+      science.
+    fix: >
+      Every claim must specify the metric, baseline, magnitude, conditions, and
+      statistical significance.
+
+  - name: cherry_picked_results
+    bad_example: >
+      Report only the random seed or parameter configuration where the method
+      wins, or exclude failed runs without documentation.
+    why_bad: >
+      Cherry-picking misrepresents the true performance and prevents
+      reproducibility.
+    fix: >
+      Report results across all seeds. Document failed runs. Provide standard
+      deviations and confidence intervals. Include ablation studies.
+
+  - name: writing_introduction_first
+    bad_example: >
+      Write the introduction before the method and evaluation sections.
+    why_bad: >
+      Writing the introduction first creates narrative lock-in that biases the
+      presentation of results toward confirming the narrative.
+    fix: >
+      Follow the prescribed writing order: method, evaluation, introduction,
+      related work, conclusion, abstract. The abstract is always last.
+
+  - name: claim_without_evidence
+    bad_example: >
+      Include a claim in the paper that has no corresponding figure, table, or
+      statistical test.
+    why_bad: >
+      Unbacked claims are the most common form of self-deception in academic
+      papers. They undermine the paper's credibility.
+    fix: >
+      Construct the claims-evidence matrix before writing. Remove any claim
+      without evidence. Investigate any evidence without a claim.
+
+  - name: harking
+    bad_example: >
+      Observe an unexpected result during experiments, then write the
+      introduction as if this result was the hypothesis all along.
+    why_bad: >
+      Hypothesizing after results are known (HARKing) presents exploratory
+      findings as confirmatory, which misrepresents the evidence.
+    fix: >
+      Distinguish confirmatory experiments (pre-specified protocol) from
+      exploratory analysis (post-hoc). Label exploratory findings explicitly.
+
+  - name: skipping_audit
+    bad_example: >
+      Submit the paper directly after writing because the deadline is imminent.
+    why_bad: >
+      The audit catches fabrication, citation errors, unsupported claims, and
+      unrebuttable weaknesses. Skipping it means shipping defects.
+    fix: >
+      Schedule the audit phase before the submission deadline. If the audit
+      reveals blocking issues, delay submission rather than ship defects.
+
+  - name: conflating_research_with_engineering
+    bad_example: >
+      Plan phases like "Requirements, Design, Implementation, Testing, Delivery"
+      for a research project.
+    why_bad: >
+      Software engineering phases do not enforce research integrity gates:
+      literature grounding, novelty verification, statistical rigor, or
+      evidence-backed claims.
+    fix: >
+      Use research-specific phases: literature, idea validation, protocol,
+      implementation, experiment, writing, audit.
+
+valid_final_output_types:
+  - type: conference_or_journal_paper
+    required_sections:
+      - abstract
+      - introduction
+      - related work
+      - method
+      - evaluation or experiments
+      - results
+      - discussion or limitations
+      - conclusion
+
+  - type: literature_survey
+    required_sections:
+      - scope and inclusion criteria
+      - taxonomy or organization
+      - prior-art summaries
+      - comparison dimensions
+      - open problems
+      - research gaps
+
+  - type: experiment_report
+    required_sections:
+      - research question
+      - hypothesis
+      - protocol
+      - environment specification
+      - results
+      - statistical analysis
+      - limitations
+      - reproducibility notes
+
+  - type: reproduction_study
+    required_sections:
+      - target paper
+      - re-implementation details
+      - experimental setup
+      - comparison with original results
+      - discrepancies and analysis
+      - reproducibility assessment
+
+  - type: prototype_package
+    required_sections:
+      - implementation scope
+      - build and run instructions
+      - correspondence to paper method
+      - results or benchmarks
+      - limitations
+      - reproducibility notes
+
+  - type: thesis_chapter
+    required_sections:
+      - chapter-specific introduction
+      - literature context
+      - method or analysis
+      - results
+      - discussion
+      - connection to thesis narrative

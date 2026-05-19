@@ -1,0 +1,76 @@
+phase:
+  id: P2
+  name: Invention Structuring
+  purpose: >
+    Transform the raw invention disclosure into a structured Problem-Solution-
+    Advantage framework with feature decomposition, claimable subject matter
+    identification, and claim dependency mapping. This phase determines the
+    logical hierarchy that drives claim drafting.
+
+  when_to_use: >
+    Use after P1 (Prior Art and Novelty) is complete. The prior art landscape
+    must be understood before structuring the invention, because the structure
+    must account for what distinguishes the invention from prior art.
+
+  inputs:
+    - invention disclosure
+    - prior art search results from P1
+    - novelty assessment from P1
+    - target jurisdiction(s)
+
+  outputs:
+    - Problem-Solution-Advantage statement
+    - feature decomposition (core / supporting / optional)
+    - claimable subject matter types (method, system/apparatus, product, CRM)
+    - drawing plan covering every claim element
+    - claim dependency map with no circular references
+
+  acceptance_criteria:
+    - Problem-Solution-Advantage statement is clear and specific
+    - feature decomposition covers core, supporting, and optional features
+    - at least two claimable subject matter types identified
+    - drawing plan covers every claim element
+    - dependency map has no circular references
+    - PSA statement accounts for distinguishing features over prior art
+
+  typical_stages:
+    - id: P2.S1
+      name: Problem-Solution-Advantage Articulated
+      goal: >
+        Articulate the technical problem, the solution the invention provides,
+        and the advantage over prior art approaches. This framework is the
+        logical backbone of every claim set.
+      outputs:
+        - problem statement
+        - solution statement
+        - advantage statement with prior art comparison
+      acceptance_criteria:
+        - problem is specific and technical (not "we need a better system")
+        - solution directly addresses the problem
+        - advantage is stated relative to identified prior art
+        - PSA is not generic -- it reflects the specific inventive contribution
+
+    - id: P2.S2
+      name: Feature Decomposition Completed
+      goal: >
+        Decompose the invention into core, supporting, and optional features,
+        then identify claimable subject matter types and map claim dependencies.
+      outputs:
+        - feature decomposition (core / supporting / optional)
+        - claimable subject matter types
+        - drawing plan
+        - claim dependency map
+      acceptance_criteria:
+        - core features correspond to the inventive concept (must appear in independent claims)
+        - supporting features enable or enhance the core (appear in dependent claims)
+        - optional features are specific implementations (narrowest dependent claims)
+        - at least two claimable subject matter types identified
+        - drawing plan covers every claim element
+        - dependency map has no circular references
+
+  common_risks:
+    - PSA statement too generic to drive claim drafting
+    - all features treated as equally important (no hierarchy)
+    - missing claimable subject matter types (e.g., forgetting method claims)
+    - drawing plan that does not cover all claim elements
+    - circular claim dependencies

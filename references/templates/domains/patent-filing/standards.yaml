@@ -1,0 +1,260 @@
+acceptance_standards:
+  prior_art_search_quality:
+    must_include:
+      - at least 3 patent databases queried (e.g., Google Patents, Espacenet, CNIPA)
+      - at least 2 academic sources queried (e.g., Google Scholar, arXiv)
+      - search log recording every query, database, date, and result count
+      - cited references with patent number or DOI, title, relevant passages, jurisdiction
+      - relevance classification (high / medium / low) for each reference
+    unacceptable:
+      - single-database search only
+      - no academic literature search
+      - missing search queries or result counts
+      - references without relevance classification
+
+  novelty_assessment_quality:
+    must_include:
+      - element-by-element analysis against prior art
+      - jurisdiction standard explicitly stated for each conclusion
+        (35 USC 102/103, Art 22 CNPL, Art 54/56 EPC)
+      - obviousness analysis with explicit motivation-to-combine reasoning
+      - closest prior art identified
+      - overall patentability conclusion with confidence level
+    unacceptable:
+      - novelty asserted without element-by-element analysis
+      - jurisdiction standard not stated
+      - obviousness analysis without motivation-to-combine
+      - vague "this appears novel" without legal basis
+
+  invention_structuring_quality:
+    must_include:
+      - Problem-Solution-Advantage statement
+      - feature decomposition (core / supporting / optional)
+      - at least two claimable subject matter types identified
+      - drawing plan covering every claim element
+      - claim dependency map with no circular references
+    unacceptable:
+      - missing PSA statement
+      - all features treated as equally important
+      - single claimable subject matter type only
+      - no drawing plan
+      - circular claim dependencies
+
+  claim_drafting_quality:
+    must_include:
+      - independent claims covering core inventive concept only
+      - dependent claims each adding a limitation to parent
+      - correct antecedent basis throughout
+      - no "result-to-be-achieved" language
+      - separate claim sets per target jurisdiction
+      - transitional phrases appropriate to jurisdiction
+    unacceptable:
+      - independent claims that are too narrow or contain non-essential elements
+      - dependent claims that do not add limitations
+      - missing or incorrect antecedent basis
+      - functional result language in claims
+      - single claim set for all jurisdictions
+
+  specification_quality:
+    must_include:
+      - embodiment descriptions explaining how to make and use the invention
+      - reference numerals consistent across all figures
+      - every claim element mapped to at least one figure
+      - every claim element with corresponding specification text
+      - consistent terminology with claims
+      - best mode disclosure for US jurisdiction
+    unacceptable:
+      - experimental data, accuracy percentages, or test results
+      - inconsistent reference numerals
+      - claim elements without figure coverage
+      - claim elements without specification support
+      - terminology that differs from claims for the same concept
+
+  examiner_review_quality:
+    must_include:
+      - 7-area review: clarity, written description, enablement, novelty,
+        obviousness, claim scope, overall quality
+      - issues classified by severity (Critical / Important / Minor)
+      - all Critical issues resolved before proceeding
+      - review by fresh Agent with zero prior context
+    unacceptable:
+      - partial review covering fewer than 7 areas
+      - issues not classified by severity
+      - unresolved Critical issues
+      - self-review by the same Agent that drafted
+
+  jurisdiction_formatting_quality:
+    must_include:
+      - CN: two-part claims, Song Ti/Hei Ti fonts, request form
+      - US: open claims, "FIG. N" numbering, oath/declaration, ADS
+      - EP: two-part form, reference signs list, designation of states
+      - each package self-contained and internally consistent
+      - no jurisdiction format bleeding
+    unacceptable:
+      - CN claims in US open form
+      - US "FIG." numbering in CN package
+      - missing required forms for any jurisdiction
+      - mixed formatting between packages
+
+anti_patterns:
+  - name: claims_without_prior_art
+    bad_example: >
+      Draft claims immediately from the invention disclosure without searching
+      for prior art.
+    why_bad: >
+      The claims may be anticipated by existing patents or may be too narrow
+      because the drafter did not understand what distinguishes the invention.
+    fix: >
+      Complete prior art search and novelty assessment before drafting claims.
+
+  - name: specification_before_claims
+    bad_example: >
+      Write the full specification first, then try to draft claims that match
+      what was written.
+    why_bad: >
+      The specification may not support the optimal claim scope. Claim elements
+      may lack enablement or written description support.
+    fix: >
+      Draft claims first, then write the specification to support them.
+
+  - name: experimental_data_in_specification
+    bad_example: >
+      Include "the system achieves 95% accuracy" or "test results show a 40%
+      improvement" in the embodiment description.
+    why_bad: >
+      Patent specifications are enabling disclosures, not proof-of-concept
+      reports. Experimental data is a compliance violation across CN, US, and
+      EP jurisdictions.
+    fix: >
+      Remove all experimental data, accuracy percentages, benchmark results,
+      and test outcomes. Describe how to make and use the invention instead.
+
+  - name: result_to_be_achieved_in_claims
+    bad_example: >
+      Draft a claim reciting "a means for achieving fast data processing"
+      without specifying the structure that achieves it.
+    why_bad: >
+      Claims must recite structure or steps, not results. EP is particularly
+      strict: Art 84 EPC prohibits functional claims unless the function can
+      be attributed to specific structure.
+    fix: >
+      Recite the structural elements or method steps that achieve the result.
+
+  - name: missing_antecedent_basis
+    bad_example: >
+      A claim that says "the processor receives data from the sensor" without
+      previously introducing "a processor" and "a sensor".
+    why_bad: >
+      Missing antecedent basis triggers clarity rejections under 35 USC 112(b),
+      Art 84 EPC, and Art 26.4 CNPL.
+    fix: >
+      Introduce every element with "a" or "an" before referencing with "the" or
+      "said".
+
+  - name: jurisdiction_format_bleeding
+    bad_example: >
+      Include EP-style two-part claims in a US filing package, or use US "FIG.
+      1" numbering in a CN filing package.
+    why_bad: >
+      Each jurisdiction has distinct formatting requirements. Mixing formats
+      creates non-compliant filings that may be rejected on formalities.
+    fix: >
+      Compile each jurisdiction package independently following only its own
+      formatting rules.
+
+  - name: single_claim_set_for_all_jurisdictions
+    bad_example: >
+      Produce one claim set and use it identically for CN, US, and EP filings.
+    why_bad: >
+      CN requires two-part form, EP mandates two-part form per EPC Guidelines,
+      US uses open transitional phrases. A single format cannot satisfy all.
+    fix: >
+      Produce separate claim sets per jurisdiction following each jurisdiction's
+      format rules.
+
+  - name: vague_novelty_assessment
+    bad_example: >
+      State "the invention appears novel" without element-by-element analysis
+      against specific prior art references and without citing the applicable
+      legal standard.
+    why_bad: >
+      Patent novelty is a legal determination, not an opinion. Without
+      element-by-element analysis under the correct legal standard, the
+      assessment is unreliable.
+    fix: >
+      Analyze each claim element against each prior art reference under the
+      applicable jurisdiction standard (35 USC 102/103, Art 22 CNPL, Art 54/56
+      EPC).
+
+  - name: inventing_embodiments
+    bad_example: >
+      Add embodiments or features to the specification that were not part of
+      the inventor's original disclosure, to broaden claim coverage.
+    why_bad: >
+      Adding features not in the original disclosure creates written
+      description and enablement defects. The specification must faithfully
+      describe what the inventor disclosed.
+    fix: >
+      Use only the features and embodiments from the original disclosure.
+      Draft claims that cover what was actually invented.
+
+  - name: conflating_patent_novelty_with_academic_novelty
+    bad_example: >
+      Conclude that the invention is patent-novel because it represents a
+      significant academic advance over prior work.
+    why_bad: >
+      Patent novelty is absolute: any public disclosure before the priority
+      date destroys novelty, regardless of how significant the advance is. A
+      minor variation can be patent-novel if not previously disclosed; a major
+      advance can lack novelty if all elements are already disclosed.
+    fix: >
+      Apply the correct legal standard for each jurisdiction. Element-by-
+      element analysis, not assessment of significance.
+
+
+valid_final_output_types:
+  - type: cn_filing_package
+    required_sections:
+      - patent request form
+      - specification (Song Ti body, Hei Ti headings)
+      - claims in two-part form
+      - drawings with reference numerals
+      - abstract
+      - power of attorney if applicable
+
+  - type: us_filing_package
+    required_sections:
+      - specification
+      - claims with open transitional phrases
+      - drawings with "FIG. N" numbering
+      - abstract
+      - inventor's oath or declaration
+      - application data sheet
+
+  - type: ep_filing_package
+    required_sections:
+      - request for grant form (EPO Form 1001)
+      - specification
+      - claims in two-part form per EPC Guidelines
+      - drawings with reference numerals
+      - abstract
+      - reference signs list
+      - designation of contracting states
+
+  - type: provisional_application
+    required_sections:
+      - specification
+      - claims (at least one)
+      - drawings if necessary
+      - cover sheet
+      - inventor's oath or declaration
+
+  - type: patentability_assessment
+    required_sections:
+      - prior art search log
+      - cited references
+      - element-by-element novelty analysis
+      - obviousness analysis with motivation-to-combine
+      - jurisdiction standard applied
+      - overall patentability conclusion
+      - limitations and caveats

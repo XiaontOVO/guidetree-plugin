@@ -1,0 +1,155 @@
+phase_decomposition_guidelines:
+  - name: protocol_before_deployment
+    rule: >
+      Define the experiment protocol, data schema, and block design before
+      writing any experiment code. No experiment may be executed without a
+      completed and reviewed protocol.
+    rationale: >
+      Running experiments ad hoc without a protocol wastes compute and produces
+      uninterpretable results. The protocol is the contract between planning and
+      execution.
+
+  - name: sanity_before_full_run
+    rule: >
+      At least one sanity seed must complete successfully before dispatching the
+      full experiment matrix. The sanity run validates code correctness, output
+      format, and resource sufficiency.
+    rationale: >
+      Discovering code errors or OOM issues after dispatching hundreds of seeds
+      is extremely wasteful. A single sanity seed catches most problems early.
+
+  - name: baseline_before_main_experiment
+    rule: >
+      Establish baseline performance before running the main experiment
+      configurations. Baseline results provide the reference point for all delta
+      comparisons and effect size calculations.
+    rationale: >
+      Without a baseline under the same conditions, no meaningful comparison can
+      be made. Post-hoc baselines often differ in conditions and undermine
+      conclusions.
+
+  - name: audit_before_claims
+    rule: >
+      Integrity audit must complete before any research claims are finalized.
+      Audit findings may reveal data leakage, normalization inconsistencies, or
+      scope violations that invalidate results.
+    rationale: >
+      Claims derived from unaudited results may be based on contaminated data,
+      inconsistent scoring, or train/test leakage. Audit is the last line of
+      defense.
+
+  - name: measurable_claims_only
+    rule: >
+      Every experiment claim must be backed by a metric with mean, standard
+      deviation, confidence interval, and effect size. Vague claims such as
+      "performs better" or "more stable" are not acceptable.
+    rationale: >
+      Without quantitative rigor, experiment results cannot be distinguished
+      from noise or wishful interpretation.
+
+  - name: parallel_by_default
+    rule: >
+      Independent seeds and configurations must be dispatched in parallel across
+      available GPUs. Sequential execution of independent work is prohibited
+      when parallel resources are available.
+    rationale: >
+      GPU time is the primary resource cost. Sequential dispatch wastes
+      available parallelism and extends wall-clock time unnecessarily.
+
+  - name: reproducibility_required
+    rule: >
+      Every experiment run must produce the standard 6-file output, use
+      deterministic seeds, and include enough configuration detail for exact
+      reproduction.
+    rationale: >
+      Experiments that cannot be reproduced cannot be trusted. The 6-file
+      standard ensures complete traceability.
+
+recommended_phase_pattern:
+  - name: phase_1
+    title: Planning and Protocol
+  - name: phase_2
+    title: Deployment
+  - name: phase_3
+    title: Execution and Monitoring
+  - name: phase_4
+    title: Analysis and Auditing
+
+
+recommended_stage_types:
+  - type: protocol_writing_stage
+    purpose: define the experiment protocol and data schema
+    typical_outputs:
+      - experiment protocol
+      - 6-file data schema
+      - schema-protocol cross-reference
+
+  - type: block_design_stage
+    purpose: decompose research claims into experiment blocks with milestones
+    typical_outputs:
+      - block definitions with claim mapping
+      - milestone assignments
+      - 3-level todolist
+
+  - type: code_implementation_stage
+    purpose: implement experiment code following the protocol specification
+    typical_outputs:
+      - configuration-driven experiment code
+      - dependency manifest
+      - checkpoint save/resume support
+
+  - type: deployment_stage
+    purpose: deploy code to target hardware and verify infrastructure
+    typical_outputs:
+      - deploy log
+      - environment verification
+      - sanity check report
+
+  - type: code_review_stage
+    purpose: cross-model review of experiment code for correctness
+    typical_outputs:
+      - code review report
+      - blocking issues
+      - addressed findings
+
+  - type: batch_dispatch_stage
+    purpose: dispatch all seed/config combinations across GPUs
+    typical_outputs:
+      - dispatch manifest
+      - job status report
+      - results manifest
+
+  - type: monitoring_stage
+    purpose: track progress, detect failures, and collect completed results
+    typical_outputs:
+      - progress report
+      - metrics snapshot
+      - collection log
+
+  - type: statistical_analysis_stage
+    purpose: compute aggregate statistics, effect sizes, and significance tests
+    typical_outputs:
+      - analysis report with tables and figures
+      - metrics summary with CI and effect sizes
+      - publication-ready plots
+
+  - type: integrity_audit_stage
+    purpose: verify ground truth provenance, normalization, and scope
+    typical_outputs:
+      - integrity audit report
+      - dead code report
+      - scope verification
+
+  - type: ablation_design_stage
+    purpose: design ablation studies from a reviewer perspective
+    typical_outputs:
+      - ablation design specifications
+      - reviewer question mapping
+      - ablation todolist
+
+  - type: dse_stage
+    purpose: autonomous design-space exploration with iterative refinement
+    typical_outputs:
+      - DSE design with parameter ranges
+      - iteration log
+      - DSE report with optimal configuration and sensitivity analysis

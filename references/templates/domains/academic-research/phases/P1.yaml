@@ -1,0 +1,114 @@
+phase:
+  id: P1
+  name: Literature Discovery and Analysis
+  purpose: >
+    Systematically discover, triage, read, analyze, and compare relevant
+    academic literature. This phase produces the evidence foundation that all
+    subsequent research decisions rest on. Without a rigorous literature survey,
+    idea generation operates on assumptions rather than evidence.
+
+  when_to_use: >
+    Use for almost all academic research projects unless the literature review
+    and research question are already fully provided and validated. Even
+    reproduction studies need a literature phase to locate the original work
+    and related baselines.
+
+  inputs:
+    - project goal
+    - initial research question or topic area
+    - known subdomain or research area
+    - user-provided references
+    - known constraints
+
+  outputs:
+    - clarified research scope
+    - research area classification
+    - search log with queries, sources, and hit counts
+    - structured paper summaries
+    - cross-paper comparison matrix
+    - gap and contradiction annotations
+    - terminology and notation baseline
+
+  acceptance_criteria:
+    - research scope is explicit and bounded
+    - at least 3 distinct search queries executed across at least 2 sources
+    - search log records every query, source, and hit count
+    - paper summaries produced for every paper that passes triage
+    - deep analyses produced for top-ranked papers with methodology details
+    - comparison matrix covers methods, datasets, metrics, results, gaps, and contradictions
+    - no candidate idea in subsequent phases lacks a traceable connection to the survey
+
+  typical_stages:
+    - id: P1.S1
+      name: Literature Discovery
+      goal: >
+        Systematically search for relevant papers across local and external
+        sources, de-duplicate, score on relevance, and select candidates for
+        triage reading.
+      outputs:
+        - search log with queries, sources, hit counts
+        - de-duplicated paper list with identifiers
+        - relevance-scored candidate set
+      acceptance_criteria:
+        - at least 3 distinct search queries across at least 2 sources
+        - all queries and hit counts recorded
+        - de-duplication performed with duplicate count documented
+        - scoring criteria are explicit and consistently applied
+        - every selected paper has a traceable identifier
+
+    - id: P1.S2
+      name: Reading and Triage
+      goal: >
+        Triage selected papers: quick-read for relevance, then deep-read for
+        top-ranked candidates. Aggressive triage ensures breadth before depth.
+      outputs:
+        - triage decisions with brief rationale
+        - structured paper summaries (problem, method, result, limitation)
+        - relevance ranking
+      acceptance_criteria:
+        - every paper from discovery receives a triage decision
+        - summaries cover problem, method, result, and limitation
+        - irrelevant papers are documented to prevent re-discovery
+        - top-ranked papers are identified for deep analysis
+
+    - id: P1.S3
+      name: Deep Analysis
+      goal: >
+        Extract detailed methodology, claims, assumptions, and inter-paper
+        relationships from deeply-read papers.
+      outputs:
+        - methodology extraction for top papers
+        - claim extraction with supporting evidence
+        - assumption and limitation documentation
+        - inter-paper relationship map
+      acceptance_criteria:
+        - methodology details are sufficient for understanding approach
+        - claims are extracted verbatim or paraphrased with citation
+        - assumptions made by each paper are documented
+        - relationships between papers are mapped
+
+    - id: P1.S4
+      name: Comparison and Gap Identification
+      goal: >
+        Build a cross-paper comparison matrix and identify gaps,
+        contradictions, and open problems that motivate future research ideas.
+      outputs:
+        - cross-paper comparison matrix
+        - gap annotations
+        - contradiction annotations
+        - open problem list
+        - terminology baseline
+      acceptance_criteria:
+        - comparison matrix covers methods, datasets, metrics, and results
+        - gaps are specific and linked to papers
+        - contradictions between papers are flagged
+        - open problems are stated as research questions
+        - terminology is consistent across the survey
+
+  common_risks:
+    - research scope too broad, leading to an unmanageable survey
+    - missing critical prior work due to narrow search queries
+    - confusing a comprehensive survey with an exhaustive one
+    - reading too deeply too early — triage must be aggressive
+    - not recording negative results (irrelevant papers found during search)
+    - over-reliance on a single search source
