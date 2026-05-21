@@ -1,16 +1,24 @@
 version: 1
-updated: "2026-05-18"
+updated: "2026-05-20"
 catalog_name: guidetree
 description: >
   Hierarchical project planning and execution pipeline. Decompose any project
   from goal → phases → stages → steps, with validation gates at every level
   and an orchestrator that controls sequencing.
+
+# Each skill now has two files per directory:
+#   SCHEMA.md — paradigm: input/output schemas, type contract
+#   SKILL.md  — body: instructions, rules, quality gates
+# They reference each other via body_ref / schema_ref.
+
 families:
   - id: guidetree-init
     name: Project Initialization
     skills:
       - name: create_project_context
         directory: create_project_context
+        schema_file: SCHEMA.md
+        body_file: SKILL.md
         verified_on: null
         verification_status: draft
 
@@ -19,10 +27,14 @@ families:
     skills:
       - name: generate_phase_skeleton
         directory: generate_phase_skeleton
+        schema_file: SCHEMA.md
+        body_file: SKILL.md
         verified_on: null
         verification_status: draft
       - name: validate_phase_skeleton
         directory: validate_phase_skeleton
+        schema_file: SCHEMA.md
+        body_file: SKILL.md
         verified_on: null
         verification_status: draft
 
@@ -31,10 +43,14 @@ families:
     skills:
       - name: expand_phase_to_stage_dag
         directory: expand_phase_to_stage_dag
+        schema_file: SCHEMA.md
+        body_file: SKILL.md
         verified_on: null
         verification_status: draft
       - name: validate_stage_dag
         directory: validate_stage_dag
+        schema_file: SCHEMA.md
+        body_file: SKILL.md
         verified_on: null
         verification_status: draft
 
@@ -43,10 +59,14 @@ families:
     skills:
       - name: expand_stage_to_steps
         directory: expand_stage_to_steps
+        schema_file: SCHEMA.md
+        body_file: SKILL.md
         verified_on: null
         verification_status: draft
       - name: validate_steps
         directory: validate_steps
+        schema_file: SCHEMA.md
+        body_file: SKILL.md
         verified_on: null
         verification_status: draft
 
@@ -55,10 +75,14 @@ families:
     skills:
       - name: execute_step
         directory: execute_step
+        schema_file: SCHEMA.md
+        body_file: SKILL.md
         verified_on: null
         verification_status: draft
       - name: validate_stage_result
         directory: validate_stage_result
+        schema_file: SCHEMA.md
+        body_file: SKILL.md
         verified_on: null
         verification_status: draft
 
@@ -67,5 +91,7 @@ families:
     skills:
       - name: orchestrate_project
         directory: orchestrate_project
+        schema_file: SCHEMA.md
+        body_file: SKILL.md
         verified_on: null
         verification_status: draft

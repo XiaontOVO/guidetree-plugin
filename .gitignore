@@ -21,5 +21,9 @@ node_modules/
 *.key
 .env
 
+# Update scripts (local only)
+update.sh
+update.ps1
+
 # Generated output (project output, not plugin source)
 guidetree_output/
